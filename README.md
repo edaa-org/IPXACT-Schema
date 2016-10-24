@@ -2,7 +2,7 @@ This repository holds all IP-XACT schema files for IEEE 1685-2014.
 
 
 From the Accellera page
------------------------:
+-----------------------
 
 © Copyright 2006-2014 Accellera Systems Initiative. All rights reserved.
 
