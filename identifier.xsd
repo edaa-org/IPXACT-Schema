@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : identifier.xsd
+// Description: index.xsd
+// Author: The SPIRIT Consortium Schema Working Group
+// Version:     $Revision: 1065 $
+// Date:        $Date: 2007-12-19 13:55:41 -0600 (Wed, 19 Dec 2007) $
+// Tag:         $Name$
+//
+// Copyright (c) 2005, 2006, 2007 The SPIRIT Consortium.  All rights reserved.
+// www.spiritconsortium.org
+//
+// THIS WORK FORMS PART OF A SPIRIT CONSORTIUM SPECIFICATION.
+// USE OF THESE MATERIALS ARE GOVERNED BY
+// THE LEGAL TERMS AND CONDITIONS OUTLINED IN THE SPIRIT
+// SPECIFICATION DISCLAIMER AVAILABLE FROM
+// www.spiritconsortium.org
+//
+// This source file is provided on an AS IS basis. The SPIRIT Consortium disclaims 
+// ANY WARRANTY EXPRESS OR IMPLIED INCLUDING ANY WARRANTY OF
+// MERCHANTABILITY AND FITNESS FOR USE FOR A PARTICULAR PURPOSE. 
+// The user of the source file shall indemnify and hold The SPIRIT Consortium harmless
+// from any damages or liability arising out of the use thereof or the performance or
+// implementation or partial implementation of the schema.
+-->
+<xs:schema xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4" elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:group name="baseIdentifier">
+		<xs:annotation>
+			<xs:documentation>Base SPIRIT identifier group. Identify a SPIRIT document by its by vendor, library and name.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence/>
+	</xs:group>
+	<xs:group name="versionedIdentifier">
+		<xs:annotation>
+			<xs:documentation>This group of elements identifies a top level item (e.g. a component or a bus definition)  with vendor, library, name and a version number. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="vendor" type="xs:Name">
+				<xs:annotation>
+					<xs:documentation>Name of the vendor who supplies this file.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="library" type="xs:Name">
+				<xs:annotation>
+					<xs:documentation>Name of the logical library this element belongs to.  </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:NMTOKEN">
+				<xs:annotation>
+					<xs:documentation>The name of the object.  </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="version" type="xs:NMTOKEN">
+				<xs:annotation>
+					<xs:documentation>Indicates the version of the named element.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:attributeGroup name="libraryRefGroup">
+		<xs:annotation>
+			<xs:documentation>Base SPIRIT document reference.  Contains vendor, library, name and version attributes.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="vendor" type="xs:Name" use="required"/>
+		<xs:attribute name="library" type="xs:Name" use="required"/>
+		<xs:attribute name="name" type="xs:NMTOKEN" use="required"/>
+		<xs:attribute name="version" type="xs:NMTOKEN" use="required"/>
+	</xs:attributeGroup>
+	<xs:complexType name="libraryRefType">
+		<xs:annotation>
+			<xs:documentation>Base IP-XACT document reference type. Contains vendor, library, name and version attributes.</xs:documentation>
+		</xs:annotation>
+		<xs:attributeGroup ref="spirit:libraryRefGroup">
+			<xs:annotation>
+				<xs:documentation>Base IP-XACT document reference.  Contains vendor, library, name and version attributes.</xs:documentation>
+			</xs:annotation>
+		</xs:attributeGroup>
+	</xs:complexType>
+	<xs:complexType name="resolvedLibraryRefType">
+		<xs:annotation>
+			<xs:documentation>Resolved SPIRIT document reference type. Contains vendor, library, name and version attributes and the URI of the referenced SPIRIT document</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:anyURI">
+				<xs:attributeGroup ref="spirit:libraryRefGroup"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

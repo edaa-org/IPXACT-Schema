@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description: index.xsd
+// Author: The SPIRIT Consortium Schema Working Group
+// Version:     $Revision: 1065 $
+// Date:        $Date: 2007-12-19 13:55:41 -0600 (Wed, 19 Dec 2007) $
+// Tag:         $Name$
+//
+// Copyright (c) 2005, 2006, 2007 The SPIRIT Consortium.  All rights reserved.
+// www.spiritconsortium.org
+//
+// THIS WORK FORMS PART OF A SPIRIT CONSORTIUM SPECIFICATION.
+// USE OF THESE MATERIALS ARE GOVERNED BY
+// THE LEGAL TERMS AND CONDITIONS OUTLINED IN THE SPIRIT
+// SPECIFICATION DISCLAIMER AVAILABLE FROM
+// www.spiritconsortium.org
+//
+// This source file is provided on an AS IS basis. The SPIRIT Consortium disclaims 
+// ANY WARRANTY EXPRESS OR IMPLIED INCLUDING ANY WARRANTY OF
+// MERCHANTABILITY AND FITNESS FOR USE FOR A PARTICULAR PURPOSE. 
+// The user of the source file shall indemnify and hold The SPIRIT Consortium harmless
+// from any damages or liability arising out of the use thereof or the performance or
+// implementation or partial implementation of the schema.
+-->
+<xs:schema xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4" elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:include schemaLocation="busDefinition.xsd"/>
+	<xs:include schemaLocation="component.xsd"/>
+	<xs:include schemaLocation="design.xsd"/>
+	<xs:include schemaLocation="designConfig.xsd"/>
+	<xs:include schemaLocation="abstractionDefinition.xsd"/>
+	<xs:include schemaLocation="abstractor.xsd"/>
+	<xs:group name="IPXACTDocumentTypes">
+		<xs:annotation>
+			<xs:documentation>This IP-XACT schema documentation is part of the IP-XACT standard deliverables. The diagrams in this documentation represent the relationships between elements of the schema together with their attributes and expected values. Valid IP-XACT XML files must have a top-level type that is one of the elements listed here.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element ref="spirit:busDefinition">
+				<xs:annotation>
+					<xs:documentation>To define all elements and attributes supported when defining a bus.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="spirit:abstractionDefinition"/>
+			<xs:element ref="spirit:component">
+				<xs:annotation>
+					<xs:documentation>To define all elements and attributes supported when defining a component.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="spirit:abstractor"/>
+			<xs:element ref="spirit:design">
+				<xs:annotation>
+					<xs:documentation>To define all elements and attributes supported when defining a design and its configured components</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="spirit:generatorChain">
+				<xs:annotation>
+					<xs:documentation>To define all elements and attributes supported for defining generator chains.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="spirit:designConfiguration"/>
+		</xs:choice>
+	</xs:group>
+</xs:schema>
