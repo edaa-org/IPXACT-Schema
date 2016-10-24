@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Mark Noll (Synopsys) -->
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by Celia Woods (ARM Ltd) -->
+<!--
+// Description : design.xsd
+// Author : SPIRIT Schema Working Group
+// Version:     $Revision: 194 $
+// Date:        $Date: 2005-10-20 17:17:03 -0500 (Thu, 20 Oct 2005) $
+// Tag:         $Name$
+//
+// Copyright (c) 2005 SPIRIT.  All rights reserved.
+// www.spiritconsortium.com
+//
+// THIS WORK FORMS PART OF A SPIRIT CONSORTIUM SPECIFICATION.
+// THIS WORK CONTAINS TRADE SECRETS AND PROPRIETARY INFORMATION
+// WHICH IS THE EXCLUSIVE PROPERTY OF INDIVIDUAL MEMBERS OF THE
+// SPIRIT CONSORTIUM. USE OF THESE MATERIALS ARE GOVERNED BY
+// THE LEGAL TERMS AND CONDITIONS OUTLINED IN THE SPIRIT
+// SPECIFICATION DISCLAIMER AVAILABLE FROM
+// www.spiritconsortium.org
+-->
+<xs:schema targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.2" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:include schemaLocation="subInstances.xsd"/>
+	<xs:include schemaLocation="model.xsd"/>
+	<xs:element name="design">
+		<xs:annotation>
+			<xs:documentation>Root element for a platform design.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="spirit:versionedIdentifier"/>
+				<xs:element ref="spirit:componentInstances" minOccurs="0"/>
+				<xs:element ref="spirit:interconnections" minOccurs="0"/>
+				<xs:element ref="spirit:adHocConnections" minOccurs="0"/>
+				<xs:element name="hierConnections" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>A list of hierarchy connections between bus interfaces on component instances and the bus interfaces on the encompassing component.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="hierConnection" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Represents a hierarchy connection</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="componentRef" type="xs:Name">
+											<xs:annotation>
+												<xs:documentation>This is the instance name of the component which owns the busInterface that is to be exported</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="interfaceRef" type="xs:Name">
+											<xs:annotation>
+												<xs:documentation>This is the name of the bus interface on the instance</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+									</xs:sequence>
+									<xs:attribute name="interfaceName" type="xs:Name" use="required">
+										<xs:annotation>
+											<xs:documentation>This is the name of the bus interface on the upper level component.</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+		<xs:key name="designComponentInstanceKey">
+			<xs:selector xpath="spirit:componentInstances/spirit:componentInstance"/>
+			<xs:field xpath="spirit:instanceName"/>
+		</xs:key>
+		<xs:keyref name="designComponentInstance2Ref" refer="spirit:designComponentInstanceKey">
+			<xs:selector xpath="spirit:interconnections/spirit:interconnection"/>
+			<xs:field xpath="@spirit:component2Ref"/>
+		</xs:keyref>
+		<xs:keyref name="designComponentInstance1Ref" refer="spirit:designComponentInstanceKey">
+			<xs:selector xpath="spirit:interconnections/spirit:interconnection"/>
+			<xs:field xpath="@spirit:component1Ref"/>
+		</xs:keyref>
+	</xs:element>
+</xs:schema>

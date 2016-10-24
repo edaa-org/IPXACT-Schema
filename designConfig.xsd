@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Mark Noll (Synopsys) -->
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by Celia Woods (ARM Ltd) -->
+<xs:schema targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.2" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:include schemaLocation="identifier.xsd"/>
+	<xs:include schemaLocation="model.xsd"/>
+	<xs:include schemaLocation="subInstances.xsd"/>
+	<xs:element name="designConfiguration">
+		<xs:annotation>
+			<xs:documentation>Top level element for describing the current configuration of a design. Does not describe instance parameterization</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="spirit:versionedIdentifier"/>
+				<xs:element name="designRef" type="spirit:libraryRefType">
+					<xs:annotation>
+						<xs:documentation>The design to which this configuration applies</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="pmdConfiguration" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Contains the configurable information associated with a particular PMD</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="pmdRef" type="spirit:libraryRefType">
+								<xs:annotation>
+									<xs:documentation>References a PMD.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="spirit:configurableElement" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="generatorChainConfiguration" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Contains the configurable information associated with a generatorChain and its generators. Note that configurable information for generators associated with components is stored in the design file.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="generatorChainRef" type="spirit:libraryRefType">
+								<xs:annotation>
+									<xs:documentation>References a generatorChain.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="spirit:configurableElement" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element name="generators" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Stores configurable information for generators referenced in the chain</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="generatorName" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>This identifies the generator in the chain.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element ref="spirit:configurableElement" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="viewConfiguration" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Contains the active view for each instance in the design</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="spirit:instanceName"/>
+							<xs:element name="viewName" type="xs:NMTOKEN">
+								<xs:annotation>
+									<xs:documentation>The name of the active view for this instance</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
