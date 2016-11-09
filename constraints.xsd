@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Mark Noll (Synopsys) -->
+<!--
+// Description : constraints.xsd
+// Author : SPIRIT Schema Working Group
+// Version:     $Revision: 131 $
+// Date:        $Date: 2005-06-02 12:46:51 -0500 (Thu, 02 Jun 2005) $
+// Tag:         $Name$
+//
+// Copyright (c) 2005 SPIRIT.  All rights reserved.
+// www.spiritconsortium.com
+//
+// THIS WORK FORMS PART OF A SPIRIT CONSORTIUM SPECIFICATION.
+// THIS WORK CONTAINS TRADE SECRETS AND PROPRIETARY INFORMATION
+// WHICH IS THE EXCLUSIVE PROPERTY OF INDIVIDUAL MEMBERS OF THE
+// SPIRIT CONSORTIUM. USE OF THESE MATERIALS ARE GOVERNED BY
+// THE LEGAL TERMS AND CONDITIONS OUTLINED IN THE SPIRIT
+// SPECIFICATION DISCLAIMER AVAILABLE FROM
+// www.spiritconsortium.org
+-->
+<xs:schema targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.1" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.1" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:include schemaLocation="autoConfigure.xsd"/>
+	<xs:include schemaLocation="signalDrivers.xsd"/>
+	<xs:simpleType name="capacitanceValueUnitType">
+		<xs:annotation>
+			<xs:documentation>Indicates legal units for capacitance values.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="ff"/>
+			<xs:enumeration value="pf"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="resistanceValueUnitType">
+		<xs:annotation>
+			<xs:documentation>Indicates legal units for resistance values.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="ohm"/>
+			<xs:enumeration value="kohm"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="cellFunctionValueType">
+		<xs:annotation>
+			<xs:documentation>Indicates legal cell function values.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="nand2"/>
+			<xs:enumeration value="buf"/>
+			<xs:enumeration value="inv"/>
+			<xs:enumeration value="mux21"/>
+			<xs:enumeration value="dff"/>
+			<xs:enumeration value="latch"/>
+			<xs:enumeration value="xor2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="cellClassValueType">
+		<xs:annotation>
+			<xs:documentation>Indicates legal cell class values.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="combinational"/>
+			<xs:enumeration value="sequential"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="cellStrengthValueType">
+		<xs:annotation>
+			<xs:documentation>Indicates legal cell strength values.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="low"/>
+			<xs:enumeration value="median"/>
+			<xs:enumeration value="high"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="edgeValueType">
+		<xs:annotation>
+			<xs:documentation>Indicates legal values for edge specification attributes.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="rise"/>
+			<xs:enumeration value="fall"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="checkValueType">
+		<xs:annotation>
+			<xs:documentation>Indicates legal values for type of checking the paths apply to: setup or hold.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="setup"/>
+			<xs:enumeration value="hold"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="relativeClockType">
+		<xs:annotation>
+			<xs:documentation>Indicates legal values for associating a clock with timing exception.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="start"/>
+			<xs:enumeration value="end"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="delayValueType">
+		<xs:annotation>
+			<xs:documentation>Indicates the type of delay value - minimum or maximum delay.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="min"/>
+			<xs:enumeration value="max"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="delayPercentageType">
+		<xs:annotation>
+			<xs:documentation>Type used to record percentage values.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:float">
+			<xs:minInclusive value="0.0"/>
+			<xs:maxInclusive value="100.0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="nonNegativeFloat">
+		<xs:annotation>
+			<xs:documentation>Defines a non-negative floating point number.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:float">
+			<xs:minInclusive value="0.0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pathElementType">
+		<xs:annotation>
+			<xs:documentation>Indicates legal values for pathElement attribute</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="clock"/>
+			<xs:enumeration value="signal"/>
+			<xs:enumeration value="pin"/>
+			<xs:enumeration value="cell"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="capacitance">
+		<xs:annotation>
+			<xs:documentation>Represents a simple capacitance value with optional units.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="spirit:nonNegativeFloat">
+				<xs:attribute name="units" type="spirit:capacitanceValueUnitType"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="delay">
+		<xs:annotation>
+			<xs:documentation>Represents a simple delay value with optional units.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="spirit:nonNegativeFloat">
+				<xs:attribute name="units" type="spirit:delayValueUnitType"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="resistance">
+		<xs:annotation>
+			<xs:documentation>Represents a simple resistance value with optional units.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="spirit:nonNegativeFloat">
+				<xs:attribute name="units" type="spirit:resistanceValueUnitType"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="otherClocks">
+		<xs:annotation>
+			<xs:documentation>List of clocks associated with the component that are not associated with signals. Set the clockSource attribute on the clockDriver to indicate the source of a clock not associated with a particular component signal.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="spirit:clockDriver" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:attribute name="cellStrength" type="spirit:cellStrengthValueType">
+		<xs:annotation>
+			<xs:documentation>Indicates the desired strength of the specified cell.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="clockEdge" type="spirit:edgeValueType">
+		<xs:annotation>
+			<xs:documentation>Indicates the clock edge that a timing constraint is relative to.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="pathEdge" type="spirit:edgeValueType">
+		<xs:annotation>
+			<xs:documentation>Indicates the path edge that a timing constraint is relative to.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="pathType" type="spirit:checkValueType">
+		<xs:annotation>
+			<xs:documentation>Indicates the type of path (setup/hold) that a timing constraint applies to.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="relativeClock" type="spirit:relativeClockType">
+		<xs:annotation>
+			<xs:documentation>Indicates which clock (start/end) that a multi-cycle path is associated with.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="delayType" type="spirit:delayValueType">
+		<xs:annotation>
+			<xs:documentation>Indicates the type of delay in a timing constraint - minimum or maximum.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="pathElement" type="spirit:pathElementType">
+		<xs:annotation>
+			<xs:documentation>Indicates the type of object that the pathSpecifier sub-element refers to.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="constraintSetId" type="xs:NMTOKEN" default="default">
+		<xs:annotation>
+			<xs:documentation>Indicates a name for this set of constraints. Constraints are tied to a view using this name in the constraintSetRef element.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:element name="cellSpecification">
+		<xs:annotation>
+			<xs:documentation>Used to indicate a particular technology library cell. Use of cellName is discouraged since it is technology dependent. </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element name="cellFunction">
+					<xs:annotation>
+						<xs:documentation>Defines a technology library cell in library independent fashion, based on specification of a cell function and strength.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="spirit:cellFunctionValueType">
+								<xs:attribute ref="spirit:cellStrength"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="cellClass">
+					<xs:annotation>
+						<xs:documentation>Defines a technology library cell in library independent fashion, based on specification of a cell class and strength.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="spirit:cellClassValueType">
+								<xs:attribute ref="spirit:cellStrength"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="cellName">
+					<xs:annotation>
+						<xs:documentation>Defines a technology library cell by name. Use of this library dependent syntax is discouraged as it is not portable.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="libCellName" type="xs:string" use="required"/>
+						<xs:attribute name="libPinName" type="xs:string" use="optional"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="timingConstraint">
+		<xs:annotation>
+			<xs:documentation>Defines a timing constraint for the associated signal. The constraint is relative to the clock specified by the clockName attribute. The clockEdge indicates which clock edge the constraint is associated with (default is rising edge). The delayType attribute can be specified to further refine the constraint.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element name="percentOfPeriod" type="spirit:delayPercentageType">
+					<xs:annotation>
+						<xs:documentation>Defines a delay constraint value which is defined as a percentage of the corresponding clock cycle time.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="delay" type="spirit:delay">
+					<xs:annotation>
+						<xs:documentation>Defines an absolute delay constraint value. The units attribute can be used to specify units if needed. The default units are ns.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:attribute ref="spirit:clockEdge" use="optional"/>
+			<xs:attribute ref="spirit:delayType" use="optional"/>
+			<xs:attribute name="clockName" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="driveConstraint">
+		<xs:annotation>
+			<xs:documentation>Defines a constraint indicating how an input is to be driven. The preferred methodology is to specify a library cell in technology independent fashion. The implemention tool should assume that the associated signal is driven by the specified cell, or that the drive strength of the input signal is indicated by the specified resistance value.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="spirit:cellSpecification"/>
+				<xs:element name="resistance" type="spirit:resistance">
+					<xs:annotation>
+						<xs:documentation>Specifes a drive resistance for the input signal. </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="loadConstraint">
+		<xs:annotation>
+			<xs:documentation>Defines a constraint indicating the type of load on an output signal.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element ref="spirit:cellSpecification"/>
+					<xs:element name="count" type="xs:positiveInteger" default="3" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Indicates how many loads of the specified cell are connected. If not present, 3 is assumed.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:element name="capacitance" type="spirit:capacitance">
+					<xs:annotation>
+						<xs:documentation>Indicates an explicit load capacitance on an output signal.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="pathSpecifier">
+		<xs:annotation>
+			<xs:documentation>Defines one or more logical paths within a component.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="from">
+					<xs:annotation>
+						<xs:documentation>Defines a valid path starting point. This can be a clock, an input port, a sequential cell, or a clock or data out pin of a sequential cell. These do not have to be objects that are directly represented in the SPIRIT data model. Use the pathElement attribute to indicate the type of object referred to it if might be ambiguous.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="xs:string">
+								<xs:attribute ref="spirit:pathElement"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="to">
+					<xs:annotation>
+						<xs:documentation>Defines a valid path ending point. This can be a clock, an output port, a sequential cell, or a clock or data in pin of a sequential cell. These do not have to be objects that are directly represented in the SPIRIT data model. Use the pathElement attribute to indicate the type of object referred to if it might be ambiguous.</xs:documentation>
+						<xs:documentation>Defines a valid path ending point. This can be a clock, an output port, a sequential cell, or a clock or data in pin of a sequential cell. These do not have to be objects that are directly represented in the SPIRIT data model. Use the pathElement attribute to indicate the type of object referred to if it might be ambiguous.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="xs:string">
+								<xs:attribute ref="spirit:pathElement"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="through">
+					<xs:annotation>
+						<xs:documentation>Defines a set of pins, ports, cells, or nets through which the desired path(s) must pass. These do not have to be objects that are directly represented in the SPIRIT data model. Use the pathElement attribute to indicate the type of object referred to if it might be ambiguous.</xs:documentation>
+						<xs:documentation>Defines a set of pins, ports, cells, or nets through which the desired path(s) must pass. These do not have to be objects that are directly represented in the SPIRIT data model. Use the pathElement attribute to indicate the type of object referred to if it might be ambiguous.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="xs:string">
+								<xs:attribute ref="spirit:pathElement"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="falsePath">
+		<xs:annotation>
+			<xs:documentation>Defines a false path timing exception.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="spirit:pathSpecifier"/>
+			</xs:sequence>
+			<xs:attribute ref="spirit:pathEdge" use="optional"/>
+			<xs:attribute ref="spirit:pathType" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="multiCyclePath">
+		<xs:annotation>
+			<xs:documentation>Defines a multi-cycle path timing exception.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="spirit:pathSpecifier"/>
+				<xs:element name="cycles" type="xs:nonNegativeInteger"/>
+			</xs:sequence>
+			<xs:attribute ref="spirit:pathEdge" use="optional"/>
+			<xs:attribute ref="spirit:pathType" use="optional"/>
+			<xs:attribute ref="spirit:relativeClock" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="timedPath">
+		<xs:annotation>
+			<xs:documentation>Defines a point-to-point timing exception. The pathEdge attribute can be used to restrict the constraint to rising or falling edges, and the delayType attribute can be used to restrict the constraint to imply a minimum path constraint or a maximum path constraint.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="spirit:pathSpecifier"/>
+				<xs:element name="delay" type="spirit:delay"/>
+			</xs:sequence>
+			<xs:attribute ref="spirit:pathEdge" use="optional"/>
+			<xs:attribute ref="spirit:delayType" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="designRuleConstraints">
+		<xs:annotation>
+			<xs:documentation>Defines signal and/or component constraints associated with circuit design rules.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="minCap" type="spirit:capacitance" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Minimum capacitance value for this component or signal. The units attribute can be used to indicate the units associated with the capacitance value. Default unit value is 'pf'. </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="maxCap" type="spirit:capacitance" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Maximum capacitance value for this component or signal.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="minTransition" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Minimum transition delay for this component or signal.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="riseDelay" type="spirit:delay" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Minimum transition delay for a rising edge transition for this component or signal.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="fallDelay" type="spirit:delay" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Minimum transition delay for a falling edge transition for this component or signal.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="maxTransition" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Maximum transition delay for this component or signal.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="riseDelay" type="spirit:delay" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Maximum transition delay for a rising edge transition for this component or signal.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="fallDelay" type="spirit:delay" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Maximum transition delay for a falling edge transition for this component or signal.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="maxFanout" type="xs:nonNegativeInteger" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Maximum fanout value for this component or signal.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="componentConstraints">
+		<xs:annotation>
+			<xs:documentation>Defines the set of implementation constraints associated with a component. If multiple componentConstraints elements are used, each must have a unique value for the constraintSet attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="spirit:designRuleConstraints" minOccurs="0"/>
+				<xs:group ref="spirit:timingExceptions" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute ref="spirit:constraintSetId" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="componentConstraintSets">
+		<xs:annotation>
+			<xs:documentation>List of componentConstraints elements for this component.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="spirit:componentConstraints" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="signalConstraints">
+		<xs:annotation>
+			<xs:documentation>Defines constraints that apply to a component signal. If multiple signalConstraints elements are used, each must have a unique value for the constraintSet attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice minOccurs="0">
+					<xs:element ref="spirit:driveConstraint" minOccurs="0"/>
+					<xs:element ref="spirit:loadConstraint" minOccurs="0"/>
+				</xs:choice>
+				<xs:element ref="spirit:timingConstraint" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="spirit:designRuleConstraints" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute ref="spirit:constraintSetId" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="signalConstraintSets">
+		<xs:annotation>
+			<xs:documentation>List of signalConstraints elements for a component signal.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="spirit:signalConstraints" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="busDefSignalConstraints">
+		<xs:annotation>
+			<xs:documentation>Defines constraints that apply to a signal in a bus definition. If multiple busDefSignalConstraints are used, each must have a unique value of the constraintSet attribute. These constraints are carried over to the associated component signal as default values.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="spirit:timingConstraint" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="spirit:designRuleConstraints" minOccurs="0"/>
+				<xs:element ref="spirit:driveConstraint" minOccurs="0"/>
+				<xs:element ref="spirit:loadConstraint" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute ref="spirit:constraintSetId" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="busDefSignalConstraintSets">
+		<xs:annotation>
+			<xs:documentation>List of busDefSignalConstraints elements for a bus definition signal.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="spirit:busDefSignalConstraints" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:group name="timingExceptions">
+		<xs:annotation>
+			<xs:documentation>Grouping of constraints related to point to point timing requirements.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="spirit:falsePath" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="spirit:multiCyclePath" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="spirit:timedPath" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:element name="constraintSetRef" type="xs:NMTOKEN">
+		<xs:annotation>
+			<xs:documentation>A reference to a set of constraints (signalConstraints, componentConstraints, or busDefConstraints).</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>
