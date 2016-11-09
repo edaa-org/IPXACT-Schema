@@ -1,4 +1,11 @@
-This repository holds all IP-XACT schema files for IEEE 1685-2014.
+This repository holds all IP-XACT schema files for
+* IP-XACT 1.0
+* IP-XACT 1.1
+* IP-XACT 1.2
+* IP-XACT 1.4
+* IP-XACT 1.5
+* IEEE 1685-2009
+* IEEE 1685-2014
 
 
 From the Accellera page
