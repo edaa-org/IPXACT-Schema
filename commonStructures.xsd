@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : commonStructures.xsd
+// Author: The SPIRIT Consortium Schema Working Group
+// Version:     $Revision: 1065 $
+// Date:        $Date: 2007-12-19 13:55:41 -0600 (Wed, 19 Dec 2007) $
+// Tag:         $Name$
+//
+// Copyright (c) 2005, 2006, 2007 The SPIRIT Consortium.  All rights reserved.
+// www.spiritconsortium.org
+//
+// THIS WORK FORMS PART OF A SPIRIT CONSORTIUM SPECIFICATION.
+// USE OF THESE MATERIALS ARE GOVERNED BY
+// THE LEGAL TERMS AND CONDITIONS OUTLINED IN THE SPIRIT
+// SPECIFICATION DISCLAIMER AVAILABLE FROM
+// www.spiritconsortium.org
+//
+// This source file is provided on an AS IS basis. The SPIRIT Consortium disclaims 
+// ANY WARRANTY EXPRESS OR IMPLIED INCLUDING ANY WARRANTY OF
+// MERCHANTABILITY AND FITNESS FOR USE FOR A PARTICULAR PURPOSE. 
+// The user of the source file shall indemnify and hold The SPIRIT Consortium harmless
+// from any damages or liability arising out of the use thereof or the performance or
+// implementation or partial implementation of the schema.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4" targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4" elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:include schemaLocation="autoConfigure.xsd"/>
+	<xs:complexType name="nameValueTypeType">
+		<xs:annotation>
+			<xs:documentation>Name value pair with data type information.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="spirit:nameValuePairType">
+				<xs:attribute name="dataType" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>The data type of the argument as pertains to the language. Example: "int", "double", "char *".</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="usageType" default="nontyped">
+					<xs:annotation>
+						<xs:documentation>Indicates the type of the model parameter. Legal values are defined in the attribute enumeration list. Default value is 'nontyped'.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="nontyped"/>
+							<xs:enumeration value="typed"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="parameter" type="spirit:nameValuePairType">
+		<xs:annotation>
+			<xs:documentation>A name value pair.  The name is specified by the name element.  The value is in the text content of the value element.  This value element supports all configurability attributes.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="parameters">
+		<xs:annotation>
+			<xs:documentation>A collection of parameters.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="spirit:parameter" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="vendorExtensions">
+		<xs:annotation>
+			<xs:documentation>Container for vendor specific extensions.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:any namespace="##any" processContents="lax" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Accepts any element(s) the content provider wants to put here, including elements from the SPIRIT namespace.</xs:documentation>
+					</xs:annotation>
+				</xs:any>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:group name="nameGroup">
+		<xs:annotation>
+			<xs:documentation>A group of elements for name (xs:name), displayName and description</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name" type="xs:Name">
+				<xs:annotation>
+					<xs:documentation>Unique name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="displayName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Element name for display purposes. Typically a few words providing a more detailed and/or user-friendly name than the spirit:name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Full description string, typically for documentation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="nameGroupOptional">
+		<xs:annotation>
+			<xs:documentation>A group of elements for name (xs:name), displayName and description where the name is optional</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name" type="xs:Name" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Unique name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="displayName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Element name for display purposes. Typically a few words providing a more detailed and/or user-friendly name than the spirit:name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Full description string, typically for documentation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="nameGroupNMTOKEN">
+		<xs:annotation>
+			<xs:documentation>A group of elements for name(xs:NMTOKEN), displayName and description</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name" type="xs:NMTOKEN">
+				<xs:annotation>
+					<xs:documentation>Unique name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="displayName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Element name for display purposes. Typically a few words providing a more detailed and/or user-friendly name than the spirit:name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Full description string, typically for documentation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="nameValuePairType">
+		<xs:annotation>
+			<xs:documentation>Name and value type for use in resolvable elements</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="spirit:nameGroupString"/>
+			<xs:element name="value">
+				<xs:annotation>
+					<xs:documentation>The value of the parameter.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attributeGroup ref="spirit:string.prompt.att"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+		</xs:sequence>
+		<xs:anyAttribute namespace="##any"/>
+	</xs:complexType>
+	<xs:group name="nameGroupString">
+		<xs:annotation>
+			<xs:documentation>A group of elements for name(xs:string), displayName and description</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Unique name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="displayName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Short description string, typically for user interface</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Full description string, typically for documentation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+</xs:schema>

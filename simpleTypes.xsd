@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : simpleTypes.xsd
+// Author: The SPIRIT Consortium Schema Working Group
+// Version:     $Revision: 1065 $
+// Date:        $Date: 2007-12-19 13:55:41 -0600 (Wed, 19 Dec 2007) $
+// Tag:         $Name$
+//
+// Copyright (c) 2005, 2006, 2007 The SPIRIT Consortium.  All rights reserved.
+// www.spiritconsortium.org
+//
+// THIS WORK FORMS PART OF A SPIRIT CONSORTIUM SPECIFICATION.
+// USE OF THESE MATERIALS ARE GOVERNED BY
+// THE LEGAL TERMS AND CONDITIONS OUTLINED IN THE SPIRIT
+// SPECIFICATION DISCLAIMER AVAILABLE FROM
+// www.spiritconsortium.org
+//
+// This source file is provided on an AS IS basis. The SPIRIT Consortium disclaims 
+// ANY WARRANTY EXPRESS OR IMPLIED INCLUDING ANY WARRANTY OF
+// MERCHANTABILITY AND FITNESS FOR USE FOR A PARTICULAR PURPOSE. 
+// The user of the source file shall indemnify and hold The SPIRIT Consortium harmless
+// from any damages or liability arising out of the use thereof or the performance or
+// implementation or partial implementation of the schema.
+-->
+<xs:schema xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4" elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:simpleType name="scaledInteger">
+		<xs:annotation>
+			<xs:documentation>A scaled integer.  It supports any string recognized by java.lang.Long.decode().  It also supports a magnitude scale suffix of upper or lower case K (kilo=2^10), M (mega=2^20), G (giga=2^30) or T (tera=2^40).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[+\-]?(0x|0X|#)?[0-9a-fA-F]+[kmgtKMGT]?"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="scaledNonNegativeInteger">
+		<xs:annotation>
+			<xs:documentation>A scaled nonnegative integer that consists of the value set {0, 1, ...}.  It is derived from scaledInteger and it supports a magnitude scale suffix of upper or lower case K (kilo=2^10), M (mega=2^20), G (giga=2^30) or T (tera=2^40).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="spirit:scaledInteger">
+			<xs:pattern value="[+]?(0x|0X|#)?[0-9a-fA-F]+[kmgtKMGT]?"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="scaledPositiveInteger">
+		<xs:annotation>
+			<xs:documentation>A scaled positive integer that consists of the value set {1, 2, ...}.  It is derived from scaledNonNegativeInteger and it supports a magnitude scale suffix of upper or lower case K (kilo=2^10), M (mega=2^20), G (giga=2^30) or T (tera=2^40).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="spirit:scaledNonNegativeInteger">
+			<xs:pattern value="[+]?(0x|0X|#)?[0]*[1-9a-fA-F][0-9a-fA-F]*[kmgtKMGT]?"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="doubleList">
+		<xs:annotation>
+			<xs:documentation>List of doubles.  Used to build configurableDouble type.</xs:documentation>
+		</xs:annotation>
+		<xs:list itemType="xs:double"/>
+	</xs:simpleType>
+	<xs:simpleType name="configurableDouble">
+		<xs:annotation>
+			<xs:documentation>Can be a double or an empty string.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="spirit:doubleList">
+			<xs:minLength value="0"/>
+			<xs:maxLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

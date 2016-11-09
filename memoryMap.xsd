@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : memoryMap.xsd
+// Author: The SPIRIT Consortium Schema Working Group
+// Version:     $Revision: 1065 $
+// Date:        $Date: 2007-12-19 13:55:41 -0600 (Wed, 19 Dec 2007) $
+// Tag:         $Name$
+//
+// Copyright (c) 2005, 2006, 2007 The SPIRIT Consortium.  All rights reserved.
+// www.spiritconsortium.org
+//
+// THIS WORK FORMS PART OF A SPIRIT CONSORTIUM SPECIFICATION.
+// USE OF THESE MATERIALS ARE GOVERNED BY
+// THE LEGAL TERMS AND CONDITIONS OUTLINED IN THE SPIRIT
+// SPECIFICATION DISCLAIMER AVAILABLE FROM
+// www.spiritconsortium.org
+//
+// This source file is provided on an AS IS basis. The SPIRIT Consortium disclaims 
+// ANY WARRANTY EXPRESS OR IMPLIED INCLUDING ANY WARRANTY OF
+// MERCHANTABILITY AND FITNESS FOR USE FOR A PARTICULAR PURPOSE. 
+// The user of the source file shall indemnify and hold The SPIRIT Consortium harmless
+// from any damages or liability arising out of the use thereof or the performance or
+// implementation or partial implementation of the schema.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4" targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4" elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:include schemaLocation="file.xsd"/>
+	<xs:include schemaLocation="simpleTypes.xsd"/>
+	<xs:simpleType name="accessType">
+		<xs:annotation>
+			<xs:documentation>The read/write accessability of an addess block.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="read-only"/>
+			<xs:enumeration value="write-only"/>
+			<xs:enumeration value="read-write"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bankAlignmentType">
+		<xs:annotation>
+			<xs:documentation>'serial' or 'parallel' bank alignment.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="serial"/>
+			<xs:enumeration value="parallel"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="usageType">
+		<xs:annotation>
+			<xs:documentation>Describes the usage of an address block.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="memory">
+				<xs:annotation>
+					<xs:documentation>Denotes an address range that can be used for read-write or read-only data storage.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="register">
+				<xs:annotation>
+					<xs:documentation>Denotes an address block that is used to communicate with hardware.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="reserved">
+				<xs:annotation>
+					<xs:documentation>Denotes an address range that must remain unoccupied.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:attribute name="addressSpaceRef" type="xs:Name">
+		<xs:annotation>
+			<xs:documentation>A reference to a unique address space.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="memoryMapRef" type="xs:Name">
+		<xs:annotation>
+			<xs:documentation>A reference to a unique memory map.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="bankAlignment" type="spirit:bankAlignmentType">
+		<xs:annotation>
+			<xs:documentation>Describes whether this bank's blocks are aligned in 'parallel' or 'serial'.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="masterRef" type="xs:Name">
+		<xs:annotation>
+			<xs:documentation>For subspaceMap elements, this attribute identifies the master that contains the address space to be mapped.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:complexType name="addressBankType">
+		<xs:annotation>
+			<xs:documentation>Top level bank the specify an address</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="spirit:nameGroup"/>
+			<xs:group ref="spirit:addressSpecifier"/>
+			<xs:group ref="spirit:bankBase"/>
+		</xs:sequence>
+		<xs:attribute ref="spirit:bankAlignment" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="addressBlockType">
+		<xs:annotation>
+			<xs:documentation>Top level address block that specify an address</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="spirit:nameGroup"/>
+			<xs:group ref="spirit:addressSpecifier"/>
+			<xs:group ref="spirit:blockSize"/>
+			<xs:group ref="spirit:addressBlockExtensions"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="addrSpaceRefType">
+		<xs:annotation>
+			<xs:documentation>Base type for an element which references an address space.  Reference is kept in an attribute rather than the text value, so that the type may be extended with child elements if necessary.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute ref="spirit:addressSpaceRef" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="memoryMapRefType">
+		<xs:annotation>
+			<xs:documentation>Base type for an element which references an memory map.  Reference is kept in an attribute rather than the text value, so that the type may be extended with child elements if necessary.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute ref="spirit:memoryMapRef" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="bankedBankType">
+		<xs:annotation>
+			<xs:documentation>Banks nested inside a bank do not specify address.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="spirit:nameGroup"/>
+			<xs:group ref="spirit:bankBase"/>
+		</xs:sequence>
+		<xs:attribute ref="spirit:bankAlignment" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="bankedBlockType">
+		<xs:annotation>
+			<xs:documentation>Address blocks inside a bank do not specify address.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="spirit:nameGroup"/>
+			<xs:group ref="spirit:blockSize"/>
+			<xs:group ref="spirit:addressBlockExtensions"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="bankedSubspaceType">
+		<xs:annotation>
+			<xs:documentation>Subspace references inside banks do not specify an address.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="spirit:nameGroupOptional"/>
+			<xs:element ref="spirit:parameters" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Any parameters that may apply to the subspace reference.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute ref="spirit:masterRef" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="fieldType">
+		<xs:annotation>
+			<xs:documentation>A field within a register</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="spirit:nameGroup"/>
+			<xs:element name="bitOffset" type="xs:nonNegativeInteger">
+				<xs:annotation>
+					<xs:documentation>Offset of this field's lsb from bit 0 of the register.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bitWidth">
+				<xs:annotation>
+					<xs:documentation>Width of the field in bits.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:positiveInteger">
+							<xs:attributeGroup ref="spirit:long.prompt.att"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element ref="spirit:access" minOccurs="0"/>
+			<xs:element name="values" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Enumerates specific values that can be assigned to the bit field.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="value" type="spirit:scaledInteger">
+							<xs:annotation>
+								<xs:documentation>Enumerated bit field value.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="name" type="xs:token">
+							<xs:annotation>
+								<xs:documentation>The name of this enumerated value. This may be used as a token in generating code.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="description" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Description of a bit field value.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element ref="spirit:parameters" minOccurs="0"/>
+			<xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:group name="memoryMap">
+		<xs:annotation>
+			<xs:documentation>A group elements for a memoryMap</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element ref="spirit:addressBlock"/>
+			<xs:element ref="spirit:bank"/>
+			<xs:element name="subspaceMap" type="spirit:subspaceRefType">
+				<xs:annotation>
+					<xs:documentation>Maps in an address subspace from across a bus bridge.  Its masterRef attribute refers by name to the master bus interface on the other side of the bridge.  It must match the masterRef attribute of a bridge element on the slave interface, and that bridge element must be designated as opaque.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:group>
+	<xs:complexType name="memoryMapType">
+		<xs:annotation>
+			<xs:documentation>Map of address space blocks on slave slave bus interface.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="spirit:nameGroup"/>
+			<xs:group ref="spirit:memoryMap" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="memoryRemap" type="spirit:memoryRemapType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="memoryRemapType">
+		<xs:annotation>
+			<xs:documentation>Map of address space blocks on a slave bus interface in a specific remap state.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="spirit:nameGroup"/>
+			<xs:group ref="spirit:memoryMap" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="state" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>State of the component in which the memory map is active.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="localMemoryMapType">
+		<xs:annotation>
+			<xs:documentation>Map of address space blocks on the local memory map of a master bus interface.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="spirit:nameGroup"/>
+			<xs:group ref="spirit:memoryMap" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="subspaceRefType">
+		<xs:annotation>
+			<xs:documentation>Address subspace type.  Its subspaceReference attribute references the subspace from which the dimensions are taken.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:annotation>
+				<xs:documentation>Any parameters that may apply to the subspace reference.</xs:documentation>
+			</xs:annotation>
+			<xs:group ref="spirit:nameGroup"/>
+			<xs:group ref="spirit:addressSpecifier"/>
+			<xs:element ref="spirit:parameters" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Any parameters that may apply to the subspace reference.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute ref="spirit:masterRef" use="required"/>
+	</xs:complexType>
+	<xs:element name="volatile" type="xs:boolean" default="false">
+		<xs:annotation>
+			<xs:documentation>Indicates whether the data is volatile, default to false when not present.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="access" type="spirit:accessType">
+		<xs:annotation>
+			<xs:documentation>Indicates the accessibility of the data in the address block.  Possible values are 'read-write', 'read-only' and 'write-only'.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="addressBlock" type="spirit:addressBlockType">
+		<xs:annotation>
+			<xs:documentation>This is a single contiguous block of memory inside a memory map.</xs:documentation>
+		</xs:annotation>
+		<xs:key name="registerKey">
+			<xs:selector xpath="spirit:register"/>
+			<xs:field xpath="spirit:name"/>
+		</xs:key>
+	</xs:element>
+	<xs:element name="addressSpaceRef" type="spirit:addrSpaceRefType">
+		<xs:annotation>
+			<xs:documentation>References the address space.  The name of the address space is kept in its addressSpaceRef attribute.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="addressSpaces">
+		<xs:annotation>
+			<xs:documentation>If this component is a bus master, this lists all the address spaces
+defined by the component.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="addressSpace" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>This defines a logical space, referenced by a bus master.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:group ref="spirit:nameGroup"/>
+							<xs:group ref="spirit:blockSize"/>
+							<xs:element ref="spirit:addressUnitBits" minOccurs="0"/>
+							<xs:element ref="spirit:executableImage" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element name="localMemoryMap" type="spirit:localMemoryMapType" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Provides the local memory map of an address space.  Blocks in this memory map are accessable to master interfaces on this component that reference this address space.   They are not accessable to any external master interface.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="spirit:parameters" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Data specific to this address space.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="memoryMapRef" type="spirit:memoryMapRefType">
+		<xs:annotation>
+			<xs:documentation>References the memory map. The name of the memory map is kept in its memoryMapRef attribute.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="memoryMaps">
+		<xs:annotation>
+			<xs:documentation>Lists all the slave memory maps defined by the component.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="memoryMap" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>The set of address blocks a bus slave contributes to the bus' address space.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="spirit:memoryMapType">
+								<xs:sequence>
+									<xs:element ref="spirit:addressUnitBits" minOccurs="0"/>
+								</xs:sequence>
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="bank" type="spirit:addressBankType">
+		<xs:annotation>
+			<xs:documentation>Represents a bank of memory made up of address blocks or other banks.  It has a bankAlignment attribute indicating whether its blocks are aligned in 'parallel' (occupying adjacent bit fields) or 'serial' (occupying contiguous addresses). Its child blocks do not contain addresses or bit offsets.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="baseAddress">
+		<xs:annotation>
+			<xs:documentation>Base of an address block, bank, subspace map or address space.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="spirit:scaledNonNegativeInteger">
+					<xs:attributeGroup ref="spirit:long.att"/>
+					<xs:attribute ref="spirit:prompt" default="Base Address:"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="addressUnitBits" type="xs:positiveInteger">
+		<xs:annotation>
+			<xs:documentation>The number of data bits in an addressable unit. The default is byte addressable (8 bits).</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:group name="addressBlockExtensions">
+		<xs:annotation>
+			<xs:documentation>This is a group of optional elements commonly added to various types of address blocks in a memory map.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="spirit:memoryBlockData"/>
+			<xs:group ref="spirit:registerData"/>
+			<xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="addressSpecifier">
+		<xs:annotation>
+			<xs:documentation>This group of elements describes an absolute or relative address of an address block in a memory map.
+
+Note that this is a group, not an element.  It does not appear in the XML, but its contents may.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="spirit:baseAddress"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="bankBase">
+		<xs:annotation>
+			<xs:documentation>This group of elements is common to top level banks and banked banks.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="addressBlock" type="spirit:bankedBlockType">
+					<xs:annotation>
+						<xs:documentation>An address block within the bank.  No address information is supplied.</xs:documentation>
+					</xs:annotation>
+					<xs:key name="bankedRegisterKey">
+						<xs:selector xpath="spirit:register"/>
+						<xs:field xpath="spirit:name"/>
+					</xs:key>
+				</xs:element>
+				<xs:element name="bank" type="spirit:bankedBankType">
+					<xs:annotation>
+						<xs:documentation>A nested bank of blocks within a bank.  No address information is supplied.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="subspaceMap" type="spirit:bankedSubspaceType"/>
+			</xs:choice>
+			<xs:group ref="spirit:memoryBlockData"/>
+			<xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="blockSize">
+		<xs:annotation>
+			<xs:documentation>This group of elements describes the number of addressable units and the width of a row of an address block in a memory map.
+
+Note that this is a group, not an element.  It does not appear in the XML, but its contents may.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="range">
+				<xs:annotation>
+					<xs:documentation>The address range of an address block.  Expressed as the number of addressable units accessible to the block. The range and the width are related by the following formulas:
+					number_of_bits_in_block = spirit:bitsInLAU * spirit:range
+					number_of_rows_in_block = number_of_bits_in_block / spirit:width
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="spirit:scaledPositiveInteger">
+							<xs:attributeGroup ref="spirit:long.prompt.att"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="width">
+				<xs:annotation>
+					<xs:documentation>The bit width of a row in the address block. The range and the width are related by the following formulas:
+					number_of_bits_in_block = spirit:addressUnitBits * spirit:range
+					number_of_rows_in_block = number_of_bits_in_block / spirit:width
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:nonNegativeInteger">
+							<xs:attributeGroup ref="spirit:long.prompt.att"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="memoryBlockData">
+		<xs:annotation>
+			<xs:documentation>This group of optional elements can be used to provide additional descriptions to an address block or bank.
+
+Note that this is a group, not an element.  It does not appear in the XML, but its contents may.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="usage" type="spirit:usageType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates the usage of this block.  Possible values are 'memory', 'register' and 'reserved'.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="spirit:volatile" minOccurs="0"/>
+			<xs:element ref="spirit:access" minOccurs="0"/>
+			<xs:element ref="spirit:parameters" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Any additional parameters needed to describe this address block to the generators.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="registerData">
+		<xs:annotation>
+			<xs:documentation>This group of optional elements describes the memory mapped registers of an address block</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="register" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:group ref="spirit:nameGroup"/>
+						<xs:element name="dim" type="xs:nonNegativeInteger" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Dimensions a register array, the semantics for dim elements are the same as the C language standard for the  layout of memory in multidimensional arrays.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="addressOffset" type="spirit:scaledNonNegativeInteger">
+							<xs:annotation>
+								<xs:documentation>Offset from the address block's baseAddress.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="size">
+							<xs:annotation>
+								<xs:documentation>Size in bits.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="xs:positiveInteger">
+										<xs:attributeGroup ref="spirit:long.prompt.att"/>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element ref="spirit:volatile" minOccurs="0"/>
+						<xs:element ref="spirit:access" minOccurs="0"/>
+						<xs:element name="reset" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Register value at reset.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="value">
+										<xs:annotation>
+											<xs:documentation>The value itself.</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:simpleContent>
+												<xs:extension base="spirit:scaledNonNegativeInteger">
+													<xs:attributeGroup ref="spirit:long.prompt.att"/>
+												</xs:extension>
+											</xs:simpleContent>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="mask" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Mask to be anded with the value before comparing to the reset value.</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:simpleContent>
+												<xs:extension base="spirit:scaledNonNegativeInteger">
+													<xs:attributeGroup ref="spirit:long.prompt.att"/>
+												</xs:extension>
+											</xs:simpleContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="field" type="spirit:fieldType" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Describes individual bit fields within the register.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element ref="spirit:parameters" minOccurs="0"/>
+						<xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+				<xs:key name="fieldKey">
+					<xs:selector xpath="spirit:field"/>
+					<xs:field xpath="spirit:name"/>
+				</xs:key>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+</xs:schema>
