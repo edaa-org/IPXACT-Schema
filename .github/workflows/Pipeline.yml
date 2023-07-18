@@ -11,6 +11,8 @@ jobs:
     uses: pyTooling/Actions/.github/workflows/Parameters.yml@dev
     with:
       name: IPXACT
+      python_version_list: "3.11"
+      system_list: "ubuntu"
 
   UnitTesting:
     uses: pyTooling/Actions/.github/workflows/UnitTesting.yml@dev
