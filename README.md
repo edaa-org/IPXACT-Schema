@@ -43,3 +43,7 @@ the schema. The intended and allowed uses of the schema include:
   provide for validation of elements and attributes at the extension points explicitly and implicitly included in the
   IEEE 1685-2022 standard.
 * No right to create new schemas derived from parts of this base schema is granted pursuant to this License.
+
+-------------------------
+
+SPDX-License-Identifier: Apache-2.0
