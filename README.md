@@ -1,10 +1,10 @@
 This repository holds all IP-XACT schema files for
-* IP-XACT 1.0
-* IP-XACT 1.1
-* IP-XACT 1.2
-* IP-XACT 1.4
-* IP-XACT 1.5
-* IEEE Std. 1685-2009
+* [IP-XACT 1.0](http://www.accellera.org/XMLSchema/SPIRIT/1.0/)
+* [IP-XACT 1.1](http://www.accellera.org/XMLSchema/SPIRIT/1.1/)
+* [IP-XACT 1.2](http://www.accellera.org/XMLSchema/SPIRIT/1.2/)
+* [IP-XACT 1.4](http://www.accellera.org/XMLSchema/SPIRIT/1.4/)
+* [IP-XACT 1.5](http://www.accellera.org/XMLSchema/SPIRIT/1.5/)
+* [IEEE Std. 1685-2009](http://www.accellera.org/XMLSchema/SPIRIT/1685-2009/)
 * [IEEE Std. 1685-2014](http://www.accellera.org/XMLSchema/IPXACT/1685-2014/)
 * [IEEE Std. 1685-2022](http://www.accellera.org/XMLSchema/IPXACT/1685-2022/)
 
