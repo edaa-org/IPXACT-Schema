@@ -1,0 +1,3 @@
+-r ../requirements.txt
+
+xmlschema >= 2.3.1
