@@ -4,9 +4,9 @@ This repository holds all IP-XACT schema files for
 * IP-XACT 1.2
 * IP-XACT 1.4
 * IP-XACT 1.5
-* IEEE 1685-2009
-* IEEE 1685-2014
-* IEEE 1685-2022
+* IEEE Std. 1685-2009
+* [IEEE Std. 1685-2014](http://www.accellera.org/XMLSchema/IPXACT/1685-2014/)
+* [IEEE Std. 1685-2022](http://www.accellera.org/XMLSchema/IPXACT/1685-2022/)
 
 
 From the Accellera page
@@ -19,7 +19,7 @@ the IEEE Std 1685-2022 Standard for IP-XACT, Standard Structure for Packaging, I
 Tool-flows. These files are in the format specified by the World Wide Web Consortium (W3C) as XML Schema definition
 language.
 
-The purpose of this schema is to allow the creation and validation of XML documents conforming to the IEEE Std1685-2022
+The purpose of this schema is to allow the creation and validation of XML documents conforming to the IEEE Std 1685-2022
 Standard for IP-XACT, Standard Structure for Packaging, Integrating and Re-using IP within Tool-flows.
 
 **USE AT YOUR OWN RISK**
