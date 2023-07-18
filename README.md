@@ -1,12 +1,17 @@
 This repository holds all IP-XACT schema files for
-* [IP-XACT 1.0](http://www.accellera.org/XMLSchema/SPIRIT/1.0/)
-* [IP-XACT 1.1](http://www.accellera.org/XMLSchema/SPIRIT/1.1/)
-* [IP-XACT 1.2](http://www.accellera.org/XMLSchema/SPIRIT/1.2/)
-* [IP-XACT 1.4](http://www.accellera.org/XMLSchema/SPIRIT/1.4/)
-* [IP-XACT 1.5](http://www.accellera.org/XMLSchema/SPIRIT/1.5/)
-* [IEEE Std. 1685-2009](http://www.accellera.org/XMLSchema/SPIRIT/1685-2009/)
-* [IEEE Std. 1685-2014](http://www.accellera.org/XMLSchema/IPXACT/1685-2014/)
-* [IEEE Std. 1685-2022](http://www.accellera.org/XMLSchema/IPXACT/1685-2022/)
+
+* Unknown license / non OSI approved license
+  * [IP-XACT 1.0](http://www.accellera.org/XMLSchema/SPIRIT/1.0/)
+  * [IP-XACT 1.1](http://www.accellera.org/XMLSchema/SPIRIT/1.1/)
+  * [IP-XACT 1.2](http://www.accellera.org/XMLSchema/SPIRIT/1.2/)
+  * [IP-XACT 1.4](http://www.accellera.org/XMLSchema/SPIRIT/1.4/)
+  * [IP-XACT 1.5](http://www.accellera.org/XMLSchema/SPIRIT/1.5/)
+  * [IEEE Std. 1685-2009](http://www.accellera.org/XMLSchema/SPIRIT/1685-2009/)
+* [Apache License, Version 2.0](http://www.accellera.org/XMLSchema/IPXACT/LICENSE) / [Notice](http://www.accellera.org/XMLSchema/IPXACT/NOTICE) 
+  * [IEEE Std. 1685-2014](http://www.accellera.org/XMLSchema/IPXACT/1685-2014/)  
+    ⚠️ local README (provided by Accellera) contains open source threatening rules ⚠️
+  * [IEEE Std. 1685-2022](http://www.accellera.org/XMLSchema/IPXACT/1685-2022/)  
+    ⚠️ local README (provided by Accellera) contains open source threatening rules ⚠️
 
 
 From the Accellera page
