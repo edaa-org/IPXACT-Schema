@@ -32,6 +32,7 @@ jobs:
     needs:
       - Params
       - UnitTesting
+      - PublishTestResults
     with:
       package: ${{ fromJson(needs.Params.outputs.artifact_names).package_all }}
       remaining: |
