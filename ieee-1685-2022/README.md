@@ -2,5 +2,5 @@
 
 Source: http://www.accellera.org/XMLSchema/IPXACT/1685-2022/
 
-[License file](LICENSE)
+[License file](LICENSE)  
 [Notice file](NOTICE)
