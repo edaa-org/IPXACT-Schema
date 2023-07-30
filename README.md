@@ -26,14 +26,13 @@ Around the time of DAC 2005, the IEEE P1685 working group was formed.
 
 * [IEEE Std. 1685-2009](http://www.accellera.org/XMLSchema/SPIRIT/1685-2009/)
 * [IEEE Std. 1685-2014](http://www.accellera.org/XMLSchema/IPXACT/1685-2014/)  
-  ⚠️ local README (provided by Accellera) contains open source threatening rules ⚠️
+  ⚠️ local README (provided by Accellera) contains open source threatening rules
  
 **Apache License, Version 2.0**
 
-License: [Apache License, Version 2.0](http://www.accellera.org/XMLSchema/IPXACT/LICENSE)  
-Notices: [Notice](http://www.accellera.org/XMLSchema/IPXACT/NOTICE)
-
 * [IEEE Std. 1685-2022](http://www.accellera.org/XMLSchema/IPXACT/1685-2022/)  
+  * License: [Apache License, Version 2.0](http://www.accellera.org/XMLSchema/IPXACT/LICENSE)  
+  * Notices: [Notice](http://www.accellera.org/XMLSchema/IPXACT/NOTICE)
 
 
 # Further Links:
