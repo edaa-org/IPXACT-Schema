@@ -7,14 +7,15 @@ The original source is [Accellera](https://www.accellera.org/XMLSchema/).
 **Apache License, Version 2.0**
 
 * [IEEE Std. 1685-2022](http://www.accellera.org/XMLSchema/IPXACT/1685-2022/)  
-  ✅ License: [Apache License, Version 2.0](ieee-1685-2022/LICENSE) &emsp; Notices: [Notice file](ieee-1685-2022/NOTICE)
+  ✅ License: [Apache License, Version 2.0](ieee-1685-2022/LICENSE)  
+  &emsp; Notices: [Notice file](ieee-1685-2022/NOTICE)
 
 
 **Unknown License State**
 
 * [IEEE Std. 1685-2014](http://www.accellera.org/XMLSchema/IPXACT/1685-2014/)  
   ⚠️ local [README](ieee-1685-2014/README.md) (text provided by Accellera) contains open source threatening rules
-* [IEEE Std. 1685-2009](http://www.accellera.org/XMLSchema/SPIRIT/1685-2009/)
+* [IEEE Std. 1685-2009](http://www.accellera.org/XMLSchema/SPIRIT/1685-2009/)  
   ⚠️ local [README](ieee-1685-2009/README.md) (text provided by Accellera) contains open source threatening rules
  
 
@@ -53,7 +54,7 @@ Around the time of DAC 2005, the IEEE P1685 working group was formed.
 
 This layer is used by:
 
-* 🚧 pyEDAA.IPXACT
+* 🚧 [pyEDAA.IPXACT](https://github.com/edaa-org/pyEDAA.IPXACT)
 
 
 # License
