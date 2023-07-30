@@ -1,0 +1,39 @@
+name: Pipeline
+
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 5'
+
+jobs:
+  Params:
+    uses: pyTooling/Actions/.github/workflows/Parameters.yml@dev
+    with:
+      name: IPXACT
+      python_version_list: "3.11"
+      system_list: "ubuntu"
+
+  UnitTesting:
+    uses: pyTooling/Actions/.github/workflows/UnitTesting.yml@dev
+    needs:
+      - Params
+    with:
+      jobs: ${{ needs.Params.outputs.python_jobs }}
+      artifact: ${{ fromJson(needs.Params.outputs.artifact_names).unittesting_xml }}
+
+  PublishTestResults:
+    uses: pyTooling/Actions/.github/workflows/PublishTestResults.yml@dev
+    needs:
+      - UnitTesting
+
+  ArtifactCleanUp:
+    uses: pyTooling/Actions/.github/workflows/ArtifactCleanUp.yml@dev
+    needs:
+      - Params
+      - UnitTesting
+      - PublishTestResults
+    with:
+      package: ${{ fromJson(needs.Params.outputs.artifact_names).package_all }}
+      remaining: |
+        ${{ fromJson(needs.Params.outputs.artifact_names).unittesting_xml }}-*

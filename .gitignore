@@ -1,0 +1,30 @@
+# Python cache and object files
+__pycache__/
+*.py[cod]
+
+# Coverage.py
+.coverage
+.cov
+coverage.xml
+
+# setuptools
+/build/**/*.*
+/dist/**/*.*
+/*.egg-info
+
+# Dependencies
+!requirements.txt
+
+# Sphinx
+doc/_build/
+doc/IPXACT/**/*.*
+!doc/IPXACT/index.rst
+
+# BuildTheDocs
+doc/_theme/**/*.*
+
+# IntelliJ project files
+/.idea/workspace.xml
+
+# Git files
+!.git*

@@ -1,0 +1,6 @@
+-r ../requirements.txt
+
+# Test Runner
+pytest >= 7.3.0
+
+xmlschema >= 2.3.1
