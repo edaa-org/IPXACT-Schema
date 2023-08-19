@@ -52,16 +52,17 @@ Around the time of DAC 2005, the IEEE P1685 working group was formed.
 
 # Consumers
 
-This layer is used by:
+This repository is used by:
 
-* 🚧 [pyEDAA.IPXACT](https://github.com/edaa-org/pyEDAA.IPXACT)
+* 🚧 [pyEDAA.IPXACT](https://github.com/edaa-org/pyEDAA.IPXACT) as a Git submodule.
 
 
 # License
 
-Starting from 2022, the XML schemas are licensed under [Apache License 2.0](LICENSE.md). Older revisions are licensed
-under a "sharing friendly" license, but prohibits modifications and derived work. The very old revisions are in unknown
-license state. Check each individual directory for the license state of that revision.  
+Starting from 2022, the XML schemas are licensed under [Apache License 2.0](LICENSE.md). Older revisions (IEEE standards
+2014 and 2009 )are licensed under a "sharing friendly" license, but prohibits modifications and derived work. The very
+old revisions (released by the SPIRIT Consortium) are in unknown license state. Check each individual directory for the
+license state of that revision.  
 <!--
 The accompanying documentation is licensed under [Creative Commons - Attribution 4.0 (CC-BY 4.0)](doc/Doc-License.rst).
 -->
