@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Mark Noll (Synopsys) -->
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by Celia Woods (ARM Ltd) -->
+<!--
+// Description : identifier.xsd
+// Author : SPIRIT Schema Working Group
+// Version:     $Revision: 318 $
+// Date:        $Date: 2006-02-15 18:26:13 -0600 (Wed, 15 Feb 2006) $
+// Tag:         $Name$
+//
+// Copyright (c) 2005 SPIRIT.  All rights reserved.
+// www.spiritconsortium.com
+//
+// THIS WORK FORMS PART OF A SPIRIT CONSORTIUM SPECIFICATION.
+// THIS WORK CONTAINS TRADE SECRETS AND PROPRIETARY INFORMATION
+// WHICH IS THE EXCLUSIVE PROPERTY OF INDIVIDUAL MEMBERS OF THE
+// SPIRIT CONSORTIUM. USE OF THESE MATERIALS ARE GOVERNED BY
+// THE LEGAL TERMS AND CONDITIONS OUTLINED IN THE SPIRIT
+// SPECIFICATION DISCLAIMER AVAILABLE FROM
+// www.spiritconsortium.org
+-->
+<xs:schema targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.2" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:group name="baseIdentifier">
+		<xs:annotation>
+			<xs:documentation>Base SPIRIT identifier group. Identify a SPIRIT document by its by vendor, library and name.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="vendor" type="xs:Name">
+				<xs:annotation>
+					<xs:documentation>Name of the vendor who supplies this file.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="library" type="xs:Name">
+				<xs:annotation>
+					<xs:documentation>Name of the logical library this element belongs to.  </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:NMTOKEN">
+				<xs:annotation>
+					<xs:documentation>The name of the object.  </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:group name="versionedIdentifier">
+		<xs:annotation>
+			<xs:documentation>This group of elements identifies a top level item (e.g. a component or a bus definition)  with vendor, library, name and a version number</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:group ref="spirit:baseIdentifier"/>
+			<xs:element name="version" type="xs:NMTOKEN"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:attributeGroup name="libraryRefGroup">
+		<xs:annotation>
+			<xs:documentation>Base SPIRIT document reference.  Contains vendor, library, name and version attributes.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="vendor" type="xs:Name" use="required"/>
+		<xs:attribute name="library" type="xs:Name" use="required"/>
+		<xs:attribute name="name" type="xs:NMTOKEN" use="required"/>
+		<xs:attribute name="version" type="xs:NMTOKEN" use="required"/>
+	</xs:attributeGroup>
+	<xs:complexType name="libraryRefType">
+		<xs:annotation>
+			<xs:documentation>Base SPIRIT document reference type. Contains vendor, library, name and version attributes.</xs:documentation>
+		</xs:annotation>
+		<xs:attributeGroup ref="spirit:libraryRefGroup"/>
+	</xs:complexType>
+	<xs:complexType name="resolvedLibraryRefType">
+		<xs:annotation>
+			<xs:documentation>Resolved SPIRIT document reference type. Contains vendor, library, name and version attributes and the URI of the referenced SPIRIT document</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:anyURI">
+				<xs:attributeGroup ref="spirit:libraryRefGroup"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>
