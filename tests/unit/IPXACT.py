@@ -115,3 +115,26 @@ class SPIRIT(TestCase):
 			schemaFile = directory / file
 			print(f"  {schemaFile}")
 			_ = XMLSchema(schemaFile)
+
+
+class IEEE_1685(TestCase):
+	_root: Path = Path("..")
+
+	def test_Schema2009(self):
+		print()
+		print(f"CWD:              {Path.cwd()}")
+
+		directory = self._root / "ieee-1685-2009"
+		print(f"Schema directory: {directory}")
+
+		schemaFiles = (
+			"design.xsd",
+			"component.xsd",
+			"busDefinition.xsd",
+			"generator.xsd",
+		)
+		print(f"Reading schemas ...")
+		for file in schemaFiles:
+			schemaFile = directory / file
+			print(f"  {schemaFile}")
+			_ = XMLSchema(schemaFile)
