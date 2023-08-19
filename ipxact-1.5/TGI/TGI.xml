@@ -1,0 +1,2723 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+// Description: TGI.xml
+// Author:      The SPIRIT Consortium
+// Revision:    $Revision: 1521 $
+// Date:        $Date: 2009-05-26 11:02:13 -0700 (Tue, 26 May 2009) $
+//
+// Copyright (c) 2009 The SPIRIT Consortium.
+//
+// This work forms part of a deliverable of The SPIRIT Consortium.
+//
+// Use of these materials are governed by the legal terms and conditions
+// outlined in the disclaimer available from www.spiritconsortium.org.
+//
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+//
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at
+// http://www.spiritconsortium.org/about/contact_us/
+//
+// This file may be copied, and distributed, with or without
+// modifications; this notice must be included on any copy.
+-->
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Mark Noll (Synopsys) -->
+<tgi:callbacks xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/TGI/TGI.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tgi="http://www.spiritconsortium.org/XMLSchema/TGI">
+    <!-- DESIGN OPERATIONS -->
+    <tgi:callback tgi:name="getDesignID" tgi:group="Design Operations">
+        <tgi:description>get ID of the current or top design</tgi:description>
+        <tgi:output tgi:argName="designID">
+            <tgi:description>The ID of the current design or the top design if the 'top' argument is true.</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="top" tgi:argType="xsd:boolean"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getDesignVLNV" tgi:group="Design Operations">
+        <tgi:description>Vendor Library Name Version of the design</tgi:description>
+        <tgi:output tgi:argName="vlnvValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="designID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getDesignComponentInstanceIDs" tgi:group="Design Operations">
+        <tgi:description>components instances IDs of the given design</tgi:description>
+        <tgi:output tgi:argName="componentInstanceIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="designID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getComponentInstanceID" tgi:group="Design Operations">
+        <tgi:description>return the component instance ID of the named component instance in the given design</tgi:description>
+        <tgi:output tgi:argName="componentInstanceID"/>
+        <tgi:input tgi:argName="designID"/>
+        <tgi:input tgi:argName="instanceName"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getDesignInterconnectionIDs" tgi:group="Design Operations">
+        <tgi:description>List of interconnection element IDs</tgi:description>
+        <tgi:output tgi:argName="interconnectionIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="designID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getInterconnectionActiveInterfaces" tgi:group="Design Operations">
+        <tgi:description>Returns the active interfaces as a list: componentRef interfaceRef componentRef interfaceRef</tgi:description>
+        <tgi:output tgi:argName="activeInterfaceValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="interconnectionID"/>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getDesignInterconnectionAbstractorInstanceIDs" tgi:group="Design Operations">
+        <tgi:description>List of abstractor instances IDs for this interconnection</tgi:description>
+        <tgi:output tgi:argName="abstractorInstanceIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="interconnectName"/>
+        <tgi:input tgi:argName="designID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getDesignMonitorInterconnectionIDs" tgi:group="Design Operations">
+        <tgi:description>List of monitorInterconnection element IDs</tgi:description>
+        <tgi:output tgi:argName="monitorInterconnectionIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="designID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getMonitorInterconnectionInterfaces" tgi:group="Design Operations">
+        <tgi:description>Returns the active interface and monitor interfaces as a list in componentPathRef, componentRef, componentInterface, monitorPathRef, monitorRef, monitorInterface format, the active interface comes first in the list.</tgi:description>
+        <tgi:output tgi:argName="interconnectInterfaceValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="monitorInterconnectionID"/>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getDesignAdHocConnectionIDs" tgi:group="Design Operations">
+        <tgi:description>List of ad-hoc connection element IDs</tgi:description>
+        <tgi:output tgi:argName="adHocConnectionIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="designID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAdHocConnectionTiedValue" tgi:group="Design Operations">
+        <tgi:description>Get the tied value for an ad-hoc connection</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="adHocConnectionID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAdHocConnectionInternalPortReferenceIDs" tgi:group="Design Operations">
+        <tgi:description>List of internal ad-hoc port reference element IDs</tgi:description>
+        <tgi:output tgi:argName="adHocInternalPortReferenceIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="adHocConnectionID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAdHocConnectionInternalPortReferenceDetails" tgi:group="Design Operations">
+        <tgi:description>List for an internal connection containing the componentRef, portRef, left, and right attribute values</tgi:description>
+        <tgi:output tgi:argName="details" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="adHocInternalPortReferenceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAdHocConnectionExternalPortReferenceIDs" tgi:group="Design Operations">
+        <tgi:description>List of external ad-hoc port reference element IDs</tgi:description>
+        <tgi:output tgi:argName="adHocExternalPortReferenceIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="adHocConnectionID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAdHocConnectionExternalPortDetails" tgi:group="Design Operations">
+        <tgi:description>List for an external connection containing the portRef, left, and right attribute values</tgi:description>
+        <tgi:output tgi:argName="details" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="adHocExternalPortReferenceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getDesignHierConnectionIDs" tgi:group="Design Operations">
+        <tgi:description>List of hierarchical connection element IDs</tgi:description>
+        <tgi:output tgi:argName="hierConnectionIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="designID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getHierConnectionDetails" tgi:group="Design Operations">
+        <tgi:description>List containing the interface name, component reference, and interface reference</tgi:description>
+        <tgi:output tgi:argName="values" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="hierConnectionID"/>
+    </tgi:callback>
+    <!-- COMPONENT INSTANCE OPERATIONS -->
+    <tgi:callback tgi:name="getComponentInstanceName" tgi:group="Component Instance Operations">
+        <tgi:description>Instance name of the component</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="componentInstanceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getComponentInstanceVLNV" tgi:group="Component Instance Operations">
+        <tgi:description>Vendor Library Name Version of the component (from the design file)</tgi:description>
+        <tgi:output tgi:argName="vlnvValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="componentInstanceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getComponentInstanceComponentID" tgi:group="Component Instance Operations">
+        <tgi:description>ID for the component associated with given instance (crossing from design to component file)</tgi:description>
+        <tgi:output tgi:argName="componentID"/>
+        <tgi:input tgi:argName="componentInstanceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getComponentInstanceXML" tgi:group="Component Instance Operations">
+        <tgi:description>Return the component XML in text format. Schema version is DE dependent.</tgi:description>
+        <tgi:output tgi:argName="xmlText"/>
+        <tgi:input tgi:argName="componentInstanceID"/>
+    </tgi:callback>
+    <!-- ABSTRACTOR INSTANCE OPERATIONS -->
+    <tgi:callback tgi:name="getAbstractorInstanceName" tgi:group="Abstractor Instance Operations">
+        <tgi:description>Instance name of the abstractor</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="abstractorInstanceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractorInstanceVLNV" tgi:group="Abstractor Instance Operations">
+        <tgi:description>Vendor Library Name Version of the abstractor (from the design file)</tgi:description>
+        <tgi:output tgi:argName="vlnvValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="abstractorInstanceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractorInstanceAbstractorID" tgi:group="Abstractor Instance Operations">
+        <tgi:description>ID for the abstractor associated with given instance (crossing from design configuration to abstractor file)</tgi:description>
+        <tgi:output tgi:argName="abstractorID"/>
+        <tgi:input tgi:argName="abstractorInstanceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractorInstanceXML" tgi:group="Abstractor Instance Operations">
+        <tgi:description>Return the abstractor XML in text format. Schema version is DE dependent.</tgi:description>
+        <tgi:output tgi:argName="xmlText"/>
+        <tgi:input tgi:argName="abstractorInstanceID"/>
+    </tgi:callback>
+    <!-- INTERFACE OPERATIONS -->
+    <tgi:callback tgi:name="getInterfaceBusTypeVLNV" tgi:group="Interface Operations">
+        <tgi:description>List of VLNV of the bus definition</tgi:description>
+        <tgi:output tgi:argName="vlnvValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="interfaceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getInterfaceAbstractionTypeVLNV" tgi:group="Interface Operations">
+        <tgi:description>List of VLNV of the abstraction definition</tgi:description>
+        <tgi:output tgi:argName="vlnvValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="interfaceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getInterfaceMode" tgi:group="Interface Operations">
+        <tgi:description>Mode of the interface: master, slave, system, mirroredMaster, mirroredSlave, mirroredSystem or monitor</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="interfaceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getInterfacePortMapIDs" tgi:group="Interface Operations">
+        <tgi:description>list of interface port map IDs</tgi:description>
+        <tgi:output tgi:argName="interfacePortMapIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="interfaceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getLogicalPhysicalMapIDs" tgi:group="Interface Operations">
+        <tgi:description>list of the logical and physical port map IDs</tgi:description>
+        <tgi:output tgi:argName="portMapIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="interfacePortMapID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortMapRange" tgi:group="Interface Operations" tgi:config="true">
+        <tgi:description>list of left and right range of the port map</tgi:description>
+        <tgi:output tgi:argName="nonNegativeIntegerArrayValue" tgi:argType="spirit:nonNegativeIntegerArrayType">
+            <tgi:description>The return array value is in the format of logical vector left, right, physical vector left, right</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="portMapID"/>
+            <tgi:compatibleArgs tgi:argName="portMapUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <!-- BUS INTERFACE OPERATIONS -->
+    <tgi:callback tgi:name="getBusInterfaceMasterAddressSpaceID" tgi:group="Bus Interface Operations">
+        <tgi:description>ID of the master addressSpace</tgi:description>
+        <tgi:output tgi:argName="addressSpaceID"/>
+        <tgi:input tgi:argName="interfaceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBusInterfaceMasterBaseAddress" tgi:group="Bus Interface Operations" tgi:config="true">
+        <tgi:description>Base address of the master addressSpace</tgi:description>
+        <tgi:output tgi:argName="spiritNumberTypeValue" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="interfaceID"/>
+            <tgi:compatibleArgs tgi:argName="interfaceUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBusInterfaceSlaveMemoryMapID" tgi:group="Bus Interface Operations">
+        <tgi:description>ID of the memoryMap referenced from a slave interface</tgi:description>
+        <tgi:output tgi:argName="memoryMapID"/>
+        <tgi:input tgi:argName="interfaceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBusInterfaceSlaveBridgeIDs" tgi:group="Bus Interface Operations">
+        <tgi:description>List of slave bridge IDs</tgi:description>
+        <tgi:output tgi:argName="bridgeIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="interfaceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBridgeMasterID" tgi:group="Bus Interface Operations">
+        <tgi:description>The slave interface master interface reference ID</tgi:description>
+        <tgi:output tgi:argName="interfaceID"/>
+        <tgi:input tgi:argName="bridgeID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBridgeIsOpaque" tgi:group="Bus Interface Operations">
+        <tgi:description>Value of the opaque attribute</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="bridgeID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBusInterfaceSlaveFileSetGroupIDs" tgi:group="Bus Interface Operations">
+        <tgi:description>List of fileSetGroup IDs</tgi:description>
+        <tgi:output tgi:argName="fileSetGroupIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="interfaceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileSetGroupName" tgi:group="File and Fileset Operations">
+        <tgi:description>Name of file set group</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="fileSetGroupID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileSetGroupFileSetIDs" tgi:group="File and Fileset Operations">
+        <tgi:description>list of file set IDs in this file set group</tgi:description>
+        <tgi:output tgi:argName="fileSetIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="fileSetGroupID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBusInterfaceGroupName" tgi:group="Bus Interface Operations">
+        <tgi:description>Group name of a system, mirroredSystem, or monitor bus interface</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="interfaceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBusInterfaceMirroredSlaveRemapAddressIDs" tgi:group="Bus Interface Operations">
+        <tgi:description>List of remap address IDs of the mirrored slave interface</tgi:description>
+        <tgi:output tgi:argName="remapAddressIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="interfaceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRemapAddressValue" tgi:group="Bus Interface Operations">
+        <tgi:description>remap address of the given remap address element</tgi:description>
+        <tgi:output tgi:argName="spiritNumberTypeValue" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:input tgi:argName="remapAddressID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRemapAddressRemapStateID" tgi:group="Bus Interface Operations">
+        <tgi:description>remap state ID of the given remap address element</tgi:description>
+        <tgi:output tgi:argName="remapStateID"/>
+        <tgi:input tgi:argName="remapAddressID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBusInterfaceMirroredSlaveRange" tgi:group="Bus Interface Operations">
+        <tgi:description>The address range of the mirrored slave interface</tgi:description>
+        <tgi:output tgi:argName="spiritNumberTypeValue" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:input tgi:argName="interfaceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBusInterfaceMonitorInterfaceMode" tgi:group="Bus Interface Operations">
+        <tgi:description>Indicates the mode of interface being monitored, slave, master, system, mirrorslave, mirrormaster or mirrorslave</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="interfaceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBusInterfaceConnectionRequired" tgi:group="Bus Interface Operations">
+        <tgi:description>connection required for this bus interface</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="interfaceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBusInterfaceBitSteering" tgi:group="Bus Interface Operations" tgi:config="true">
+        <tgi:description>Bit steering description of the bus interface: on or off</tgi:description>
+        <tgi:output tgi:argName="bitSteeringValue" tgi:argType="xsd:string"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="interfaceID"/>
+            <tgi:compatibleArgs tgi:argName="interfaceUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBusInterfaceEndianness" tgi:group="Bus Interface Operations">
+        <tgi:description>the endianess of the bus interface, big or little. The default is little.</tgi:description>
+        <tgi:output tgi:argName="spiritEndianessValue"/>
+        <tgi:input tgi:argName="interfaceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBusInterfaceBitsInLAU" tgi:group="Bus Interface Operations">
+        <tgi:description>the number bits in the least addressable unit.  If none exists, the default 8 bits is returned.</tgi:description>
+        <tgi:output tgi:argName="bitsInLau" tgi:argType="xsd:positiveInteger"/>
+        <tgi:input tgi:argName="interfaceID"/>
+    </tgi:callback>
+    <!-- ABSTRACTOR OPERATIONS -->
+    <tgi:callback tgi:name="getAbstractorAbstractorMode" tgi:group="Abstractor Operations">
+        <tgi:description>get the mode that the abstractor can be master, slave, direct or system.</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="abstractorID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractorBusTypeVLNV" tgi:group="Abstractor Operations">
+        <tgi:description>List of VLNV of the bus definition</tgi:description>
+        <tgi:output tgi:argName="vlnvValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="interfaceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractorAbstractorInterfaceIDs" tgi:group="Abstractor Operations">
+        <tgi:description>List of 2 interface IDs</tgi:description>
+        <tgi:output tgi:argName="interfaceIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="abstractorID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractorViewIDs" tgi:group="Abstractor Operations">
+        <tgi:description>a list of model view IDs</tgi:description>
+        <tgi:output tgi:argName="viewIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="abstractorID"/>
+        <tgi:input tgi:argName="configured" tgi:argType="xsd:boolean">
+            <tgi:description>If true returns only the view configured by a designConfiguration. If false returns all views.</tgi:description>
+        </tgi:input>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractorPortIDs" tgi:group="Abstractor Operations">
+        <tgi:description>a list of abstractor model port IDs</tgi:description>
+        <tgi:output tgi:argName="portIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="abstractorID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractorModelParameterIDs" tgi:group="Abstractor Operations">
+        <tgi:description>a list of model parameter IDs</tgi:description>
+        <tgi:output tgi:argName="parameterIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="abstractorID"/>
+        <tgi:input tgi:argName="usageType">
+            <tgi:description>Restrict returned parameters to those that match the given usageType. nontyped or typed or all if not specified.</tgi:description>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractorGeneratorIDs" tgi:group="Abstractor Operations">
+        <tgi:description>list of generator IDs of the abstractor</tgi:description>
+        <tgi:output tgi:argName="generatorIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="abstractorID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractorChoiceIDs" tgi:group="Abstractor Operations">
+        <tgi:description>list of choices IDs</tgi:description>
+        <tgi:output tgi:argName="choiceIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="abstractorID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractorFileSetIDs" tgi:group="Abstractor Operations">
+        <tgi:description>list of file set IDs</tgi:description>
+        <tgi:output tgi:argName="fileSetIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="abstractorID"/>
+    </tgi:callback>
+    <!-- COMPONENT OPERATIONS -->
+    <tgi:callback tgi:name="getComponentVLNV" tgi:group="Component Operations">
+        <tgi:description>Vendor Library Name Version of the component (from the component file)</tgi:description>
+        <tgi:output tgi:argName="vlnvValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="componentID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getComponentElementType" tgi:group="Component Operations">
+        <tgi:description>Returns the name of the XML element associated with the component (currently only 'component'). This call is being provided to cover a future scenario where there can be different types of component elements instantiated in a design (e.g. macroComponent elements).</tgi:description>
+        <tgi:output tgi:argName="componentElementType"/>
+        <tgi:input tgi:argName="componentID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getChannelBusInterfaceIDs" tgi:group="Component Operations">
+        <tgi:description>list of busInterface IDs in this channel</tgi:description>
+        <tgi:output tgi:argName="interfaceIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="channelID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getComponentAddressSpaceIDs" tgi:group="Component Operations">
+        <tgi:description>list of IDs for the logical address spaces in the component.</tgi:description>
+        <tgi:output tgi:argName="addressSpaceIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="componentID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getComponentRemapStateIDs" tgi:group="Component Operations">
+        <tgi:description>a list of remap state IDs</tgi:description>
+        <tgi:output tgi:argName="remapStateIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="componentID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getComponentViewIDs" tgi:group="Component Operations">
+        <tgi:description>a list of model view IDs</tgi:description>
+        <tgi:output tgi:argName="viewIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="componentID"/>
+        <tgi:input tgi:argName="configured" tgi:argType="xsd:boolean">
+            <tgi:description>If true returns only the view configured by a designConfiguration or NULL if not configured. If false returns all views.</tgi:description>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getComponentBusInterfaceIDs" tgi:group="Component Operations">
+        <tgi:description>List of interface IDs</tgi:description>
+        <tgi:output tgi:argName="interfaceIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="componentID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getComponentChannelIDs" tgi:group="Component Operations">
+        <tgi:description>a list of channel IDs</tgi:description>
+        <tgi:output tgi:argName="channelIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="componentID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getComponentPortIDs" tgi:group="Component Operations">
+        <tgi:description>a list of component model port IDs</tgi:description>
+        <tgi:output tgi:argName="portIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="componentID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getComponentModelParameterIDs" tgi:group="Component Operations">
+        <tgi:description>a list of model parameter IDs</tgi:description>
+        <tgi:output tgi:argName="parameterIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="componentID"/>
+        <tgi:input tgi:argName="usageType">
+            <tgi:description>Restrict returned parameters to those that match the given usageType. nontyped or typed or userdefined or all if not specified.</tgi:description>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getComponentGeneratorIDs" tgi:group="Component Operations">
+        <tgi:description>list of generator IDs of the component</tgi:description>
+        <tgi:output tgi:argName="generatorIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="componentID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getComponentChoiceIDs" tgi:group="Component Operations">
+        <tgi:description>list of choices IDs</tgi:description>
+        <tgi:output tgi:argName="choiceIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="componentID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getComponentFileSetIDs" tgi:group="Component Operations">
+        <tgi:description>list of file set IDs</tgi:description>
+        <tgi:output tgi:argName="fileSetIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="componentID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getComponentWhiteboxElementIDs" tgi:group="Component Operations">
+        <tgi:description>list of whitebox element IDs of the component</tgi:description>
+        <tgi:output tgi:argName="whiteboxElementIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="componentID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getComponentCpuIDs" tgi:group="Component Operations">
+        <tgi:description>list of cpu IDs of the component</tgi:description>
+        <tgi:output tgi:argName="cpuIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="componentID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getCpuAddressSpaceIDs" tgi:group="Component Operations">
+        <tgi:description>list of address space reference IDs of the cpu</tgi:description>
+        <tgi:output tgi:argName="addressSpaceIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="cpuID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getComponentOtherClockDriverIDs" tgi:group="Component Operations">
+        <tgi:description>list of clock driver IDs of the component</tgi:description>
+        <tgi:output tgi:argName="clockDriverIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="componentID"/>
+    </tgi:callback>
+    <!-- REGISTER FILE OPERATIONS -->
+    <tgi:callback tgi:name="getRegisterFileDimensions" tgi:group="Register File Operations">
+	    <tgi:description>dimensions of a register file array.</tgi:description>
+	    <tgi:output tgi:argName="dimensions" tgi:argType="spirit:nonNegativeIntegerArrayType"/>
+	    <tgi:input tgi:argName="registerFileID"/>
+	    <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterFileAddressOffset" tgi:group="Register File Operations">
+        <tgi:description>the offset from the base address.</tgi:description>
+        <tgi:output tgi:argName="offset" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:input tgi:argName="registerFileID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterFileRange" tgi:group="Register File Operations" tgi:config="true">
+        <tgi:description>the register file range in number of addressable units.</tgi:description>
+        <tgi:output tgi:argName="range" tgi:argType="xsd:positiveInteger"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="registerFileID"/>
+            <tgi:compatibleArgs tgi:argName="registerFileUID"/>
+        </tgi:input>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="setRegisterFileRange" tgi:group="Register File Operations" tgi:config="true">
+        <tgi:description>set the register file range in addressable units.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="registerFileID"/>
+        <tgi:input tgi:argName="range" tgi:argType="xsd:positiveInteger"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterFileRegisterIDs" tgi:group="Register File Operations">
+	    <tgi:description>list of IDs for the registers of the given register file</tgi:description>
+	    <tgi:output tgi:argName="registerIDs" tgi:argType="spirit:soapStringArrayType"/>
+	    <tgi:input tgi:argName="registerFileID"/>
+	    <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterFileRegisterFileIDs" tgi:group="Register File Operations">
+	    <tgi:description>list of IDs for the register files of the given register file</tgi:description>
+	    <tgi:output tgi:argName="registerFileIDs" tgi:argType="spirit:soapStringArrayType"/>
+	    <tgi:input tgi:argName="registerFileID"/>
+	    <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <!-- REGISTER OPERATIONS -->
+    <tgi:callback tgi:name="getRegisterDimensions" tgi:group="Register Operations">
+	    <tgi:description>dimensions of a register array.</tgi:description>
+	    <tgi:output tgi:argName="dimensions" tgi:argType="spirit:nonNegativeIntegerArrayType"/>
+	    <tgi:input tgi:argName="registerID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterAddressOffset" tgi:group="Register Operations">
+        <tgi:description>the offset from the base address.</tgi:description>
+        <tgi:output tgi:argName="offset" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:input tgi:argName="registerID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterAlternateRegisterIDs" tgi:group="Register Operations">
+	    <tgi:description>list of IDs for the alternate registers of the given register</tgi:description>
+	    <tgi:output tgi:argName="alternateRegisterIDs" tgi:argType="spirit:soapStringArrayType"/>
+	    <tgi:input tgi:argName="registerID"/>
+	    <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterAccess" tgi:group="Register Operations">
+        <tgi:description>the accessibility of the data in the register</tgi:description>
+        <tgi:output tgi:argName="value"/>
+	<tgi:input tgi:argName="elementID">
+	    <tgi:compatibleArgs tgi:argName="registerID"/>
+	    <tgi:compatibleArgs tgi:argName="alternateRegisterID"/>
+	</tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterSize" tgi:group="Register Operations" tgi:config="true">
+        <tgi:description>the register size in bits.</tgi:description>
+        <tgi:output tgi:argName="size" tgi:argType="xsd:positiveInteger"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="registerID"/>
+            <tgi:compatibleArgs tgi:argName="registerUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="setRegisterSize" tgi:group="Register Operations" tgi:config="true">
+        <tgi:description>set the register size in bits.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="registerID"/>
+        <tgi:input tgi:argName="size" tgi:argType="xsd:positiveInteger"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterVolatility" tgi:group="Register Operations">
+        <tgi:description>indicates whether or not the data is volatile.</tgi:description>
+        <tgi:output tgi:argName="value">
+	  <tgi:description>returns "true", "false" or "".</tgi:description>
+        </tgi:output>
+	<tgi:input tgi:argName="elementID">
+	    <tgi:compatibleArgs tgi:argName="registerID"/>
+	    <tgi:compatibleArgs tgi:argName="alternateRegisterID"/>
+	</tgi:input>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterResetValue" tgi:group="Register Operations" tgi:config="true">
+        <tgi:description>register value at reset.</tgi:description>
+        <tgi:output tgi:argName="value" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="registerID"/>
+            <tgi:compatibleArgs tgi:argName="registerUID"/>
+            <tgi:compatibleArgs tgi:argName="alternateRegisterID"/>
+            <tgi:compatibleArgs tgi:argName="alternateRegisterUID"/>
+        </tgi:input>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="setRegisterResetValue" tgi:group="Register Operations" tgi:config="true">
+        <tgi:description>set register value at reset.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:integer"/>
+	<tgi:input tgi:argName="elementID">
+	    <tgi:compatibleArgs tgi:argName="registerID"/>
+	    <tgi:compatibleArgs tgi:argName="alternateRegisterID"/>
+	</tgi:input>
+        <tgi:input tgi:argName="value" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterResetMask" tgi:group="Register Operations" tgi:config="true">
+        <tgi:description>mask to be ANDed with the value before comparing to reset value.</tgi:description>
+        <tgi:output tgi:argName="mask" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="registerID"/>
+            <tgi:compatibleArgs tgi:argName="registerUID"/>
+            <tgi:compatibleArgs tgi:argName="alternateRegisterID"/>
+            <tgi:compatibleArgs tgi:argName="alternateRegisterUID"/>
+        </tgi:input>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="setRegisterResetMask" tgi:group="Register Operations" tgi:config="true">
+        <tgi:description>set the mask to be ANDed with the value before comparing to reset value.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:integer"/>
+	<tgi:input tgi:argName="elementID">
+	    <tgi:compatibleArgs tgi:argName="registerID"/>
+	    <tgi:compatibleArgs tgi:argName="alternateRegisterID"/>
+	</tgi:input>
+        <tgi:input tgi:argName="mask" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterFieldIDs" tgi:group="Register Operations">
+	    <tgi:description>list of IDs for the fields of the given register</tgi:description>
+	    <tgi:output tgi:argName="regFieldIDs" tgi:argType="spirit:soapStringArrayType"/>
+	    <tgi:input tgi:argName="elementID">
+		<tgi:compatibleArgs tgi:argName="registerID"/>
+		<tgi:compatibleArgs tgi:argName="alternateRegisterID"/>
+	    </tgi:input>
+	    <tgi:input tgi:argName="registerID"/>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <!-- ALTERNATEREGISTER OPERATIONS -->
+    <tgi:callback tgi:name="getRegisterAlternateGroups" tgi:group="Register Operations">
+        <tgi:description>indicates the group names for an alternate register.</tgi:description>
+        <tgi:output tgi:argName="groupNames" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="alternateRegisterID"/>
+	<tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <!-- FIELD OPERATIONS -->
+    <tgi:callback tgi:name="getRegisterFieldBitOffset" tgi:group="Field Operations">
+        <tgi:description>bit offset of the fields LSB inside the register.</tgi:description>
+        <tgi:output tgi:argName="value" tgi:argType="xsd:integer"/>
+        <tgi:input tgi:argName="regFieldID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterFieldBitWidth" tgi:group="Field Operations" tgi:config="true">
+        <tgi:description>width of the field in bits.</tgi:description>
+        <tgi:output tgi:argName="width" tgi:argType="xsd:positiveInteger"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="regFieldID"/>
+            <tgi:compatibleArgs tgi:argName="regFieldUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="setRegisterFieldBitWidth" tgi:group="Field Operations" tgi:config="true">
+        <tgi:description>set the width of the field in bits.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:integer"/>
+        <tgi:input tgi:argName="regFieldID"/>
+        <tgi:input tgi:argName="width" tgi:argType="xsd:positiveInteger"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterFieldVolatility" tgi:group="Field Operations">
+        <tgi:description>indicates whether or not the data is volatile. The presumed value is 'false' if the element is not present.</tgi:description>
+        <tgi:output tgi:argName="value">
+	  <tgi:description>returns "true" or "false"</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="registerID"/>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterFieldAccess" tgi:group="Field Operations">
+        <tgi:description>the accessibility of the data in the field.</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="regFieldID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterFieldValueIDs" tgi:group="Field Operations">
+        <tgi:description>list of IDs for field values for the given register field.</tgi:description>
+        <tgi:output tgi:argName="regFieldValueIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="regFieldID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterFieldValueUsage" tgi:group="Field Operations">
+        <tgi:description>enumerated bit field usage.</tgi:description>
+        <tgi:output tgi:argName="usage"/>
+        <tgi:input tgi:argName="regFieldValueID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterFieldValue" tgi:group="Field Operations">
+        <tgi:description>enumerated bit field value.</tgi:description>
+        <tgi:output tgi:argName="value" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:input tgi:argName="regFieldValueID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterFieldValueName" tgi:group="Field Operations">
+        <tgi:description>Enumerated name for this register field value. Deprecated - use getName.</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="regFieldValueID"/>
+    </tgi:callback>
+    <!-- Field behavior-->
+    <tgi:callback tgi:name="getRegisterFieldModifiedWriteValue" tgi:group="Field Operations">
+        <tgi:description>The modified write value for the field</tgi:description>
+        <tgi:output tgi:argName="type">
+            <tgi:description>one of "", "onetoClear", "oneToSet", "oneToToggle", "zeroToClear", "zeroToSet","zeroToToggle", "clear", "set" or "modified"</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="regFieldID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterFieldWriteValueConstraintWriteAsRead" tgi:group="Field Operations">
+        <tgi:description>the write value constraint is write as read.</tgi:description>
+        <tgi:output tgi:argName="boolean" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="regFieldID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterFieldWriteValueConstraintUseEnumeratedValues" tgi:group="Field Operations">
+        <tgi:description>the write value constraint shall use the enumerated values.</tgi:description>
+        <tgi:output tgi:argName="boolean" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="regFieldID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterFieldWriteValueConstraintMinMax" tgi:group="Field Operations">
+        <tgi:description>the value of a write constraint.</tgi:description>
+        <tgi:output tgi:argName="integerArrayValue" tgi:argType="spirit:integerArrayType">
+          <tgi:description>array of minimum and maximum or zero element array if not specified</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="regFieldID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterFieldReadAction" tgi:group="Field Operations">
+        <tgi:description>The read action for the field</tgi:description>
+        <tgi:output tgi:argName="type">
+            <tgi:description>one of "", "clear", "set" or "modify"</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="regFieldID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterFieldTestable" tgi:group="Field Operations">
+        <tgi:description>true if the field can be tested with a simple register test.</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="regFieldID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRegisterFieldTestConstraint" tgi:group="Field Operations">
+        <tgi:description>the test constraint required if the field can be tested with a simple register test.</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="regFieldID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <!-- REMAPSTATE OPERATIONS -->
+    <tgi:callback tgi:name="getRemapStatePortIDs" tgi:group="Remap Operations">
+        <tgi:description>list of remap port IDs of a remap state</tgi:description>
+        <tgi:output tgi:argName="remapStatePortIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="remapStateID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRemapStatePortPortID" tgi:group="Remap Operations">
+        <tgi:description>port ID for the remap state</tgi:description>
+        <tgi:output tgi:argName="portID"/>
+        <tgi:input tgi:argName="remapStatePortID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRemapStatePortPortIndex" tgi:group="Remap Operations">
+        <tgi:description>index of the port if a vector for the remap state</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="remapStatePortID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getRemapStatePortPortValue" tgi:group="Remap Operations">
+        <tgi:description>value of the port for the remap state</tgi:description>
+        <tgi:output tgi:argName="spiritNumberTypeValue" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:input tgi:argName="remapStatePortID"/>
+    </tgi:callback>
+    <!-- ADDRESS OPERATIONS -->
+    <tgi:callback tgi:name="getAddressSpaceRange" tgi:group="Address Map Operations" tgi:config="true">
+        <tgi:description>the address range of an address block expressed as the number of accessable and addressable units.</tgi:description>
+        <tgi:output tgi:argName="range" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="addressSpaceID"/>
+            <tgi:compatibleArgs tgi:argName="addressSpaceUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAddressSpaceWidth" tgi:group="Address Map Operations" tgi:config="true">
+        <tgi:description>the bit width of an address block.</tgi:description>
+        <tgi:output tgi:argName="width" tgi:argType="xsd:nonNegativeInteger"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="addressSpaceID"/>
+            <tgi:compatibleArgs tgi:argName="addressSpaceUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAddressSpaceLocalMemoryMapID" tgi:group="Address Map Operations">
+        <tgi:description>the ID for the local memory map of the address space.</tgi:description>
+        <tgi:output tgi:argName="localMemoryMapID"/>
+        <tgi:input tgi:argName="addressSpaceID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAddressSpaceSegmentIDs" tgi:group="Address Map Operations">
+        <tgi:description>list of IDs for address block segments for the address space.</tgi:description>
+        <tgi:output tgi:argName="segmentIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="addressSpaceID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getSegmentAddressOffset" tgi:group="Address Map Operations" tgi:config="true">
+        <tgi:description>the address offset of an address space segment in an address space</tgi:description>
+        <tgi:output tgi:argName="addressOffset" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="segmentID"/>
+            <tgi:compatibleArgs tgi:argName="segmentUID"/>
+        </tgi:input>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="setSegmentAddressOffset" tgi:group="Address Map Operations">
+        <tgi:description>set the address offset of an address space segment expressed in the number addressable units.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:integer"/>
+        <tgi:input tgi:argName="segmentID"/>
+        <tgi:input tgi:argName="addressOffset" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getSegmentRange" tgi:group="Address Map Operations" tgi:config="true">
+        <tgi:description>the address range of an address space segment expressed as the number of accessable addressable units.</tgi:description>
+        <tgi:output tgi:argName="range" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="segmentID"/>
+            <tgi:compatibleArgs tgi:argName="segmentUID"/>
+        </tgi:input>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="setSegmentRange" tgi:group="Address Map Operations">
+        <tgi:description>set the address range of an address space segment expressed as the number of accessable addressable units.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:integer"/>
+        <tgi:input tgi:argName="segmentID"/>
+        <tgi:input tgi:argName="range" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAddressSpaceAddressUnitBits" tgi:group="Address Map Operations">
+        <tgi:description>the number bits in an addressable unit.  If none exists, the default 8 bits is returned.</tgi:description>
+        <tgi:output tgi:argName="addressUnitBits" tgi:argType="xsd:positiveInteger"/>
+        <tgi:input tgi:argName="addressSpaceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getExecutableImageIDs" tgi:group="Address Map Operations">
+        <tgi:description>the IDs of the executable images belonging to the specified address space.</tgi:description>
+        <tgi:output tgi:argName="executableImageIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="addressSpaceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getExecutableImageType" tgi:group="Address Map Operations">
+        <tgi:description>the type of the executable image if existent.</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="executableImageID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getExecutableImageLinkerCommand" tgi:group="Address Map Operations" tgi:config="true">
+        <tgi:description>the linker command for the current executable image.</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="executableImageID"/>
+            <tgi:compatibleArgs tgi:argName="executableImageUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getExecutableImageLinkerFlags" tgi:group="Address Map Operations" tgi:config="true">
+        <tgi:description>the flags of the current executable image linker command.</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="executableImageID"/>
+            <tgi:compatibleArgs tgi:argName="executableImageUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getExecutableImageLinkerCommandFileID" tgi:group="Address Map Operations">
+        <tgi:description>element ID of linkerCommandFile associated with given executable image.</tgi:description>
+        <tgi:output tgi:argName="linkerCommandFileID"/>
+        <tgi:input tgi:argName="executableImageID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getExecutableImageFileBuilderIDs" tgi:group="Address Map Operations">
+        <tgi:description>list of default file builder IDs of the executable image</tgi:description>
+        <tgi:output tgi:argName="fileBuilderIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="executableImageID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getExecutableImageFileSetIDs" tgi:group="Address Map Operations">
+        <tgi:description>the group of file set reference IDs complying with the tool set of the current executable image.</tgi:description>
+        <tgi:output tgi:argName="fileSetIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="executableImageID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getLinkerCommandFileName" tgi:group="Address Map Operations" tgi:config="true">
+        <tgi:description>the name of the linker command file.</tgi:description>
+        <tgi:output tgi:argName="fileName" tgi:argType="spirit:spiritURI"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="linkerCommandFileID"/>
+            <tgi:compatibleArgs tgi:argName="linkerCommandFileUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getLinkerCommandFileLineSwitch" tgi:group="Address Map Operations" tgi:config="true">
+        <tgi:description>the command line switch to specify with the linker command file.</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="linkerCommandFileID"/>
+            <tgi:compatibleArgs tgi:argName="linkerCommandFileUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getLinkerCommandFileEnable" tgi:group="Address Map Operations" tgi:config="true">
+        <tgi:description>indicates whether or not to generate and enable the linker command file.</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="linkerCommandFileID"/>
+            <tgi:compatibleArgs tgi:argName="linkerCommandFileUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getLinkerCommandGeneratorIDs" tgi:group="Address Map Operations">
+        <tgi:description>reference IDs to the generator elements for generating the linker command file.</tgi:description>
+        <tgi:output tgi:argName="generatorIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="linkerCommandFileID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getMemoryMapElementIDs" tgi:group="Address Map Operations">
+        <tgi:description>List of element IDs (addressBlockID, bankID, subspaceMapID) within a memory map, memory remap, local memory map, or bank</tgi:description>
+        <tgi:output tgi:argName="memoryMapElementIDs" tgi:argType="spirit:soapStringArrayType">
+            <tgi:compatibleArgs tgi:argName="addressBlockID"/>
+            <tgi:compatibleArgs tgi:argName="bankID"/>
+            <tgi:compatibleArgs tgi:argName="subspaceMapID"/>
+        </tgi:output>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="localMemoryMapID"/>
+            <tgi:compatibleArgs tgi:argName="bankID"/>
+            <tgi:compatibleArgs tgi:argName="memoryMapID"/>
+            <tgi:compatibleArgs tgi:argName="memoryRemapID"/>
+        </tgi:input>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getMemoryMapElementType" tgi:group="Address Map Operations">
+        <tgi:description>Indicates type of memory map element: addressBlock, bank or subspaceMap</tgi:description>
+        <tgi:output tgi:argName="type">
+            <tgi:description>The return value is one of "addressBlock", "bank", "subspaceMap" or "" for unknown</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="memoryMapElementID">
+            <tgi:compatibleArgs tgi:argName="addressBlockID"/>
+            <tgi:compatibleArgs tgi:argName="bankID"/>
+            <tgi:compatibleArgs tgi:argName="subspaceMapID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getMemoryMapAddressUnitBits" tgi:group="Address Map Operations">
+        <tgi:description>the number bits in an addressable unit for a memory map.  If none exists, the default 8 bits is returned.</tgi:description>
+        <tgi:output tgi:argName="addressUnitBits" tgi:argType="xsd:positiveInteger"/>
+        <tgi:input tgi:argName="memoryMapID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAddressBlockBaseAddress" tgi:group="Address Map Operations" tgi:config="true">
+        <tgi:description>the base address of an address block</tgi:description>
+        <tgi:output tgi:argName="baseAddress" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="addressBlockID"/>
+            <tgi:compatibleArgs tgi:argName="addressBlockUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAddressBlockRange" tgi:group="Address Map Operations" tgi:config="true">
+        <tgi:description>the address range of an address block expressed as the number of accessable and addressable units.</tgi:description>
+        <tgi:output tgi:argName="range" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="addressBlockID"/>
+            <tgi:compatibleArgs tgi:argName="addressBlockUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAddressBlockWidth" tgi:group="Address Map Operations" tgi:config="true">
+        <tgi:description>the bit width of an address block in the local memory map.</tgi:description>
+        <tgi:output tgi:argName="width" tgi:argType="xsd:nonNegativeInteger"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="addressBlockID"/>
+            <tgi:compatibleArgs tgi:argName="addressBlockUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAddressBlockUsage" tgi:group="Address Map Operations">
+        <tgi:description>indicates the usage of this address block.</tgi:description>
+        <tgi:output tgi:argName="usage">
+	  <tgi:description>one of "memory", "register", "reserved" or "" if not set.</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="addressBlockID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAddressBlockVolatility" tgi:group="Address Map Operations">
+        <tgi:description>indicates whether or not the data is volatile.</tgi:description>
+        <tgi:output tgi:argName="value">
+	  <tgi:description>returns "true", "false" or "".</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="addressBlockID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAddressBlockAccess" tgi:group="Address Map Operations">
+        <tgi:description>the accessibility of the data in the local address block.</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="addressBlockID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAddressBlockRegisterIDs" tgi:group="Address Map Operations">
+        <tgi:description>the IDs of the available registers in the address block.</tgi:description>
+        <tgi:output tgi:argName="registerIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="addressBlockID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAddressBlockRegisterFileIDs" tgi:group="Address Map Operations">
+        <tgi:description>the IDs of the available register files in the address block.</tgi:description>
+        <tgi:output tgi:argName="registerFileIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="addressBlockID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getTypeIdentifier" tgi:group="Address Map Operations">
+        <tgi:description>indicates the type identifier of an addressBlock, registerFile, register or field.</tgi:description>
+        <tgi:output tgi:argName="identifier"/>
+	<tgi:input tgi:argName="elementID">
+	    <tgi:compatibleArgs tgi:argName="addressBlockID"/>
+	    <tgi:compatibleArgs tgi:argName="registerFileID"/>
+	    <tgi:compatibleArgs tgi:argName="registerID"/>
+	    <tgi:compatibleArgs tgi:argName="alternateRegisterID"/>
+	    <tgi:compatibleArgs tgi:argName="regFieldID"/>
+	</tgi:input>
+	<tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBankAlignment" tgi:group="Address Map Operations">
+        <tgi:description>the bank alignment value, serial or parallel</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="bankID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBankBaseAddress" tgi:group="Address Map Operations" tgi:config="true">
+        <tgi:description>the base address of an address bank</tgi:description>
+        <tgi:output tgi:argName="value" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="bankID"/>
+            <tgi:compatibleArgs tgi:argName="bankUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBankUsage" tgi:group="Address Map Operations">
+        <tgi:description>indicates the usage of this address bank.</tgi:description>
+        <tgi:output tgi:argName="usage"/>
+        <tgi:input tgi:argName="bankID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBankVolatility" tgi:group="Address Map Operations">
+        <tgi:description>indicates whether or not the data is volatile.</tgi:description>
+        <tgi:output tgi:argName="value">
+	  <tgi:description>returns "true", "false" or "".</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="bankID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBankAccess" tgi:group="Address Map Operations">
+        <tgi:description>the accessibility of the data in the local address bank.</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="bankID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getSubspaceMapMasterID" tgi:group="Address Map Operations">
+        <tgi:description>master bus interface ID on the other side of a bus bridge .</tgi:description>
+        <tgi:output tgi:argName="interfaceID"/>
+        <tgi:input tgi:argName="subspaceMapID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getSubspaceMapSegmentID" tgi:group="Address Map Operations">
+        <tgi:description>address space segment ID on the other side of a bus bridge .</tgi:description>
+        <tgi:output tgi:argName="segmentID"/>
+        <tgi:input tgi:argName="subspaceMapID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getSubspaceMapBaseAddress" tgi:group="Address Map Operations" tgi:config="true">
+        <tgi:description>the base address of a memory subspace</tgi:description>
+        <tgi:output tgi:argName="value" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="subspaceMapID"/>
+            <tgi:compatibleArgs tgi:argName="subspaceMapUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getComponentMemoryMapIDs" tgi:group="Component Operations">
+        <tgi:description>List of IDs for memory map elements in the given component</tgi:description>
+        <tgi:output tgi:argName="memoryMapIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="componentID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getMemoryMapRemapElementIDs" tgi:group="Address Map Operations">
+        <tgi:description>List of IDs for memory map 'remap' elements of the given memory map</tgi:description>
+        <tgi:output tgi:argName="memoryRemapIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="memoryMapID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getMemoryRemapStateID" tgi:group="Address Map Operations">
+        <tgi:description>Remap State ID for which this remap is applicable</tgi:description>
+        <tgi:output tgi:argName="remapStateID"/>
+        <tgi:input tgi:argName="memoryRemapID"/>
+    </tgi:callback>
+    <!-- VIEW OPERATIONS -->
+    <tgi:callback tgi:name="getViewDesignID" tgi:group="View Operations">
+        <tgi:description>ID of the design associated with a hierarchical view</tgi:description>
+        <tgi:output tgi:argName="designID"/>
+        <tgi:input tgi:argName="viewID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getViewEnvIdentifiers" tgi:group="View Operations">
+        <tgi:description>list of environment identifiers of the view</tgi:description>
+        <tgi:output tgi:argName="envIdentifiersValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="viewID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getViewLanguage" tgi:group="View Operations">
+        <tgi:description>view Language</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="viewID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getViewLanguageIsStrict" tgi:group="View Operations">
+        <tgi:description>value of 'strict' attribute on view language element</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="viewID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getViewModelName" tgi:group="View Operations">
+        <tgi:description>get the model name for this view</tgi:description>
+        <tgi:output tgi:argName="modelName"/>
+        <tgi:input tgi:argName="viewID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getViewDefaultFileBuilderIDs" tgi:group="View Operations">
+        <tgi:description>list of default file builder IDs of the view</tgi:description>
+        <tgi:output tgi:argName="fileBuilderIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="viewID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getViewFileSetIDs" tgi:group="View Operations">
+        <tgi:description>list of fileSet IDs for fileSets referenced by the view</tgi:description>
+        <tgi:output tgi:argName="fileSetIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="viewID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getViewPortConstraintSetIDs" tgi:group="View Operations">
+        <tgi:description>constraint set ID for the port referenced by the view</tgi:description>
+        <tgi:output tgi:argName="portConstraintSetIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="portID"/>
+        <tgi:input tgi:argName="viewID"/>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getViewWhiteboxElementRefIDs" tgi:group="View Operations">
+        <tgi:description>list of whitebox element reference IDs of the view</tgi:description>
+        <tgi:output tgi:argName="whiteboxRefIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="viewID"/>
+    </tgi:callback>
+    <!-- PORT OPERATIONS -->
+    <tgi:callback tgi:name="getPortStyle" tgi:group="Port Operations">
+        <tgi:description>Returns 'wire' or 'transactional' to indicate the port style</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="portID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAllLogicalDirectionsAllowed" tgi:group="Port Operations">
+        <tgi:description>get the value of the allLogicalDirectionAllowed attribute</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="portID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortDirection" tgi:group="Port Operations">
+        <tgi:description>direction of the port</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="portID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortRange" tgi:group="Port Operations">
+        <tgi:description>list of the left and right range of the port</tgi:description>
+        <tgi:output tgi:argName="integerArrayValue" tgi:argType="spirit:integerArrayType">
+          <tgi:description>array of left and right or zero element array if not specified</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="portID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortWireTypeDefIDs" tgi:group="Port Operations">
+        <tgi:description>list of typeDefs for a wire portID</tgi:description>
+        <tgi:output tgi:argName="wireTypeDefIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="portID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortTransactionalTypeDefID" tgi:group="Port Operations">
+        <tgi:description>the type definition for a transactional portID</tgi:description>
+        <tgi:output tgi:argName="transactionalTypeDefID"/>
+        <tgi:input tgi:argName="portID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortServiceID" tgi:group="Port Operations">
+        <tgi:description>ID of element representing the service of a transactional port</tgi:description>
+        <tgi:output tgi:argName="serviceID"/>
+        <tgi:input tgi:argName="portID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortAccessType" tgi:group="Port Operations">
+        <tgi:description>indicates the access type for this port</tgi:description>
+        <tgi:output tgi:argName="accessType"/>
+        <tgi:input tgi:argName="portID"/>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortAccessHandle" tgi:group="Port Operations">
+        <tgi:description>Alternate name to be used when accessing this port</tgi:description>
+        <tgi:output tgi:argName="accessHandle"/>
+        <tgi:input tgi:argName="portID"/>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortMaxAllowedConnections" tgi:group="Port Operations">
+        <tgi:description>max allowed connections for this transactional port</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="portID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortMinAllowedConnections" tgi:group="Port Operations">
+        <tgi:description>min allowed connections for this transactional port</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="portID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortDefaultValue" tgi:group="Port Operations" tgi:config="true">
+        <tgi:description>default value of the port, if not set returns ""</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="portID"/>
+            <tgi:compatibleArgs tgi:argName="portUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortClockDriverID" tgi:group="Port Operations">
+        <tgi:description>element ID of clock driver element, if present</tgi:description>
+        <tgi:output tgi:argName="clockDriverID"/>
+        <tgi:input tgi:argName="portID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getClockDriverPeriod" tgi:group="Port Operations" tgi:config="true">
+        <tgi:description>clock period of the given clock</tgi:description>
+        <tgi:output tgi:argName="floatValue" tgi:argType="xsd:float"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="clockDriverID"/>
+            <tgi:compatibleArgs tgi:argName="clockDriverUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getClockDriverPeriodUnits" tgi:group="Port Operations">
+        <tgi:description>units of the clock period of the given clock</tgi:description>
+        <tgi:output tgi:argName="units"/>
+        <tgi:input tgi:argName="clockDriverID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getClockDriverPulseOffset" tgi:group="Port Operations" tgi:config="true">
+        <tgi:description>clock pulse offset of the given clock</tgi:description>
+        <tgi:output tgi:argName="floatValue" tgi:argType="xsd:float"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="clockDriverID"/>
+            <tgi:compatibleArgs tgi:argName="clockDriverUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getClockDriverPulseOffsetUnits" tgi:group="Port Operations">
+        <tgi:description>units of the clock pulse offset of the given clock</tgi:description>
+        <tgi:output tgi:argName="units"/>
+        <tgi:input tgi:argName="clockDriverID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getClockDriverPulseValue" tgi:group="Port Operations" tgi:config="true">
+        <tgi:description>clock pulse value of the given clock</tgi:description>
+        <tgi:output tgi:argName="spiritNumberTypeValue" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="clockDriverID"/>
+            <tgi:compatibleArgs tgi:argName="clockDriverUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getClockDriverPulseDuration" tgi:group="Port Operations" tgi:config="true">
+        <tgi:description>clock period of the given clock</tgi:description>
+        <tgi:output tgi:argName="floatValue" tgi:argType="xsd:float"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="clockDriverID"/>
+            <tgi:compatibleArgs tgi:argName="clockDriverUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getClockDriverPulseDurationUnits" tgi:group="Port Operations">
+        <tgi:description>units of the clock pulse duration of the given clock</tgi:description>
+        <tgi:output tgi:argName="units"/>
+        <tgi:input tgi:argName="clockDriverID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getClockDriverName" tgi:group="Port Operations">
+        <tgi:description>name of the clock driver</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="clockDriverID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getClockDriverSource" tgi:group="Port Operations">
+        <tgi:description>source name of the clock driver</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="clockDriverID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortSingleShotDriverID" tgi:group="Port Operations">
+        <tgi:description>element ID of single shot driver element, if present</tgi:description>
+        <tgi:output tgi:argName="singleShotDriverID"/>
+        <tgi:input tgi:argName="portID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortSingleShotPulseOffset" tgi:group="Port Operations" tgi:config="true">
+        <tgi:description>clock pulse offset of the port</tgi:description>
+        <tgi:output tgi:argName="floatValue" tgi:argType="xsd:float"/>
+        <tgi:input tgi:argName="singleShotDriverID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortSingleShotPulseValue" tgi:group="Port Operations" tgi:config="true">
+        <tgi:description>clock pulse value of the port</tgi:description>
+        <tgi:output tgi:argName="spiritNumberTypeValue" tgi:argType="spirit:spiritNumberType"/>
+        <tgi:input tgi:argName="singleShotDriverID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortSingleShotPulseDuration" tgi:group="Port Operations" tgi:config="true">
+        <tgi:description>clock period of the port</tgi:description>
+        <tgi:output tgi:argName="floatValue" tgi:argType="xsd:float"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="singleShotDriverID"/>
+            <tgi:compatibleArgs tgi:argName="singleShotDriverUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortConstraintSetIDs" tgi:group="Port Operations">
+        <tgi:description>list of constraint sets IDs of the port</tgi:description>
+        <tgi:output tgi:argName="portConstraintSetIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="portID"/>
+    </tgi:callback>
+    <!-- TYPEDEF OPERATIONS -->
+    <tgi:callback tgi:name="getTypeDefTypeName" tgi:group="TypeDef Operations">
+        <tgi:description>name of the type</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="wireTypeDefID"/>
+            <tgi:compatibleArgs tgi:argName="transactionalTypeDefID"/>
+            <tgi:compatibleArgs tgi:argName="serviceTypeDefID"/>
+            <tgi:compatibleArgs tgi:argName="abstractionServiceTypeDefID"/>
+        </tgi:input>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getTypeDefConstrained" tgi:group="TypeDef Operations">
+        <tgi:description>is the type name constrained</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="wireTypeDefID"/>
+            <tgi:compatibleArgs tgi:argName="transactionalTypeDefID"/>
+            <tgi:compatibleArgs tgi:argName="serviceTypeDefID"/>
+        </tgi:input>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getTypeDefImplicit" tgi:group="TypeDef Operations">
+        <tgi:description>is the type name implicit</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="serviceTypeDefID"/>
+            <tgi:compatibleArgs tgi:argName="abstractionServiceTypeDefID"/>
+        </tgi:input>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getTypeDefTypeDefinitions" tgi:group="TypeDef Operations">
+        <tgi:description>list of type definition for the given type</tgi:description>
+        <tgi:output tgi:argName="typeDefinitions" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="wireTypeDefID"/>
+            <tgi:compatibleArgs tgi:argName="transactionalTypeDefID"/>
+            <tgi:compatibleArgs tgi:argName="serviceTypeDefID"/>
+        </tgi:input>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getTypeDefTypeViewIDs" tgi:group="TypeDef Operations">
+        <tgi:description>list of type viewIDs for the given type</tgi:description>
+        <tgi:output tgi:argName="viewIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="wireTypeDefID"/>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <!-- SERVICE OPERATIONS -->
+    <tgi:callback tgi:name="getAbstractionDefServiceInitiative" tgi:group="Service Operations">
+        <tgi:description>port service initiative from the abstraction definition</tgi:description>
+        <tgi:output tgi:argName="initiative"/>
+        <tgi:input tgi:argName="abstractionServiceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefServiceIDs" tgi:group="Service Operations">
+        <tgi:description>list of typeDefs for an abstractionServiceID</tgi:description>
+        <tgi:output tgi:argName="typeDefIDs"/>
+        <tgi:input tgi:argName="abstractionServiceID"/>
+        <tgi:compatibilityChange tgi:modificationType="invalid">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefAbstractionServiceTypeDefIDs" tgi:group="Service Operations">
+        <tgi:description>list of type definitions for an abstractionServiceID</tgi:description>
+        <tgi:output tgi:argName="abstractionServiceTypeDefIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="abstractionServiceID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getServiceInitiative" tgi:group="Service Operations">
+        <tgi:description>initiative of the service</tgi:description>
+        <tgi:output tgi:argName="initiative"/>
+        <tgi:input tgi:argName="serviceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getServiceTypeDefIDs" tgi:group="Service Operations">
+        <tgi:description>list of typeDefs for a serviceID</tgi:description>
+        <tgi:output tgi:argName="serviceTypeDefIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="serviceID"/>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <!-- CONSTRAINT OPERATIONS -->
+    <tgi:callback tgi:name="getPortConstraintSetReferenceName" tgi:group="Constraint Operations">
+        <tgi:description>reference name of the given port constraint set</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="portConstraintSetID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortConstraintSetRange" tgi:group="Constraint Operations">
+        <tgi:description>list of the left and right range of a port referenced by this constraint set</tgi:description>
+        <tgi:output tgi:argName="integerArrayValue" tgi:argType="spirit:integerArrayType"/>
+        <tgi:input tgi:argName="portConstraintSetID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortConstraintSetDriveConstraintIDs" tgi:group="Constraint Operations">
+        <tgi:description>list of drive constraint IDs of the port</tgi:description>
+        <tgi:output tgi:argName="driveConstraintIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="portConstraintSetID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortConstraintSetLoadConstraintIDs" tgi:group="Constraint Operations">
+        <tgi:description>list of load constraint IDs of the port</tgi:description>
+        <tgi:output tgi:argName="loadConstraintIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="portConstraintSetID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getPortConstraintSetTimingConstraintIDs" tgi:group="Constraint Operations">
+        <tgi:description>list of timing constraint IDs of the port</tgi:description>
+        <tgi:output tgi:argName="timingConstraintIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="portConstraintSetID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getDriveConstraintType" tgi:group="Constraint Operations">
+        <tgi:description>indicates the type of drive constraint: function class</tgi:description>
+        <tgi:output tgi:argName="driveConstraintTypeValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="driveConstraintID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getDriveConstraintValue" tgi:group="Constraint Operations">
+        <tgi:description>Returns the drive constraint. Format depends on the constraint type.</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="driveConstraintID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getLoadConstraintType" tgi:group="Constraint Operations">
+        <tgi:description>indicates the type of load constraint: function class</tgi:description>
+        <tgi:output tgi:argName="loadConstraintTypeValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="loadConstraintID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getLoadConstraintValue" tgi:group="Constraint Operations">
+        <tgi:description>Returns the load constraint. Format is cell function and strength or cell class and strength.</tgi:description>
+        <tgi:output tgi:argName="value" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="loadConstraintID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getLoadConstraintCount" tgi:group="Constraint Operations">
+        <tgi:description>Returns the load constraint count, the number of loads.</tgi:description>
+        <tgi:output tgi:argName="value" tgi:argType="xsd:integer"/>
+        <tgi:input tgi:argName="loadConstraintID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getTimingConstraintClockDetails" tgi:group="Constraint Operations">
+        <tgi:description>indicates the clock name, clock edge, and delay type</tgi:description>
+        <tgi:output tgi:argName="clockDetailsValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="timingConstraintID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getTimingConstraintValue" tgi:group="Constraint Operations">
+        <tgi:description>Returns the timing constraint value (cycle time percentage).</tgi:description>
+        <tgi:output tgi:argName="floatValue" tgi:argType="xsd:float"/>
+        <tgi:input tgi:argName="timingConstraintID"/>
+    </tgi:callback>
+    <!-- FILE and FILESET OPERATIONS -->
+    <tgi:callback tgi:name="getFileName" tgi:group="File and Fileset Operations" tgi:config="true">
+        <tgi:description>Get name of the given fileID.</tgi:description>
+        <tgi:output tgi:argName="name"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="fileID"/>
+            <tgi:compatibleArgs tgi:argName="fileUID"/>
+        </tgi:input>
+        <tgi:input tgi:argName="resolve" tgi:argType="xsd:boolean">
+            <tgi:description>True=DE shall return an absolute file path, False=actual XML text returned</tgi:description>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileBuilderFileType" tgi:group="File and Fileset Operations">
+        <tgi:description>fileType or userFileType of the file builder</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="fileBuilderID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileBuilderCommand" tgi:group="File and Fileset Operations" tgi:config="true">
+        <tgi:description>command of the file builder</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="fileBuilderID"/>
+            <tgi:compatibleArgs tgi:argName="fileBuilderUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileBuilderFlags" tgi:group="File and Fileset Operations" tgi:config="true">
+        <tgi:description>flags of the file builder</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="fileBuilderID"/>
+            <tgi:compatibleArgs tgi:argName="fileBuilderUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileBuilderReplaceDefaultFlags" tgi:group="File and Fileset Operations" tgi:config="true">
+        <tgi:description>value of the replaceDefaultFlags element of the file builder</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="fileBuilderID"/>
+            <tgi:compatibleArgs tgi:argName="fileBuilderUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileSetGroups" tgi:group="File and Fileset Operations">
+        <tgi:description>list of group names of the file set</tgi:description>
+        <tgi:output tgi:argName="fileSetGroupsValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="fileSetID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileSetFileIDs" tgi:group="File and Fileset Operations">
+        <tgi:description>list of file IDs of the file set</tgi:description>
+        <tgi:output tgi:argName="fileIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="fileSetID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileType" tgi:group="File and Fileset Operations">
+        <tgi:description>fileType or userFileType  of the file</tgi:description>
+        <tgi:output tgi:argName="value" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="fileID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileIsIncludeFile" tgi:group="File and Fileset Operations">
+        <tgi:description>indicates that the given file is an include file</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="fileID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileHasExternalDeclarations" tgi:group="File and Fileset Operations">
+        <tgi:description>indicates that the file includes external declarations required by the top-level netlist file</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="fileID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileLogicalName" tgi:group="File and Fileset Operations">
+        <tgi:description>logical name of the file</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="fileID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileLogicalNameDefault" tgi:group="File and Fileset Operations">
+        <tgi:description>default attribute of logical name of the file</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="fileID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileExportedNames" tgi:group="File and Fileset Operations">
+        <tgi:description>list of exported names of the file</tgi:description>
+        <tgi:output tgi:argName="exportedNamesValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="fileID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileBuildCommandName" tgi:group="File and Fileset Operations" tgi:config="true">
+        <tgi:description>name of the build command of the file</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="fileID"/>
+            <tgi:compatibleArgs tgi:argName="fileUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileBuildCommandFlags" tgi:group="File and Fileset Operations" tgi:config="true">
+        <tgi:description>flags of the file build command</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="fileID"/>
+            <tgi:compatibleArgs tgi:argName="fileUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileBuildCommandFlagsIsAppend" tgi:group="File and Fileset Operations">
+        <tgi:description>value of append attribute on the flag element</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="fileID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileBuildCommandReplaceDefaultFlags" tgi:group="File and Fileset Operations" tgi:config="true">
+        <tgi:description>indicates whether or not to replace default flags</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="fileID"/>
+            <tgi:compatibleArgs tgi:argName="fileUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileBuildCommandTargetName" tgi:group="File and Fileset Operations" tgi:config="true">
+        <tgi:description>target name of the file build command</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="fileID"/>
+            <tgi:compatibleArgs tgi:argName="fileUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileDependencies" tgi:group="File and Fileset Operations">
+        <tgi:description>list of dependent locations for the file, typically directories</tgi:description>
+        <tgi:output tgi:argName="fileDependencyValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="fileID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileDefineSymbolIDs" tgi:group="File and Fileset Operations">
+        <tgi:description>list of define symbol IDs used in the file</tgi:description>
+        <tgi:output tgi:argName="fileDefineIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="fileID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileImageTypes" tgi:group="File and Fileset Operations">
+        <tgi:description>list of image types of the file</tgi:description>
+        <tgi:output tgi:argName="fileImageTypesValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="fileID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileSetFileBuilderIDs" tgi:group="File and Fileset Operations">
+        <tgi:description>list of file builder IDs used for this fileSet</tgi:description>
+        <tgi:output tgi:argName="fileBuilderIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="fileSetID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileSetDependencies" tgi:group="File and Fileset Operations">
+        <tgi:description>list of dependent locations for the fileSet, typically directories</tgi:description>
+        <tgi:output tgi:argName="fileDependencyValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="fileSetID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFileSetFunctionIDs" tgi:group="File and Fileset Operations">
+        <tgi:description>list of function IDs</tgi:description>
+        <tgi:output tgi:argName="functionIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="fileSetID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFunctionReplicate" tgi:group="File and Fileset Operations">
+        <tgi:description>value of replicate attribute on function element</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="functionID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFunctionEntryPoint" tgi:group="File and Fileset Operations">
+        <tgi:description>entry point of the function</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="functionID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFunctionFileID" tgi:group="File and Fileset Operations">
+        <tgi:description>file ID containing the function entry point</tgi:description>
+        <tgi:output tgi:argName="fileID"/>
+        <tgi:input tgi:argName="functionID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFunctionReturnType" tgi:group="File and Fileset Operations">
+        <tgi:description>return type of the function</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="functionID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFunctionArgumentIDs" tgi:group="File and Fileset Operations">
+        <tgi:description>list of argument IDs of the function of the file set</tgi:description>
+        <tgi:output tgi:argName="argumentIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="functionID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFunctionArgumentDataType" tgi:group="File and Fileset Operations">
+        <tgi:description>data type of the argument</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="argumentID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFunctionDisabled" tgi:group="File and Fileset Operations" tgi:config="true">
+        <tgi:description>indicates whether or not the function is disabled</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="functionID"/>
+            <tgi:compatibleArgs tgi:argName="functionUID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFunctionSourceFileIDs" tgi:group="File and Fileset Operations">
+        <tgi:description>list of source file IDs of the function of the file set</tgi:description>
+        <tgi:output tgi:argName="functionSourceFileIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="functionID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFunctionSourceFileName" tgi:group="File and Fileset Operations">
+        <tgi:description>name of the source file</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="functionSourceFileID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getFunctionSourceFileType" tgi:group="File and Fileset Operations">
+        <tgi:description>fileType or userFileType of the source file</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="functionSourceFileID"/>
+    </tgi:callback>
+    <!-- WHITEBOX OPERATIONS -->
+    <tgi:callback tgi:name="getWhiteboxElementRefID" tgi:group="Whitebox Operations">
+        <tgi:description>white box element reference ID</tgi:description>
+        <tgi:output tgi:argName="whiteboxElementID"/>
+        <tgi:input tgi:argName="whiteboxRefID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getWhiteboxRefPathIDs" tgi:group="Whitebox Operations">
+        <tgi:description>list of path IDs of the white box element reference</tgi:description>
+        <tgi:output tgi:argName="whiteboxRefPathIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="whiteboxRefID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getWhiteboxRefPathName" tgi:group="Whitebox Operations">
+        <tgi:description>Name of the whitebox reference path element</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="whiteboxRefPathID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getWhiteboxRefPathRange" tgi:group="Whitebox Operations">
+        <tgi:description>list of left and right range of the whitebox reference path element</tgi:description>
+        <tgi:output tgi:argName="nonNegativeIntegerArrayValue" tgi:argType="spirit:nonNegativeIntegerArrayType"/>
+        <tgi:input tgi:argName="whiteboxRefPathID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getWhiteboxElementType" tgi:group="Whitebox Operations">
+        <tgi:description>type of the whitebox element</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="whiteboxElementID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getWhiteboxElementDrivable" tgi:group="Whitebox Operations">
+        <tgi:description>indicates whether or not the whitebox element is drivable</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="whiteboxElementID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getWhiteboxElementRegisterID" tgi:group="Whitebox Operations">
+        <tgi:description>register reference ID of the whitebox element</tgi:description>
+        <tgi:output tgi:argName="registerIDs"/>
+        <tgi:input tgi:argName="whiteboxElementID"/>
+        <tgi:compatibilityChange tgi:modificationType="invalid">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getWhiteboxElementRegisterIDs" tgi:group="Whitebox Operations">
+        <tgi:description>register reference IDs of the whitebox element</tgi:description>
+        <tgi:output tgi:argName="registerIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="whiteboxElementID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <!-- GENERATOR OPERATIONS -->
+    <tgi:callback tgi:name="getGeneratorScope" tgi:group="Generator Operations">
+        <tgi:description>scope of the generator</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="generatorID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getGeneratorIsHidden" tgi:group="Generator Operations">
+        <tgi:description>value of hidden attribute on the generator</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="generatorID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getGeneratorPhase" tgi:group="Generator Operations">
+        <tgi:description>phase number of the generator</tgi:description>
+        <tgi:output tgi:argName="floatValue" tgi:argType="xsd:float"/>
+        <tgi:input tgi:argName="generatorID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getGeneratorApiType" tgi:group="Generator Operations">
+        <tgi:description>api type of the generator</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="generatorID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getGeneratorExecutable" tgi:group="Generator Operations">
+        <tgi:description>executable name associated with the generator  </tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="generatorID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getGeneratorGroups" tgi:group="Generator Operations">
+        <tgi:description>List of group names of the generator</tgi:description>
+        <tgi:output tgi:argName="generatorGroupValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="generatorID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getGeneratorTransportMethods" tgi:group="Generator Operations">
+        <tgi:description>list of transport methods of the generator</tgi:description>
+        <tgi:output tgi:argName="transportValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="generatorID"/>
+    </tgi:callback>
+    <!-- BUS DEFINITION OPERATIONS -->
+    <tgi:callback tgi:name="getBusDefinitionID" tgi:group="Bus Definition Operations">
+        <tgi:description>ID for the bus definition with the given VLNV</tgi:description>
+        <tgi:output tgi:argName="busdefID"/>
+        <tgi:input tgi:argName="vlnvValue" tgi:argType="spirit:soapStringArrayType"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBusDefinitionVLNV" tgi:group="Bus Definition Operations">
+        <tgi:description>Vendor Library Name Version of the bus definition</tgi:description>
+        <tgi:output tgi:argName="vlnvValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="busdefID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBusDefinitionDirectConnection" tgi:group="Bus Definition Operations">
+        <tgi:description>indicates whether or not the bus definition supports direct connections</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="busdefID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBusDefinitionIsAddressable" tgi:group="Bus Definition Operations">
+        <tgi:description>indicates whether or not the bus definition is an addressable bus</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="busdefID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBusDefinitionExtends" tgi:group="Bus Definition Operations">
+        <tgi:description>Vendor Library Name Version of the bus definition being extended</tgi:description>
+        <tgi:output tgi:argName="vlnvValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="busdefID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBusDefinitionMaxMasters" tgi:group="Bus Definition Operations">
+        <tgi:description>maximum # of masters supported by this bus definition</tgi:description>
+        <tgi:output tgi:argName="value" tgi:argType="xsd:integer">
+            <tgi:description>-1 indicates unbounded</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="busdefID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBusDefinitionMaxSlaves" tgi:group="Bus Definition Operations">
+        <tgi:description>maximum # of slaves supported by this bus definition</tgi:description>
+        <tgi:output tgi:argName="value" tgi:argType="xsd:integer">
+            <tgi:description>-1 indicates unbounded</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="busdefID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getBusDefinitionSystemGroupNames" tgi:group="Bus Definition Operations">
+        <tgi:description>list of system group names for this bus definition</tgi:description>
+        <tgi:output tgi:argName="groupNames" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="busdefID"/>
+    </tgi:callback>
+    <!-- ABSTRACTION DEFINITION OPERATIONS -->
+    <tgi:callback tgi:name="getAbstractionDefID" tgi:group="Abstraction Definition Operations">
+        <tgi:description>ID for the abstraction definition with the given VLNV</tgi:description>
+        <tgi:output tgi:argName="abstractionDefID"/>
+        <tgi:input tgi:argName="vlnvValue" tgi:argType="spirit:soapStringArrayType"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefVLNV" tgi:group="Abstraction Definition Operations">
+        <tgi:description>Vendor Library Name Version of the abstraction definition</tgi:description>
+        <tgi:output tgi:argName="vlnvValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="abstractionDefID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefBusTypeVLNV" tgi:group="Abstraction Definition Operations">
+        <tgi:description>get VLNV of the bus definition</tgi:description>
+        <tgi:output tgi:argName="vlnvValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="abstractionDefID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefExtends" tgi:group="Abstraction Definition Operations">
+        <tgi:description>Vendor Library Name Version of the abstraction definition being extended</tgi:description>
+        <tgi:output tgi:argName="vlnvValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="abstractionDefID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortIDs" tgi:group="Abstraction Definition Operations">
+        <tgi:description>List of abstraction definition port element IDs</tgi:description>
+        <tgi:output tgi:argName="abstractionDefPortIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="abstractionDefID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortLogicalName" tgi:group="Abstraction Definition Operations">
+        <tgi:description>logical name of this abstraction definition port</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="abstractionDefPortID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortRequiresDriver" tgi:group="Abstraction Definition Operations">
+        <tgi:description>does this port require a driver</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="abstractionDefPortID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortRequiredDriverType" tgi:group="Abstraction Definition Operations">
+        <tgi:description>required driver type for this port</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="abstractionDefPortID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortStyle" tgi:group="Abstraction Definition Operations">
+        <tgi:description>Returns 'wire' or 'transactional' to indicate the port style</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="abstractionDefPortID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortIsAddress" tgi:group="Abstraction Definition Operations">
+        <tgi:description>is this port an address port</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="abstractionDefPortID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortIsData" tgi:group="Abstraction Definition Operations">
+        <tgi:description>is this port a data port</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="abstractionDefPortID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortIsClock" tgi:group="Abstraction Definition Operations">
+        <tgi:description>is this port a clock port</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="abstractionDefPortID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortIsReset" tgi:group="Abstraction Definition Operations">
+        <tgi:description>is this port a reset port</tgi:description>
+        <tgi:output tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="abstractionDefPortID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortModeID" tgi:group="Abstraction Definition Operations">
+	    <tgi:description>Returns an ID for accessing the given port in the given interface mode</tgi:description>
+	    <tgi:output tgi:argName="abstractionDefPortModeID" tgi:argType="spirit:soapStringArrayType"/>
+	    <tgi:input tgi:argName="modeValue">
+	      <tgi:description>modeValue should be one of master, slave or system</tgi:description>
+	    </tgi:input>
+	    <tgi:input tgi:argName="abstractionDefPortID"/>
+	<tgi:compatibilityChange tgi:modificationType="invalid">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortModeIDs" tgi:group="Abstraction Definition Operations">
+        <tgi:description>Returns an array of IDs for accessing the given port in the given interface mode. The array shall only contain one element if the modeValue input is master or slave. The array may contain multiple elements for modeValue system.</tgi:description>
+        <tgi:output tgi:argName="abstractionDefPortModeID" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="modeValue">
+            <tgi:description>modeValue should be one of master, slave or system</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="abstractionDefPortID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortModeGroup" tgi:group="Abstraction Definition Operations">
+        <tgi:description>group name when present on a system interface</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="abstractionDefPortModeID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortModeBitWidth" tgi:group="Abstraction Definition Operations">
+        <tgi:description>bit width constraint when present on an interface of the given type</tgi:description>
+        <tgi:output tgi:argName="nonNegativeIntegerValue" tgi:argType="xsd:nonNegativeInteger">
+            <tgi:description>a return value of 0 indicates unbounded</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="abstractionDefPortModeID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortModeDirection" tgi:group="Abstraction Definition Operations">
+        <tgi:description>port direction constraint when present on an interface of the given type</tgi:description>
+        <tgi:output tgi:argName="direction"/>
+        <tgi:input tgi:argName="abstractionDefPortModeID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortNonMirroredConstraintIDs" tgi:group="Abstraction Definition Operations">
+        <tgi:description>list of constraint IDs for a non-mirrored port</tgi:description>
+        <tgi:output tgi:argName="abstractionDefPortModeConstraintIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="abstractionDefPortModeID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortMirroredConstraintIDs" tgi:group="Abstraction Definition Operations">
+        <tgi:description>list of constraint IDs for a mirrored port</tgi:description>
+        <tgi:output tgi:argName="abstractionDefPortModeConstraintIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="abstractionDefPortModeID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortDriveConstraintIDs" tgi:group="Abstraction Definition Operations">
+        <tgi:description>list of drive constraint IDs of the port</tgi:description>
+        <tgi:output tgi:argName="driveConstraintIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="abstractionDefPortModeConstraintID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortLoadConstraintIDs" tgi:group="Abstraction Definition Operations">
+        <tgi:description>list of load constraint IDs of the port</tgi:description>
+        <tgi:output tgi:argName="loadConstraintIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="abstractionDefPortModeConstraintID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortTimingConstraintIDs" tgi:group="Abstraction Definition Operations">
+        <tgi:description>list of timing constraint IDs of the port</tgi:description>
+        <tgi:output tgi:argName="timingConstraintIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="abstractionDefPortModeConstraintID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortDefaultValue" tgi:group="Abstraction Definition Operations">
+        <tgi:description>default value for port when not connected</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="abstractionDefPortID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortModePresence" tgi:group="Abstraction Definition Operations">
+        <tgi:description>existence requirement for this port on an interface of the given type</tgi:description>
+        <tgi:output tgi:argName="presence"/>
+        <tgi:input tgi:argName="abstractionDefPortModeID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortModeServiceIDs" tgi:group="Abstraction Definition Operations">
+        <tgi:description>abstractionDef service IDs on a transactional port</tgi:description>
+        <tgi:output tgi:argName="abstractionServiceIDs"/>
+        <tgi:input tgi:argName="abstractionDefPortModeID"/>
+        <tgi:compatibilityChange tgi:modificationType="invalid">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getAbstractionDefPortModeServiceID" tgi:group="Abstraction Definition Operations">
+        <tgi:description>abstractionDef service ID on a transactional port</tgi:description>
+        <tgi:output tgi:argName="abstractionServiceID"/>
+        <tgi:input tgi:argName="abstractionDefPortModeID"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <!-- MISCELLANEOUS OPERATIONS -->
+    <tgi:callback tgi:name="getVendorExtensions" tgi:group="Miscellaneous Operations">
+        <tgi:description>Returns the complete XML text of the vendor extension element including the spirit:vendorExtension tag, as a well formed XML document.</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="abstractionDefID"/>
+            <tgi:compatibleArgs tgi:argName="abstractionDefPortID"/>
+            <tgi:compatibleArgs tgi:argName="abstractionServiceID"/>
+            <tgi:compatibleArgs tgi:argName="abstractorID"/>
+            <tgi:compatibleArgs tgi:argName="addressBlockID"/>
+            <tgi:compatibleArgs tgi:argName="addressSpaceID"/>
+            <tgi:compatibleArgs tgi:argName="alternateRegisterID"/>
+            <tgi:compatibleArgs tgi:argName="argumentID"/>
+            <tgi:compatibleArgs tgi:argName="bankID"/>
+            <tgi:compatibleArgs tgi:argName="busdefID"/>
+            <tgi:compatibleArgs tgi:argName="componentID"/>
+            <tgi:compatibleArgs tgi:argName="componentInstanceID"/>
+            <tgi:compatibleArgs tgi:argName="cpuID"/>
+            <tgi:compatibleArgs tgi:argName="designID"/>
+            <tgi:compatibleArgs tgi:argName="executableImageID"/>
+            <tgi:compatibleArgs tgi:argName="fileBuilderID"/>
+            <tgi:compatibleArgs tgi:argName="fileDefineID"/>
+            <tgi:compatibleArgs tgi:argName="fileID"/>
+            <tgi:compatibleArgs tgi:argName="fileSetID"/>
+            <tgi:compatibleArgs tgi:argName="generatorID"/>
+            <tgi:compatibleArgs tgi:argName="hierConnectionID"/>
+            <tgi:compatibleArgs tgi:argName="interfaceID"/>
+            <tgi:compatibleArgs tgi:argName="linkerCommandFileID"/>
+            <tgi:compatibleArgs tgi:argName="memoryMapID"/>
+            <tgi:compatibleArgs tgi:argName="parameterID"/>
+            <tgi:compatibleArgs tgi:argName="portID"/>
+            <tgi:compatibleArgs tgi:argName="regFieldID"/>
+            <tgi:compatibleArgs tgi:argName="registerID"/>
+            <tgi:compatibleArgs tgi:argName="registerFileID"/>
+            <tgi:compatibleArgs tgi:argName="segmentID"/>
+            <tgi:compatibleArgs tgi:argName="subspaceMapID"/>
+            <tgi:compatibleArgs tgi:argName="serviceID"/>
+            <tgi:compatibleArgs tgi:argName="viewID"/>
+            <tgi:compatibleArgs tgi:argName="whiteboxElementID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getVendorAttribute" tgi:group="Miscellaneous Operations">
+        <tgi:description>get vendor defined attribute from the given element</tgi:description>
+        <tgi:output tgi:argName="attrValue"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="argumentID"/>
+            <tgi:compatibleArgs tgi:argName="fileDefineID"/>
+            <tgi:compatibleArgs tgi:argName="fileID"/>
+            <tgi:compatibleArgs tgi:argName="interfaceID"/>
+            <tgi:compatibleArgs tgi:argName="parameterID"/>
+        </tgi:input>
+        <tgi:input tgi:argName="attrName"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getParameterIDs" tgi:group="Miscellaneous Operations">
+        <tgi:description>list of parameter IDs from the given element (any which contains spirit:parameter elements)</tgi:description>
+        <tgi:output tgi:argName="parameterIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="abstractorID"/>
+            <tgi:compatibleArgs tgi:argName="addressBlockID"/>
+            <tgi:compatibleArgs tgi:argName="addressSpaceID"/>
+            <tgi:compatibleArgs tgi:argName="alternateRegisterID"/>
+            <tgi:compatibleArgs tgi:argName="bankID"/>
+            <tgi:compatibleArgs tgi:argName="cpuID"/>
+            <tgi:compatibleArgs tgi:argName="componentID"/>
+            <tgi:compatibleArgs tgi:argName="executableImageID"/>
+            <tgi:compatibleArgs tgi:argName="generatorID"/>
+            <tgi:compatibleArgs tgi:argName="interfaceID"/>
+            <tgi:compatibleArgs tgi:argName="linkerCommandFileID"/>
+            <tgi:compatibleArgs tgi:argName="memoryMapID"/>
+            <tgi:compatibleArgs tgi:argName="regFieldID"/>
+            <tgi:compatibleArgs tgi:argName="registerID"/>
+            <tgi:compatibleArgs tgi:argName="registerFileID"/>
+            <tgi:compatibleArgs tgi:argName="subspaceMapID"/>
+            <tgi:compatibleArgs tgi:argName="serviceTypeDefID"/>
+            <tgi:compatibleArgs tgi:argName="viewID"/>
+            <tgi:compatibleArgs tgi:argName="whiteboxElementID"/>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getValue" tgi:group="Miscellaneous Operations" tgi:config="true">
+        <tgi:description>Get the value of a parameterID, fileDefineIDs or argumentIDs.</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="argumentID"/>
+            <tgi:compatibleArgs tgi:argName="argumentUID"/>
+            <tgi:compatibleArgs tgi:argName="fileDefineID"/>
+            <tgi:compatibleArgs tgi:argName="fileDefineUID"/>
+            <tgi:compatibleArgs tgi:argName="parameterID"/>
+            <tgi:compatibleArgs tgi:argName="parameterUID"/>
+        </tgi:input>
+        <!-- tgi:input tgi:argName="configured" tgi:argType="xsd:boolean" tgi:optional="true" tgi:default="true"/ -->
+    </tgi:callback>
+    <tgi:callback tgi:name="getValueAttribute" tgi:group="Miscellaneous Operations">
+        <tgi:description>Returns the value of the given attribute name on the elementID/value element</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="argumentID"/>
+            <tgi:compatibleArgs tgi:argName="fileDefineID"/>
+            <tgi:compatibleArgs tgi:argName="parameterID"/>
+        </tgi:input>
+        <tgi:input tgi:argName="attrName">
+            <tgi:description>This is a namespace qualified attribute</tgi:description>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getModelParameterDataType" tgi:group="Miscellaneous Operations">
+        <tgi:description>data type of the model parameter</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="parameterID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getModelParameterUsageType" tgi:group="Miscellaneous Operations">
+        <tgi:description>usage type of the model parameter</tgi:description>
+        <tgi:output tgi:argName="value">
+            <tgi:description>possible values are nontyped and typed</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="parameterID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getIdValue" tgi:group="Miscellaneous Operations">
+        <tgi:description>Return the value of the spirit:id attribute on a ID</tgi:description>
+        <tgi:output tgi:argName="id"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="addressBlockID"/>
+            <tgi:compatibleArgs tgi:argName="alternateRegisterID"/>
+            <tgi:compatibleArgs tgi:argName="localMemoryMapID"/>
+            <tgi:compatibleArgs tgi:argName="memoryMapID"/>
+            <tgi:compatibleArgs tgi:argName="memoryRemapID"/>
+            <tgi:compatibleArgs tgi:argName="regFieldID"/>
+            <tgi:compatibleArgs tgi:argName="registerID"/>
+            <tgi:compatibleArgs tgi:argName="registerFileID"/>
+        </tgi:input>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getName" tgi:group="Miscellaneous Operations">
+        <tgi:description>Return the name of the specified element</tgi:description>
+        <tgi:output tgi:argName="name"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="adHocConnectionID"/>
+            <tgi:compatibleArgs tgi:argName="addressBlockID"/>
+            <tgi:compatibleArgs tgi:argName="addressSpaceID"/>
+            <tgi:compatibleArgs tgi:argName="alternateRegisterID"/>
+            <tgi:compatibleArgs tgi:argName="argumentID"/>
+            <tgi:compatibleArgs tgi:argName="bankID"/>
+            <tgi:compatibleArgs tgi:argName="channelID"/>
+            <tgi:compatibleArgs tgi:argName="cpuID"/>
+            <tgi:compatibleArgs tgi:argName="executableImageID"/>
+            <tgi:compatibleArgs tgi:argName="fileDefineID"/>
+            <tgi:compatibleArgs tgi:argName="fileID"/>
+            <tgi:compatibleArgs tgi:argName="fileSetID"/>
+            <tgi:compatibleArgs tgi:argName="generatorID"/>
+            <tgi:compatibleArgs tgi:argName="interconnectionID"/>
+            <tgi:compatibleArgs tgi:argName="interfaceID"/>
+            <tgi:compatibleArgs tgi:argName="linkerCommandFileID"/>
+            <tgi:compatibleArgs tgi:argName="localMemoryMapID"/>
+            <tgi:compatibleArgs tgi:argName="memoryMapID"/>
+            <tgi:compatibleArgs tgi:argName="memoryRemapID"/>
+            <tgi:compatibleArgs tgi:argName="monitorInterconnectionID"/>
+            <tgi:compatibleArgs tgi:argName="parameterID"/>
+            <tgi:compatibleArgs tgi:argName="portConstraintSetID"/>
+            <tgi:compatibleArgs tgi:argName="portID"/>
+            <tgi:compatibleArgs tgi:argName="portMapID"/>
+            <tgi:compatibleArgs tgi:argName="regFieldID"/>
+            <tgi:compatibleArgs tgi:argName="regFieldValueID"/>
+            <tgi:compatibleArgs tgi:argName="registerID"/>
+            <tgi:compatibleArgs tgi:argName="registerFileID"/>
+            <tgi:compatibleArgs tgi:argName="remapStateID"/>
+            <tgi:compatibleArgs tgi:argName="segmentID"/>
+            <tgi:compatibleArgs tgi:argName="subspaceMapID"/>
+            <tgi:compatibleArgs tgi:argName="viewID"/>
+            <tgi:compatibleArgs tgi:argName="whiteboxElementID"/>
+        </tgi:input>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getDescription" tgi:group="Miscellaneous Operations">
+        <tgi:description>Return the description of the specified element</tgi:description>
+        <tgi:output tgi:argName="description"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="abstractionDefID"/>
+            <tgi:compatibleArgs tgi:argName="abstractorID"/>
+            <tgi:compatibleArgs tgi:argName="abstractorInstanceID"/>
+            <tgi:compatibleArgs tgi:argName="adHocConnectionID"/>
+            <tgi:compatibleArgs tgi:argName="addressBlockID"/>
+            <tgi:compatibleArgs tgi:argName="addressSpaceID"/>
+            <tgi:compatibleArgs tgi:argName="alternateRegisterID"/>
+            <tgi:compatibleArgs tgi:argName="argumentID"/>
+            <tgi:compatibleArgs tgi:argName="bankID"/>
+            <tgi:compatibleArgs tgi:argName="busdefID"/>
+            <tgi:compatibleArgs tgi:argName="channelID"/>
+            <tgi:compatibleArgs tgi:argName="componentID"/>
+            <tgi:compatibleArgs tgi:argName="componentInstanceID"/>
+            <tgi:compatibleArgs tgi:argName="cpuID"/>
+            <tgi:compatibleArgs tgi:argName="designID"/>
+            <tgi:compatibleArgs tgi:argName="executableImageID"/>
+            <tgi:compatibleArgs tgi:argName="fileDefineID"/>
+            <tgi:compatibleArgs tgi:argName="fileID"/>
+            <tgi:compatibleArgs tgi:argName="fileSetID"/>
+            <tgi:compatibleArgs tgi:argName="generatorID"/>
+            <tgi:compatibleArgs tgi:argName="interconnectionID"/>
+            <tgi:compatibleArgs tgi:argName="interfaceID"/>
+            <tgi:compatibleArgs tgi:argName="localMemoryMapID"/>
+            <tgi:compatibleArgs tgi:argName="memoryMapID"/>
+            <tgi:compatibleArgs tgi:argName="memoryRemapID"/>
+            <tgi:compatibleArgs tgi:argName="monitorInterconnectionID"/>
+            <tgi:compatibleArgs tgi:argName="parameterID"/>
+            <tgi:compatibleArgs tgi:argName="portConstraintSetID"/>
+            <tgi:compatibleArgs tgi:argName="portID"/>
+            <tgi:compatibleArgs tgi:argName="regFieldID"/>
+            <tgi:compatibleArgs tgi:argName="regFieldValueID"/>
+            <tgi:compatibleArgs tgi:argName="registerID"/>
+            <tgi:compatibleArgs tgi:argName="registerFileID"/>
+            <tgi:compatibleArgs tgi:argName="remapStateID"/>
+            <tgi:compatibleArgs tgi:argName="segmentID"/>
+            <tgi:compatibleArgs tgi:argName="subspaceMapID"/>
+            <tgi:compatibleArgs tgi:argName="viewID"/>
+            <tgi:compatibleArgs tgi:argName="whiteboxElementID"/>
+        </tgi:input>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getDisplayName" tgi:group="Miscellaneous Operations">
+        <tgi:description>Return the displayName of the specified element</tgi:description>
+        <tgi:output tgi:argName="displayName"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="adHocConnectionID"/>
+            <tgi:compatibleArgs tgi:argName="addressBlockID"/>
+            <tgi:compatibleArgs tgi:argName="addressSpaceID"/>
+            <tgi:compatibleArgs tgi:argName="alternateRegisterID"/>
+            <tgi:compatibleArgs tgi:argName="argumentID"/>
+            <tgi:compatibleArgs tgi:argName="bankID"/>
+            <tgi:compatibleArgs tgi:argName="channelID"/>
+            <tgi:compatibleArgs tgi:argName="cpuID"/>
+            <tgi:compatibleArgs tgi:argName="fileDefineID"/>
+            <tgi:compatibleArgs tgi:argName="fileSetID"/>
+            <tgi:compatibleArgs tgi:argName="generatorID"/>
+            <tgi:compatibleArgs tgi:argName="interconnectionID"/>
+            <tgi:compatibleArgs tgi:argName="interfaceID"/>
+            <tgi:compatibleArgs tgi:argName="localMemoryMapID"/>
+            <tgi:compatibleArgs tgi:argName="memoryMapID"/>
+            <tgi:compatibleArgs tgi:argName="memoryRemapID"/>
+            <tgi:compatibleArgs tgi:argName="monitorInterconnectionID"/>
+            <tgi:compatibleArgs tgi:argName="parameterID"/>
+            <tgi:compatibleArgs tgi:argName="portConstraintSetID"/>
+            <tgi:compatibleArgs tgi:argName="portID"/>
+            <tgi:compatibleArgs tgi:argName="regFieldID"/>
+            <tgi:compatibleArgs tgi:argName="regFieldValueID"/>
+            <tgi:compatibleArgs tgi:argName="registerID"/>
+            <tgi:compatibleArgs tgi:argName="registerFileID"/>
+            <tgi:compatibleArgs tgi:argName="remapStateID"/>
+            <tgi:compatibleArgs tgi:argName="segmentID"/>
+            <tgi:compatibleArgs tgi:argName="subspaceMapID"/>
+            <tgi:compatibleArgs tgi:argName="viewID"/>
+            <tgi:compatibleArgs tgi:argName="whiteboxElementID"/>
+        </tgi:input>
+        <tgi:compatibilityChange tgi:modificationType="modified">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getUnconfiguredID" tgi:group="Miscellaneous Operations">
+        <tgi:description>Return the unconfigured ID from a configured ID</tgi:description>
+        <tgi:output tgi:argName="elementID">
+            <tgi:description>Unconfigured ID</tgi:description>
+            <tgi:compatibleArgs tgi:argName="addressBlockUID"/>
+            <tgi:compatibleArgs tgi:argName="addressSpaceUID"/>
+            <tgi:compatibleArgs tgi:argName="alternateRegisterUID"/>
+            <tgi:compatibleArgs tgi:argName="argumentUID"/>
+            <tgi:compatibleArgs tgi:argName="bankUID"/>
+            <tgi:compatibleArgs tgi:argName="clockDriverUID"/>
+            <tgi:compatibleArgs tgi:argName="executableImageUID"/>
+            <tgi:compatibleArgs tgi:argName="fileBuilderUID"/>
+            <tgi:compatibleArgs tgi:argName="fileDefineUID"/>
+            <tgi:compatibleArgs tgi:argName="fileUID"/>
+            <tgi:compatibleArgs tgi:argName="functionUID"/>
+            <tgi:compatibleArgs tgi:argName="interfaceUID"/>
+            <tgi:compatibleArgs tgi:argName="linkerCommandFileUID"/>
+            <tgi:compatibleArgs tgi:argName="parameterUID"/>
+            <tgi:compatibleArgs tgi:argName="portUID"/>
+            <tgi:compatibleArgs tgi:argName="portMapUID"/>
+            <tgi:compatibleArgs tgi:argName="regFieldUID"/>
+            <tgi:compatibleArgs tgi:argName="registerUID"/>
+            <tgi:compatibleArgs tgi:argName="registerFileUID"/>
+            <tgi:compatibleArgs tgi:argName="segmentUID"/>
+            <tgi:compatibleArgs tgi:argName="singleShotDriverUID"/>
+            <tgi:compatibleArgs tgi:argName="subspaceMapUID"/>
+        </tgi:output>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="addressBlockID"/>
+            <tgi:compatibleArgs tgi:argName="addressSpaceID"/>
+            <tgi:compatibleArgs tgi:argName="alternateRegisterID"/>
+            <tgi:compatibleArgs tgi:argName="argumentID"/>
+            <tgi:compatibleArgs tgi:argName="bankID"/>
+            <tgi:compatibleArgs tgi:argName="clockDriverID"/>
+            <tgi:compatibleArgs tgi:argName="executableImageID"/>
+            <tgi:compatibleArgs tgi:argName="fileDefineID"/>
+            <tgi:compatibleArgs tgi:argName="fileBuilderID"/>
+            <tgi:compatibleArgs tgi:argName="fileID"/>
+            <tgi:compatibleArgs tgi:argName="functionID"/>
+            <tgi:compatibleArgs tgi:argName="interfaceID"/>
+            <tgi:compatibleArgs tgi:argName="linkerCommandFileID"/>
+            <tgi:compatibleArgs tgi:argName="parameterID"/>
+            <tgi:compatibleArgs tgi:argName="portID"/>
+            <tgi:compatibleArgs tgi:argName="portMapID"/>
+            <tgi:compatibleArgs tgi:argName="regFieldID"/>
+            <tgi:compatibleArgs tgi:argName="registerID"/>
+            <tgi:compatibleArgs tgi:argName="registerFileID"/>
+            <tgi:compatibleArgs tgi:argName="segmentID"/>
+            <tgi:compatibleArgs tgi:argName="singleShotDriverID"/>
+            <tgi:compatibleArgs tgi:argName="subspaceMapID"/>
+        </tgi:input>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="getChoiceName" tgi:group="Miscellaneous Operations">
+        <tgi:description>name of the choice</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="choiceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getChoiceEnumerationIDs" tgi:group="Miscellaneous Operations">
+        <tgi:description>list of choice enumeration IDs of the choice</tgi:description>
+        <tgi:output tgi:argName="choiceEnumerationIDs" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="choiceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getChoiceEnumerationValue" tgi:group="Miscellaneous Operations">
+        <tgi:description>value of the enumeration element</tgi:description>
+        <tgi:output tgi:argName="value"/>
+        <tgi:input tgi:argName="choiceEnumerationID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getChoiceEnumerationText" tgi:group="Miscellaneous Operations">
+        <tgi:description>value of the enumeration text attribute</tgi:description>
+        <tgi:output tgi:argName="text"/>
+        <tgi:input tgi:argName="choiceEnumerationID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getChoiceEnumerationHelp" tgi:group="Miscellaneous Operations">
+        <tgi:description>value of the enumeration help attribute</tgi:description>
+        <tgi:output tgi:argName="help"/>
+        <tgi:input tgi:argName="choiceEnumerationID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="registerVLNV" tgi:group="Miscellaneous Operations">
+        <tgi:description>Indicate to DE where the file resides for the IP-XACT element with the given VLNV.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean">
+            <tgi:description>True=VLNV registered, False=VLNV not registered</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="fileName"/>
+        <tgi:input tgi:argName="replace" tgi:argType="xsd:boolean">
+            <tgi:description>True=always register, False=do not register if the VLNV already exists</tgi:description>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getXMLForVLNV" tgi:group="Miscellaneous Operations">
+        <tgi:description>Return XML of the IP-XACT object identified by the given VLNV.</tgi:description>
+        <tgi:output tgi:argName="xmlText"/>
+        <tgi:input tgi:argName="vlnvValue" tgi:argType="spirit:soapStringArrayType"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getGeneratorContextComponentInstanceID" tgi:group="Miscellaneous Operations">
+        <tgi:description>ID for the component instance associated with the currently invoked generator</tgi:description>
+        <tgi:output tgi:argName="componentInstanceID"/>
+        <tgi:input tgi:argName="generatorName">
+            <tgi:description>Generator name for use within DE in case of errors</tgi:description>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="init" tgi:group="Miscellaneous Operations">
+        <tgi:description>API initialization function. Must be called before any other API call.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="apiVersion">
+            <tgi:description>Indicates the API version the generator is defined to work with.</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="failureMode" tgi:argType="spirit:apiFailureMode">
+            <tgi:description>Compatability failure mode: fail -- DE should return an error on the init call if it's API version does not match the one passed to the init call, error -- DE should return an error each time a potentially incompatible API call is made, warning -- DE should increment a warning count each time a potentially incompatible API call is made</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="message">
+            <tgi:description>Message which the DE may display to the user.</tgi:description>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="message" tgi:group="Miscellaneous Operations">
+        <tgi:description>Send message level and message text to Design Environment.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="severity"/>
+        <tgi:input tgi:argName="message"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="getErrorMessage" tgi:group="Miscellaneous Operations">
+        <tgi:description>Get error message from prior callback.</tgi:description>
+        <tgi:output tgi:argName="message"/>
+        <tgi:input tgi:argName="callerIdent">
+            <tgi:description>ID string for debugging calls to this command within the DE. Any value is okay.</tgi:description>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="getWarningCount" tgi:group="Miscellaneous Operations">
+        <tgi:description>Return count of how many potentially incompatible API calls have been made.</tgi:description>
+        <tgi:output tgi:argName="count" tgi:argType="xsd:integer"/>
+        <tgi:input tgi:argName="callerIdent">
+            <tgi:description>ID string for debugging calls to this command within the DE. Any value is okay.</tgi:description>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="end" tgi:group="Miscellaneous Operations">
+        <tgi:description>Terminate connection to the Design Environment.</tgi:description>
+        <tgi:output tgi:argName="de_status" tgi:argType="xsd:integer">
+            <tgi:description>Status indicator from the DE. Non-zero implies an error.</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="gen_status" tgi:argType="xsd:integer">
+            <tgi:description>Status indicator from the generator. Non-zero implies an error.</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="message">
+            <tgi:description>Message which the DE may display to the user.</tgi:description>
+        </tgi:input>
+    </tgi:callback>
+    <!-- SET AND ADD OPERATIONS -->
+    <!-- SET INTERFACE OPERATIONS -->
+    <tgi:callback tgi:name="setPortMapRange" tgi:group="Interface Operations">
+        <tgi:description>Set left/right range of an interface port map.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="portMapID"/>
+        <tgi:input tgi:argName="nonNegativeIntegerArrayMessage" tgi:argType="spirit:nonNegativeIntegerArrayType"/>
+    </tgi:callback>
+    <!-- SET BUS INTERFACE OPERATIONS -->
+    <tgi:callback tgi:name="setBusInterfaceMasterBaseAddress" tgi:group="Bus Interface Operations">
+        <tgi:description>Set base address of the master bus interface.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="interfaceID"/>
+        <tgi:input tgi:argName="baseAddressValue" tgi:argType="spirit:spiritNumberType"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setRemapAddressValue" tgi:group="Bus Interface Operations">
+        <tgi:description>Set remap address value for the associated interface.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="remapAddressID"/>
+        <tgi:input tgi:argName="spiritNumberTypeValue" tgi:argType="spirit:spiritNumberType"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setBusInterfaceMirroredSlaveRange" tgi:group="Bus Interface Operations">
+        <tgi:description>Set address range for the associated interface.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="interfaceID"/>
+        <tgi:input tgi:argName="spiritNumberTypeValue" tgi:argType="spirit:spiritNumberType"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setBusInterfaceBitSteering" tgi:group="Bus Interface Operations">
+        <tgi:description>Set bus interface bit steering value.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="interfaceID"/>
+        <tgi:input tgi:argName="bitSteeringValue" tgi:argType="xsd:string"/>
+    </tgi:callback>
+    <!-- SET FILE AND FILESET INTERFACE OPERATIONS -->
+    <tgi:callback tgi:name="setFileName" tgi:group="File and Fileset Operations">
+        <tgi:description>Set name of the given file.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="fileID"/>
+        <tgi:input tgi:argName="value">
+            <tgi:description>File name may be not be a relative path.</tgi:description>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="setFileBuildCommandName" tgi:group="File and Fileset Operations">
+        <tgi:description>Set command name for the given file builder.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="fileID"/>
+        <tgi:input tgi:argName="value"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setFileBuildCommandFlags" tgi:group="File and Fileset Operations">
+        <tgi:description>Set command flags for the given file builder.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="fileID"/>
+        <tgi:input tgi:argName="value"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setFileBuildCommandReplaceDefaultFlags" tgi:group="File and Fileset Operations">
+        <tgi:description>Set replace default flags for the given file builder.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="fileID"/>
+        <tgi:input tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setFileBuildCommandTargetName" tgi:group="File and Fileset Operations">
+        <tgi:description>Set target name for build command for the given file</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="fileID"/>
+        <tgi:input tgi:argName="value"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setFileBuilderCommand" tgi:group="File and Fileset Operations">
+        <tgi:description>Set command associated with file builder.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="fileBuilderID"/>
+        <tgi:input tgi:argName="command"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setFileBuilderFlags" tgi:group="File and Fileset Operations">
+        <tgi:description>Set flags associated with the given file builder.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="fileBuilderID"/>
+        <tgi:input tgi:argName="flags"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setFileBuilderReplaceDefaultFlags" tgi:group="File and Fileset Operations">
+        <tgi:description>Set value of replace default flags in file builder.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="fileBuilderID"/>
+        <tgi:input tgi:argName="replaceDefaultFlags" tgi:argType="xsd:boolean"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setFunctionDisabled" tgi:group="File and Fileset Operations">
+        <tgi:description>Set disable flag on function.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="functionID"/>
+        <tgi:input tgi:argName="booleanValue" tgi:argType="xsd:boolean"/>
+    </tgi:callback>
+    <!-- SET PORT INTERFACE OPERATIONS -->
+    <tgi:callback tgi:name="setPortRange" tgi:group="Port Operations">
+        <tgi:description>Set left/right range for the given port.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="portID"/>
+        <tgi:input tgi:argName="integerArrayMessage" tgi:argType="spirit:integerArrayType"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setPortDefaultValue" tgi:group="Port Operations">
+        <tgi:description>Set default value of the given port.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="portID"/>
+        <tgi:input tgi:argName="value"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setClockDriverPeriod" tgi:group="Port Operations">
+        <tgi:description>Set period of the given clock port.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="clockDriverID"/>
+        <tgi:input tgi:argName="floatValue" tgi:argType="xsd:float"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setClockDriverPulseOffset" tgi:group="Port Operations">
+        <tgi:description>Set pulse offset value of the given clock port.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="clockDriverID"/>
+        <tgi:input tgi:argName="floatValue" tgi:argType="xsd:float"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setClockDriverPulseValue" tgi:group="Port Operations">
+        <tgi:description>Set pulse value of the given clock port.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="clockDriverID"/>
+        <tgi:input tgi:argName="spiritNumberTypeValue" tgi:argType="spirit:spiritNumberType"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setClockDriverPulseDuration" tgi:group="Port Operations">
+        <tgi:description>Set pulse duration of the given clock port.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="clockDriverID"/>
+        <tgi:input tgi:argName="floatValue" tgi:argType="xsd:float"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setPortSingleShotPulseOffset" tgi:group="Port Operations">
+        <tgi:description>Set pulse offset of given single shot port.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="singleShotDriverID"/>
+        <tgi:input tgi:argName="floatValue" tgi:argType="xsd:float"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setPortSingleShotPulseValue" tgi:group="Port Operations">
+        <tgi:description>Set pulse value of given single shot port.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="singleShotDriverID"/>
+        <tgi:input tgi:argName="spiritNumberTypeValue" tgi:argType="spirit:spiritNumberType"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setPortSingleShotPulseDuration" tgi:group="Port Operations">
+        <tgi:description>Set pulse duration of given single shot port.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="singleShotDriverID"/>
+        <tgi:input tgi:argName="floatValue" tgi:argType="xsd:float"/>
+    </tgi:callback>
+    <!-- ADD DESIGN MAP OPERATIONS -->
+    <tgi:callback tgi:name="addComponentInstance" tgi:group="Design Operations">
+        <tgi:description>Add new component instance.</tgi:description>
+        <tgi:output tgi:argName="componentInstanceID">
+            <tgi:description>Element ID of the newly added component instance.</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="designID"/>
+        <tgi:input tgi:argName="vlnvValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="instanceName"/>
+        <tgi:input tgi:argName="displayName"/>
+        <tgi:input tgi:argName="description"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="removeComponentInstance" tgi:group="Design Operations">
+        <tgi:description>Remove specified component instance.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="componentInstanceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="replaceComponentInstance" tgi:group="Design Operations">
+        <tgi:description>Replace specified component with new provided component.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="designID"/>
+        <tgi:input tgi:argName="componentInstanceID"/>
+        <tgi:input tgi:argName="vlnvValue" tgi:argType="spirit:soapStringArrayType"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="appendAbstractorInstance" tgi:group="Design Operations">
+        <tgi:description>Append a new abstractor instance to the interconnection.</tgi:description>
+        <tgi:output tgi:argName="abstractorInstanceID">
+            <tgi:description>Element ID of the newly added abstractor instance.</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="designID"/>
+        <tgi:input tgi:argName="interconnectionID"/>
+        <tgi:input tgi:argName="vlnvValue" tgi:argType="spirit:soapStringArrayType"/>
+        <tgi:input tgi:argName="instanceName"/>
+        <tgi:input tgi:argName="displayName"/>
+        <tgi:input tgi:argName="description"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="removeAbstractorInstance" tgi:group="Design Operations">
+        <tgi:description>Remove specified abstractor instance.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="abstractorInstanceID"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="replaceAbstractorInstance" tgi:group="Design Operations">
+        <tgi:description>Replace specified abstractor with new provided abstractor.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="designID"/>
+        <tgi:input tgi:argName="abstractorInstanceID"/>
+        <tgi:input tgi:argName="vlnvValue" tgi:argType="spirit:soapStringArrayType"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="addInterconnection" tgi:group="Design Operations">
+        <tgi:description>Add new interconnection between components.</tgi:description>
+        <tgi:output tgi:argName="interconnectionID">
+            <tgi:description>Element ID of the newly added interconnection.</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="designID"/>
+        <tgi:input tgi:argName="component1Ref">
+            <tgi:description>The component instance name.</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="interface1Ref"/>
+        <tgi:input tgi:argName="component2Ref">
+            <tgi:description>The component instance name.</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="interface2Ref"/>
+        <tgi:input tgi:argName="name"/>
+        <tgi:input tgi:argName="displayName"/>
+        <tgi:input tgi:argName="description"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="removeInterconnection" tgi:group="Design Operations">
+        <tgi:description>Remove interconnection between components, and any abstractors if present.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="designID"/>
+        <tgi:input tgi:argName="component1Ref">
+            <tgi:description>The component instance name.</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="interface1Ref"/>
+        <tgi:input tgi:argName="component2Ref">
+            <tgi:description>The component instance name.</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="interface2Ref"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="addMonitorInterconnection" tgi:group="Design Operations">
+        <tgi:description>Add new interconnection between a component and monitor. If there is already a monitorInterconnection for the given componentRef/componentInterfaceRef, then the monitor connection is added to that element.</tgi:description>
+        <tgi:output tgi:argName="interconnectionID">
+            <tgi:description>Element ID of the new/modified monitor interconnection.</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="designID">
+            <tgi:description>The design that contains the interconnection.</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="componentRef">
+            <tgi:description>The component instance name.</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="componentInterfaceRef"/>
+        <tgi:input tgi:argName="monitorRef">
+            <tgi:description>The component instance name with the monitor interface.</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="monitorInterfaceRef"/>
+        <tgi:input tgi:argName="name"/>
+        <tgi:input tgi:argName="displayName"/>
+        <tgi:input tgi:argName="description"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="addHierarchicalMonitorInterconnection" tgi:group="Design Operations">
+        <tgi:description>Add new hierarchical interconnection between a component and monitor. If there is already a monitorInterconnection for the given componentRef/componentInterfaceRef, then the monitor connection is added to that element.</tgi:description>
+        <tgi:output tgi:argName="interconnectionID">
+            <tgi:description>Element ID of the new/modified monitor interconnection.</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="designID">
+            <tgi:description>The design that contains the interconnection.</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="componentPath">
+            <tgi:description>The instance name path to the design that contains the component instance.</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="componentRef">
+            <tgi:description>The component instance name.</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="componentInterfaceRef"/>
+        <tgi:input tgi:argName="monitorPath">
+            <tgi:description>The instance name path to the design that contains the monitor instance.</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="monitorRef">
+            <tgi:description>The component instance name with the monitor interface.</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="monitorInterfaceRef"/>
+        <tgi:input tgi:argName="name"/>
+        <tgi:input tgi:argName="displayName"/>
+        <tgi:input tgi:argName="description"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="removeMonitorInterconnection" tgi:group="Design Operations">
+        <tgi:description>Remove interconnection between a component and monitor. When the last monitor reference is removed, the entire monitorInterconnection element will be removed.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="designID"/>
+        <tgi:input tgi:argName="componentRef">
+            <tgi:description>The component instance name.</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="componentInterfaceRef"/>
+        <tgi:input tgi:argName="monitorRef">
+            <tgi:description>The component instance name with the monitor interface.</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="monitorInterfaceRef"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="removeHierarchicalMonitorInterconnection" tgi:group="Design Operations">
+        <tgi:description>Remove a hierarchical interconnection between a component and monitor. When the last monitor reference is removed, the entire monitorInterconnection element will be removed.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="designID"/>
+        <tgi:input tgi:argName="componentPath">
+            <tgi:description>The instance name path to the design that contains the component instance.</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="componentRef">
+            <tgi:description>The component instance name.</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="componentInterfaceRef"/>
+        <tgi:input tgi:argName="monitorPath">
+            <tgi:description>The instance name path to the design that contains the monitor instance.</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="monitorRef">
+            <tgi:description>The component instance name with the monitor interface.</tgi:description>
+        </tgi:input>
+        <tgi:input tgi:argName="monitorInterfaceRef"/>
+        <tgi:compatibilityChange tgi:modificationType="new">1.5</tgi:compatibilityChange>
+    </tgi:callback>
+    <tgi:callback tgi:name="addHierConnection" tgi:group="Design Operations">
+        <tgi:description>Add new hierarchical connection.</tgi:description>
+        <tgi:output tgi:argName="hierConnectionID">
+            <tgi:description>Element ID of the newly added hierarchical connection.</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="designID"/>
+        <tgi:input tgi:argName="interfaceRef"/>
+        <tgi:input tgi:argName="componentRef"/>
+        <tgi:input tgi:argName="busRef"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="removeHierConnection" tgi:group="Design Operations">
+        <tgi:description>Remove existing hierarchical connection.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="designID"/>
+        <tgi:input tgi:argName="componentRef"/>
+        <tgi:input tgi:argName="busRef"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="addAdHocConnection" tgi:group="Design Operations">
+        <tgi:description>Add new ad-hoc connection.</tgi:description>
+        <tgi:output tgi:argName="adHocConnectionID">
+            <tgi:description>Element ID of the newly added ad hoc connection.</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="designID"/>
+        <tgi:input tgi:argName="name"/>
+        <tgi:input tgi:argName="displayName"/>
+        <tgi:input tgi:argName="description"/>
+        <tgi:input tgi:argName="componentRef"/>
+        <tgi:input tgi:argName="portRef"/>
+        <tgi:input tgi:argName="left"/>
+        <tgi:input tgi:argName="right"/>
+        <tgi:input tgi:argName="tiedValue" tgi:argType="spirit:spiritNumberType">
+            <tgi:description>Tied value for this connection, if blank no tied value.</tgi:description>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="addAdHocInternalPortReference" tgi:group="Design Operations">
+        <tgi:description>Add an internal port reference to an existing ad-hoc connection. An identical port reference must not already exist in the ad-hoc connection.</tgi:description>
+        <tgi:output tgi:argName="adHocInternalPortReferenceID">
+            <tgi:description>Element ID of the newly added internal port reference.</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="designID"/>
+        <tgi:input tgi:argName="adHocConnectionID"/>
+        <tgi:input tgi:argName="componentRef"/>
+        <tgi:input tgi:argName="portRef"/>
+        <tgi:input tgi:argName="left"/>
+        <tgi:input tgi:argName="right"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="addAdHocExternalPortReference" tgi:group="Design Operations">
+        <tgi:description>Add an external port reference to an existing ad-hoc connection.</tgi:description>
+        <tgi:output tgi:argName="adHocExternalPortReferenceID">
+            <tgi:description>Element ID of the newly added external port reference.</tgi:description>
+        </tgi:output>
+        <tgi:input tgi:argName="designID"/>
+        <tgi:input tgi:argName="adHocConnectionID"/>
+        <tgi:input tgi:argName="portRef"/>
+        <tgi:input tgi:argName="left"/>
+        <tgi:input tgi:argName="right"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="removeAdHocInternalPortReference" tgi:group="Design Operations">
+        <tgi:description>Remove an internal port from existing ad-hoc connection. The ad-hoc connection is removed when the last port reference is removed.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="designID"/>
+        <tgi:input tgi:argName="adHocConnectionID"/>
+        <tgi:input tgi:argName="componentRef"/>
+        <tgi:input tgi:argName="portRef"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="removeAdHocExternalPortReference" tgi:group="Design Operations">
+        <tgi:description>Remove an external port reference from existing ad-hoc connection.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="designID"/>
+        <tgi:input tgi:argName="adHocConnectionID"/>
+        <tgi:input tgi:argName="portRef"/>
+    </tgi:callback>
+    <!-- SET ADDRESS MAP OPERATIONS -->
+    <tgi:callback tgi:name="setAddressSpaceRange" tgi:group="Address Map Operations">
+        <tgi:description>set the address range of an address block expressed as the number of accessable and addressable units.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:integer"/>
+        <tgi:input tgi:argName="addressSpaceID"/>
+        <tgi:input tgi:argName="range" tgi:argType="spirit:spiritNumberType"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setAddressSpaceWidth" tgi:group="Address Map Operations">
+        <tgi:description>set the bit width of an address block.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:integer"/>
+        <tgi:input tgi:argName="addressSpaceID"/>
+        <tgi:input tgi:argName="width" tgi:argType="xsd:nonNegativeInteger"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setExecutableImageLinkerCommand" tgi:group="Address Map Operations">
+        <tgi:description>set the linker command for the current executable image.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:integer"/>
+        <tgi:input tgi:argName="executableImageID"/>
+        <tgi:input tgi:argName="value"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setExecutableImageLinkerFlags" tgi:group="Address Map Operations">
+        <tgi:description>set the flags of the current executable image linker command.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:integer"/>
+        <tgi:input tgi:argName="executableImageID"/>
+        <tgi:input tgi:argName="value"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setLinkerCommandFileName" tgi:group="Address Map Operations">
+        <tgi:description>set the name of the linker command file.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:integer"/>
+        <tgi:input tgi:argName="linkerCommandFileID"/>
+        <tgi:input tgi:argName="fileName" tgi:argType="spirit:spiritURI"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setLinkerCommandFileLineSwitch" tgi:group="Address Map Operations">
+        <tgi:description>set the command line switch to specify with the linker command file.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:integer"/>
+        <tgi:input tgi:argName="linkerCommandFileID"/>
+        <tgi:input tgi:argName="value"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setLinkerCommandFileEnable" tgi:group="Address Map Operations">
+        <tgi:description>set whether or not to generate and enable the linker command file.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:integer"/>
+        <tgi:input tgi:argName="linkerCommandFileID"/>
+        <tgi:input tgi:argName="value" tgi:argType="xsd:boolean"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setAddressBlockBaseAddress" tgi:group="Address Map Operations">
+        <tgi:description>set the base address of an address block</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:integer"/>
+        <tgi:input tgi:argName="addressBlockID"/>
+        <tgi:input tgi:argName="baseAddress" tgi:argType="spirit:spiritNumberType"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setAddressBlockRange" tgi:group="Address Map Operations">
+        <tgi:description>set the address range of an address block expressed as the number of accessable and addressable units.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:integer"/>
+        <tgi:input tgi:argName="addressBlockID"/>
+        <tgi:input tgi:argName="spiritNumberTypeValue" tgi:argType="spirit:spiritNumberType"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setAddressBlockWidth" tgi:group="Address Map Operations">
+        <tgi:description>set the bit width of an address block</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:integer"/>
+        <tgi:input tgi:argName="addressBlockID"/>
+        <tgi:input tgi:argName="nonNegativeIntegerValue" tgi:argType="xsd:nonNegativeInteger"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setBankBaseAddress" tgi:group="Address Map Operations">
+        <tgi:description>set the base address of an address bank</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:integer"/>
+        <tgi:input tgi:argName="bankID"/>
+        <tgi:input tgi:argName="baseAddress" tgi:argType="spirit:spiritNumberType"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setSubspaceMapBaseAddress" tgi:group="Address Map Operations">
+        <tgi:description>set the base address of a memory subspace</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:integer"/>
+        <tgi:input tgi:argName="subspaceMapID"/>
+        <tgi:input tgi:argName="spiritNumberTypeValue" tgi:argType="spirit:spiritNumberType"/>
+    </tgi:callback>
+    <!-- SET MISCELLANEOUS OPERATIONS -->
+    <tgi:callback tgi:name="setVendorExtensions" tgi:group="Miscellaneous Operations">
+        <tgi:description>Set vendor extensions. NOTE: This call is only supported for elements within a spirit:design.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="componentInstanceID"/>
+            <tgi:compatibleArgs tgi:argName="designID"/>
+            <tgi:compatibleArgs tgi:argName="hierConnectionID"/>
+        </tgi:input>
+        <tgi:input tgi:argName="extensionText">
+            <tgi:description>Complete vendor extension text as a well formed XML document with top-level element of spirit:vendorExtensions</tgi:description>
+        </tgi:input>
+    </tgi:callback>
+    <tgi:callback tgi:name="setVendorAttribute" tgi:group="Miscellaneous Operations">
+        <tgi:description>set vendor defined attribute on the given element</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:integer"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="argumentID"/>
+            <tgi:compatibleArgs tgi:argName="fileDefineID"/>
+            <tgi:compatibleArgs tgi:argName="fileID"/>
+            <tgi:compatibleArgs tgi:argName="interfaceID"/>
+            <tgi:compatibleArgs tgi:argName="parameterID"/>
+        </tgi:input>
+        <tgi:input tgi:argName="attrName"/>
+        <tgi:input tgi:argName="attrValue"/>
+    </tgi:callback>
+    <tgi:callback tgi:name="setValue" tgi:group="Miscellaneous Operations">
+        <tgi:description>Set the value of a parameterID, fileDefineIDs or argumentIDs.</tgi:description>
+        <tgi:output tgi:argName="status" tgi:argType="xsd:boolean"/>
+        <tgi:input tgi:argName="elementID">
+            <tgi:compatibleArgs tgi:argName="argumentID"/>
+            <tgi:compatibleArgs tgi:argName="fileDefineID"/>
+            <tgi:compatibleArgs tgi:argName="parameterID"/>
+        </tgi:input>
+        <tgi:input tgi:argName="value"/>
+    </tgi:callback>
+</tgi:callbacks>
