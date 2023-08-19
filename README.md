@@ -17,6 +17,8 @@ Around the time of DAC 2005, the IEEE P1685 working group was formed.
 
 **Unknown License State**
 
+* [IP-XACT 1.5](http://www.accellera.org/XMLSchema/SPIRIT/1.5/)  
+  ❌ © Copyright Accellera Systems Initiative. All rights reserved.
 * [IP-XACT 1.4](http://www.accellera.org/XMLSchema/SPIRIT/1.4/)  
   ❌ © Copyright Accellera Systems Initiative. All rights reserved.
 * [IP-XACT 1.2](http://www.accellera.org/XMLSchema/SPIRIT/1.2/)  
