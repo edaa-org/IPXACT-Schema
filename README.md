@@ -2,6 +2,13 @@ This repository holds all XML Schema Definition (XSD) files for various IP-XACT 
 
 The original source is [Accellera](https://www.accellera.org/XMLSchema/).
 
+# IEEE Std. 1685-20xx
+
+**Unknown License State**
+
+* [IEEE Std. 1685-2009](http://www.accellera.org/XMLSchema/SPIRIT/1685-2009/)  
+  ⚠️ local [README](ieee-1685-2009/README.md) (text provided by Accellera) contains open source threatening rules
+ 
 
 # SPIRIT Consortium
 

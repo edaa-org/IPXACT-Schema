@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description: TGI.xsd
+// Author:      The SPIRIT Consortium
+// Revision:    $Revision: 1506 $
+// Date:        $Date: 2009-04-25 23:51:56 -0700 (Sat, 25 Apr 2009) $
+//
+// Copyright (c) 2009 The SPIRIT Consortium.
+//
+// This work forms part of a deliverable of The SPIRIT Consortium.
+//
+// Use of these materials are governed by the legal terms and conditions
+// outlined in the disclaimer available from www.spiritconsortium.org.
+//
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+//
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at
+// http://www.spiritconsortium.org/about/contact_us/
+//
+// This file may be copied, and distributed, with or without
+// modifications; this notice must be included on any copy.
+-->
+<!-- edited with XMLSpy v2006 rel. 3 sp1 (http://www.altova.com) by Greg Ehmann (Philips Electronics Nederland BV) -->
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Mark Noll (Synopsys) -->
+<xs:schema xmlns:tgi="http://www.spiritconsortium.org/XMLSchema/TGI" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.spiritconsortium.org/XMLSchema/TGI" elementFormDefault="qualified" attributeFormDefault="qualified">
+    <xs:element name="callbacks">
+        <xs:annotation>
+            <xs:documentation>List of API callbacks</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="callback" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>Defines a single callback in the API. The name attribute  defines the callback name and the group attribute is used to group similar calls in the generated documentation.</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="description">
+                                <xs:annotation>
+                                    <xs:documentation>Description of the callback.</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="output">
+                                <xs:annotation>
+                                    <xs:documentation>Defines the callback output. The argument type defaults to xsd:string if not specified. The argument name defaults to [type]Value where [type] is the argType value with the namespace designator removed.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="description" type="xs:string" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Description of the output argument.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="compatibleArgs" minOccurs="0" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:attribute name="argName" type="xs:token" use="optional"/>
+                                                <xs:attribute name="argType" type="xs:token" use="optional" default="xsd:string"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="argName" type="xs:token" use="optional"/>
+                                    <xs:attribute name="argType" type="xs:token" use="optional" default="xsd:string"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="input" minOccurs="0" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>Defines a callback input argument. The argument type defaults to xsd:string if not specified. The argument name defaults to [type]Value where [type] is the argType value with the namespace designator removed.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="description" type="xs:string" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Description of the input argument.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="compatibleArgs" minOccurs="0" maxOccurs="unbounded">
+                                            <xs:annotation>
+                                                <xs:documentation>List of compatible ID type for the input agrument.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:attribute name="argName" type="xs:token" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Name of the compatible ID</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                                <xs:attribute name="argType" type="xs:token" use="optional" default="xsd:string">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Type of the compatible ID</xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="argName" type="xs:token" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Name of the argument</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="argType" type="xs:token" use="optional" default="xsd:string">
+                                        <xs:annotation>
+                                            <xs:documentation>Argument type,  xsd:string(default), xsd:boolean ,  xsd:integer, xsd:float, xsd:positiveInteger, ...</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="compatibilityChange" minOccurs="0" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>Specifies the API version at which this API call was modified. The modificationType attribute indicates the type of change. Valid changes types include: new -- implying an API call added in the specified version of the API, invalid -- implying that the specified call has been invalidated as of the specified version of the API, and modified -- implying that the API call functionality has been chagned as of the specified version of the API.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:string">
+                                            <xs:attribute name="modificationType" use="required">
+                                                <xs:simpleType>
+                                                    <xs:restriction base="xs:string">
+                                                        <xs:enumeration value="new"/>
+                                                        <xs:enumeration value="invalid"/>
+                                                        <xs:enumeration value="modified"/>
+                                                        <xs:enumeration value="deprecated"/>
+                                                    </xs:restriction>
+                                                </xs:simpleType>
+                                            </xs:attribute>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:token" use="required">
+                            <xs:annotation>
+                                <xs:documentation>Name of the SOAP message</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="group" type="xs:string" use="optional" default="Default">
+                            <xs:annotation>
+                                <xs:documentation>Group category for documentation organization.</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="config" type="xs:boolean" default="false">
+                            <xs:annotation>
+                                <xs:documentation>Configurable value returned</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
