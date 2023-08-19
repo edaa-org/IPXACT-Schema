@@ -138,3 +138,22 @@ class IEEE_1685(TestCase):
 			schemaFile = directory / file
 			print(f"  {schemaFile}")
 			_ = XMLSchema(schemaFile)
+
+	def test_Schema2014(self):
+		print()
+		print(f"CWD:              {Path.cwd()}")
+
+		directory = self._root / "ieee-1685-2014"
+		print(f"Schema directory: {directory}")
+
+		schemaFiles = (
+			"design.xsd",
+			"component.xsd",
+			"busDefinition.xsd",
+			"generator.xsd",
+		)
+		print(f"Reading schemas ...")
+		for file in schemaFiles:
+			schemaFile = directory / file
+			print(f"  {schemaFile}")
+			_ = XMLSchema(schemaFile)

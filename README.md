@@ -6,6 +6,8 @@ The original source is [Accellera](https://www.accellera.org/XMLSchema/).
 
 **Unknown License State**
 
+* [IEEE Std. 1685-2014](http://www.accellera.org/XMLSchema/IPXACT/1685-2014/)  
+  ⚠️ local [README](ieee-1685-2014/README.md) (text provided by Accellera) contains open source threatening rules
 * [IEEE Std. 1685-2009](http://www.accellera.org/XMLSchema/SPIRIT/1685-2009/)  
   ⚠️ local [README](ieee-1685-2009/README.md) (text provided by Accellera) contains open source threatening rules
  
