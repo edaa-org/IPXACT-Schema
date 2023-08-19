@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : identifier.xsd
+// Author : SPIRIT Schema Working Group
+// Version:     $Revision: 104 $
+// Date:        $Date: 2004-12-02 07:46:41 -0600 (Thu, 02 Dec 2004) $
+// Tag:         $Name$
+//
+// Copyright (c) 2004 SPIRIT.  All rights reserved.
+// www.spiritconsortium.com
+//
+// THIS WORK FORMS PART OF A SPIRIT CONSORTIUM SPECIFICATION.
+// THIS WORK CONTAINS TRADE SECRETS AND PROPRIETARY INFORMATION
+// WHICH IS THE EXCLUSIVE PROPERTY OF INDIVIDUAL MEMBERS OF THE
+// SPIRIT CONSORTIUM. USE OF THESE MATERIALS ARE GOVERNED BY
+// THE LEGAL TERMS AND CONDITIONS OUTLINED IN THE SPIRIT
+// SPECIFICATION DISCLAIMER AVAILABLE FROM
+// www.spiritconsortium.org
+-->
+<xs:schema targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.0" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:include schemaLocation="busDefinition.xsd"/>
+	<xs:include schemaLocation="component.xsd"/>
+	<xs:include schemaLocation="design.xsd"/>
+	<xs:include schemaLocation="pmd.xsd"/>
+	<xs:include schemaLocation="looseGeneratorChanges.xsd"/>
+	<xs:include schemaLocation="looseGeneratorInvocation.xsd"/>
+	<xs:group name="SPIRIT_Schema_Guide">
+		<xs:annotation>
+			<xs:documentation>This SPIRIT schema documentation is part of the SPIRIT standard deliverables, ALPHA version. SPIRIT v1.0 specifically addresses requirements for RTL design, including IP packaging, configuration and SoC integration.
+
+The diagrams in this documentation represent the relationships between elements of the schema together with their attributes and expected values.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element ref="spirit:busDefinition">
+				<xs:annotation>
+					<xs:documentation>To define all elements and attributes supported when defining a bus.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="spirit:component">
+				<xs:annotation>
+					<xs:documentation>To define all elements and attributes supported when defining a component.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="spirit:design">
+				<xs:annotation>
+					<xs:documentation>To define all elements and attributes supported when defining a design and its configured components</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="spirit:pmd">
+				<xs:annotation>
+					<xs:documentation>To define all elements and attributes supported when defining	creating platform meta-data transformations.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="spirit:generatorChangeList">
+				<xs:annotation>
+					<xs:documentation>To define all elements and attributes supported when defining a generator and the changes made by a generator.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="spirit:looseGeneratorInvocation">
+				<xs:annotation>
+					<xs:documentation>To define all elements and attributes supported when invoking generators defined in the LGI methodology.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="spirit:generatorChain">
+				<xs:annotation>
+					<xs:documentation>To define all elements and attributes supported for defining generator chains.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:group>
+</xs:schema>
