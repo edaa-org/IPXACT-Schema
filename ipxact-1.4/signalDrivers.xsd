@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : signalDrivers.xsd
+// Author: The SPIRIT Consortium Schema Working Group
+// Version:     $Revision: 1118 $
+// Date:        $Date: 2008-01-30 13:05:36 -0800 (Wed, 30 Jan 2008) $
+// Tag:         $Name$
+//
+// Copyright (c) 2005, 2006, 2007 The SPIRIT Consortium.  All rights reserved.
+// www.spiritconsortium.org
+//
+// THIS WORK FORMS PART OF A SPIRIT CONSORTIUM SPECIFICATION.
+// USE OF THESE MATERIALS ARE GOVERNED BY
+// THE LEGAL TERMS AND CONDITIONS OUTLINED IN THE SPIRIT
+// SPECIFICATION DISCLAIMER AVAILABLE FROM
+// www.spiritconsortium.org
+//
+// This source file is provided on an AS IS basis. The SPIRIT Consortium disclaims 
+// ANY WARRANTY EXPRESS OR IMPLIED INCLUDING ANY WARRANTY OF
+// MERCHANTABILITY AND FITNESS FOR USE FOR A PARTICULAR PURPOSE. 
+// The user of the source file shall indemnify and hold The SPIRIT Consortium harmless
+// from any damages or liability arising out of the use thereof or the performance or
+// implementation or partial implementation of the schema.
+-->
+<xs:schema xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4" elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:include schemaLocation="simpleTypes.xsd"/>
+	<xs:include schemaLocation="autoConfigure.xsd"/>
+	<xs:element name="defaultValue">
+		<xs:annotation>
+			<xs:documentation>Default value for a wire port.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="spirit:scaledNonNegativeInteger">
+					<xs:attributeGroup ref="spirit:long.prompt.att"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="clockDriver">
+		<xs:annotation>
+			<xs:documentation>Describes a driven clock port. </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="spirit:clockDriverType">
+					<xs:attribute name="clockName" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Indicates the name of the cllock. If not specified the name is assumed to be the name of the containing port. </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="singleShotDriver">
+		<xs:annotation>
+			<xs:documentation>Describes a driven one-shot port.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="singleShotOffset">
+					<xs:annotation>
+						<xs:documentation>Time in nanoseconds until start of one-shot.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="spirit:configurableDouble">
+								<xs:attributeGroup ref="spirit:float.prompt.att"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="singleShotValue">
+					<xs:annotation>
+						<xs:documentation>Value of port after first  edge of one-shot.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="spirit:scaledNonNegativeInteger">
+								<xs:attributeGroup ref="spirit:long.prompt.att"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="singleShotDuration">
+					<xs:annotation>
+						<xs:documentation>Duration in nanoseconds of the one shot.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="spirit:configurableDouble">
+								<xs:attributeGroup ref="spirit:float.prompt.att"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="requiresDriver" default="false">
+		<xs:annotation>
+			<xs:documentation>Specifies if a port requires a driver. Default is false. The attribute driverType can further qualify what type of driver is required. Undefined behaviour if direction is not input or inout. Driver type any indicates that any unspecified type of driver must be connected</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:boolean">
+					<xs:attribute name="driverType" use="optional" default="any">
+						<xs:annotation>
+							<xs:documentation>Defines the type of driver that is required. The default is any type of driver. The 2 other options are a clock type driver or a singleshot type driver.</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:token">
+								<xs:enumeration value="clock"/>
+								<xs:enumeration value="singleShot"/>
+								<xs:enumeration value="any"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="driverType">
+		<xs:annotation>
+			<xs:documentation>Wire port driver type.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0">
+			<xs:element ref="spirit:defaultValue" minOccurs="0"/>
+			<xs:element ref="spirit:clockDriver" minOccurs="0"/>
+			<xs:element ref="spirit:singleShotDriver" minOccurs="0"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:element name="driver" type="spirit:driverType">
+		<xs:annotation>
+			<xs:documentation>Wire port driver element.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="clockDriverType">
+		<xs:sequence>
+			<xs:element name="clockPeriod">
+				<xs:annotation>
+					<xs:documentation>Clock period in units defined by the units attribute. Default is nanoseconds.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="spirit:configurableDouble">
+							<xs:attribute name="units" type="spirit:delayValueUnitType" use="optional" default="ns"/>
+							<xs:attributeGroup ref="spirit:float.prompt.att"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="clockPulseOffset">
+				<xs:annotation>
+					<xs:documentation>Time until first pulse. Units are defined by the units attribute. Default is nanoseconds.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="spirit:configurableDouble">
+							<xs:attribute name="units" type="spirit:delayValueUnitType" use="optional" default="ns"/>
+							<xs:attributeGroup ref="spirit:float.prompt.att"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="clockPulseValue">
+				<xs:annotation>
+					<xs:documentation>Value of port after first clock edge.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="spirit:scaledNonNegativeInteger">
+							<xs:attributeGroup ref="spirit:long.prompt.att"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="clockPulseDuration">
+				<xs:annotation>
+					<xs:documentation>Duration of first state in cycle. Units are defined by the units attribute. Default is nanoseconds.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="spirit:configurableDouble">
+							<xs:attribute name="units" type="spirit:delayValueUnitType" use="optional" default="ns"/>
+							<xs:attributeGroup ref="spirit:float.prompt.att"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="otherClockDriver">
+		<xs:annotation>
+			<xs:documentation>Describes a clock not directly associated with an input port. The clockSource attribute can be used on these clocks to indicate the actual clock source (e.g. an output port of a clock generator cell).</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="spirit:clockDriverType">
+					<xs:attribute name="clockName" type="xs:Name" use="required">
+						<xs:annotation>
+							<xs:documentation>Indicates the name of the clock.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="clockSource" type="xs:string" use="optional">
+						<xs:annotation>
+							<xs:documentation>Indicates the name of the actual clock source (e.g. an output pin of a clock generator cell).</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

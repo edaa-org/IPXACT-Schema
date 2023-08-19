@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+// Description: abstractor.xsd
+// Author: The SPIRIT Consortium Schema Working Group
+// Version:     $Revision: 1115 $
+// Date:        $Date: 2008-01-30 12:54:56 -0800 (Wed, 30 Jan 2008) $
+// Tag:         $Name$
+//
+// Copyright (c) 2005, 2006, 2007 The SPIRIT Consortium.  All rights reserved.
+// www.spiritconsortium.org
+//
+// THIS WORK FORMS PART OF A SPIRIT CONSORTIUM SPECIFICATION.
+// USE OF THESE MATERIALS ARE GOVERNED BY
+// THE LEGAL TERMS AND CONDITIONS OUTLINED IN THE SPIRIT
+// SPECIFICATION DISCLAIMER AVAILABLE FROM
+// www.spiritconsortium.org
+//
+// This source file is provided on an AS IS basis. The SPIRIT Consortium disclaims 
+// ANY WARRANTY EXPRESS OR IMPLIED INCLUDING ANY WARRANTY OF
+// MERCHANTABILITY AND FITNESS FOR USE FOR A PARTICULAR PURPOSE. 
+// The user of the source file shall indemnify and hold The SPIRIT Consortium harmless
+// from any damages or liability arising out of the use thereof or the performance or
+// implementation or partial implementation of the schema.
+ -->
+<xs:schema xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4" elementFormDefault="qualified" attributeFormDefault="qualified">
+    <xs:include schemaLocation="busInterface.xsd"/>
+    <xs:include schemaLocation="identifier.xsd"/>
+    <xs:include schemaLocation="generator.xsd"/>
+    <xs:include schemaLocation="commonStructures.xsd"/>
+    <xs:include schemaLocation="model.xsd"/>
+    <xs:include schemaLocation="subInstances.xsd"/>
+    <xs:include schemaLocation="constraints.xsd"/>
+    <xs:complexType name="abstractorType">
+        <xs:annotation>
+            <xs:documentation>Abstractor-specific extension to abstractorType</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:group ref="spirit:versionedIdentifier"/>
+            <xs:element name="abstractorMode">
+                <xs:annotation>
+                    <xs:documentation>Define the mode for the interfaces on this abstractor. 
+
+For master the first interface connects to the master, the second connects to the mirroredMaster
+
+For slave the first interface connects to the mirroredSlave the second connects to the slave
+
+For direct the first interface connects to the master, the second connects to the slave
+
+For system the first interface connects to the system, the second connects to the mirroredSystem. For system the group attribute is required</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="spirit:abstractorModeType">
+                            <xs:attribute name="group" type="xs:Name">
+                                <xs:annotation>
+                                    <xs:documentation>Define the system group if the mode is set to system</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="busType" type="spirit:libraryRefType">
+                <xs:annotation>
+                    <xs:documentation>The bus type of both interfaces. Refers to bus definition using vendor, library, name, version attributes.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="abstractorInterfaces">
+                <xs:annotation>
+                    <xs:documentation>The interfaces supported by this abstractor</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="abstractorInterface" type="spirit:abstractorBusInterfaceType" minOccurs="2" maxOccurs="2">
+                            <xs:annotation>
+                                <xs:documentation>An abstractor must have exactly 2 Interfaces.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="model" type="spirit:abstractorModelType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Model inofrmation.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="spirit:abstractorGenerators" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Generator list is tools-specific.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="spirit:choices" minOccurs="0"/>
+            <xs:element ref="spirit:fileSets" minOccurs="0"/>
+            <xs:element name="description" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>String for describing the component to users</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="spirit:parameters" minOccurs="0"/>
+            <xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="abstractor" type="spirit:abstractorType">
+        <xs:annotation>
+            <xs:documentation>This is the root element for abstractors</xs:documentation>
+        </xs:annotation>
+        <xs:key name="abstractorInterfaceKey">
+            <xs:selector xpath="spirit:abstractorInterfaces/spirit:abstractorInterface"/>
+            <xs:field xpath="spirit:name"/>
+        </xs:key>
+        <xs:key name="abstractorComponentChoiceKey">
+            <xs:selector xpath="spirit:choices/spirit:choice"/>
+            <xs:field xpath="spirit:name"/>
+        </xs:key>
+        <xs:keyref name="abstractorComponentChoiceRef" refer="spirit:abstractorComponentChoiceKey">
+            <xs:selector xpath=".//*"/>
+            <xs:field xpath="@spirit:choiceRef"/>
+        </xs:keyref>
+        <xs:key name="abstractorComponentViewKey">
+            <xs:selector xpath="spirit:model/spirit:views/spirit:view"/>
+            <xs:field xpath="spirit:name"/>
+        </xs:key>
+        <xs:keyref name="abstractorComponentTypeDefViewNameRef" refer="spirit:abstractorComponentViewKey">
+            <xs:selector xpath=".//spirit:viewNameRef"/>
+            <xs:field xpath="."/>
+        </xs:keyref>
+        <xs:key name="abstractorFileSetKey">
+            <xs:selector xpath=".//spirit:fileSet"/>
+            <xs:field xpath="spirit:name"/>
+        </xs:key>
+        <xs:keyref name="abstractorFileSetRef" refer="spirit:abstractorFileSetKey">
+            <xs:selector xpath=".//spirit:fileSetRef"/>
+            <xs:field xpath="."/>
+        </xs:keyref>
+        <xs:key name="abstractorPortKey">
+            <xs:selector xpath="spirit:model/spirit:ports/spirit:port"/>
+            <xs:field xpath="spirit:name"/>
+        </xs:key>
+        <xs:keyref name="abstractorportRef" refer="spirit:abstractorPortKey">
+            <xs:selector xpath="spirit:abstractorInterfaces/spirit:abstractorInterface/spirit:portMaps/spirit:portMap/spirit:physicalPort/spirit:name"/>
+            <xs:field xpath="."/>
+        </xs:keyref>
+    </xs:element>
+    <xs:simpleType name="abstractorModeType">
+        <xs:annotation>
+            <xs:documentation>Mode for this abstractor</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="master"/>
+            <xs:enumeration value="slave"/>
+            <xs:enumeration value="direct"/>
+            <xs:enumeration value="system"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

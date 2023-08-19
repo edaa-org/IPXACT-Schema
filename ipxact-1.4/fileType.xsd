@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : fileType.xsd
+// Author: The SPIRIT Consortium Schema Working Group
+// Version:     $Revision: 1065 $
+// Date:        $Date: 2007-12-19 13:55:41 -0600 (Wed, 19 Dec 2007) $
+// Tag:         $Name$
+//
+// Copyright (c) 2005, 2006, 2007 The SPIRIT Consortium.  All rights reserved.
+// www.spiritconsortium.org
+//
+// THIS WORK FORMS PART OF A SPIRIT CONSORTIUM SPECIFICATION.
+// USE OF THESE MATERIALS ARE GOVERNED BY
+// THE LEGAL TERMS AND CONDITIONS OUTLINED IN THE SPIRIT
+// SPECIFICATION DISCLAIMER AVAILABLE FROM
+// www.spiritconsortium.org
+//
+// This source file is provided on an AS IS basis. The SPIRIT Consortium disclaims 
+// ANY WARRANTY EXPRESS OR IMPLIED INCLUDING ANY WARRANTY OF
+// MERCHANTABILITY AND FITNESS FOR USE FOR A PARTICULAR PURPOSE. 
+// The user of the source file shall indemnify and hold The SPIRIT Consortium harmless
+// from any damages or liability arising out of the use thereof or the performance or
+// implementation or partial implementation of the schema.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4" targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4" elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:group name="fileType">
+		<xs:annotation>
+			<xs:documentation>The type of a file refenced by SPIRIT.
+Either: fileType - a known SPIRIT file type, or userFileType - a file type not yet known by SPIRIT. If multiple types are specified, the order is important. The first type is the primary type of the file and the latter types are types that may be embedded in the file. For example a Verilog file containing PSL assertions.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="fileType">
+				<xs:annotation>
+					<xs:documentation>Enumerated file types known by SPIRIT.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="unknown"/>
+						<xs:enumeration value="cSource"/>
+						<xs:enumeration value="cppSource"/>
+						<xs:enumeration value="asmSource"/>
+						<xs:enumeration value="vhdlSource"/>
+						<xs:enumeration value="vhdlSource-87"/>
+						<xs:enumeration value="vhdlSource-93"/>
+						<xs:enumeration value="verilogSource"/>
+						<xs:enumeration value="verilogSource-95"/>
+						<xs:enumeration value="verilogSource-2001"/>
+						<xs:enumeration value="swObject"/>
+						<xs:enumeration value="swObjectLibrary"/>
+						<xs:enumeration value="vhdlBinaryLibrary"/>
+						<xs:enumeration value="verilogBinaryLibrary"/>
+						<xs:enumeration value="unelaboratedHdl"/>
+						<xs:enumeration value="executableHdl"/>
+						<xs:enumeration value="systemVerilogSource"/>
+						<xs:enumeration value="systemVerilogSource-3.0"/>
+						<xs:enumeration value="systemVerilogSource-3.1"/>
+						<xs:enumeration value="systemCSource"/>
+						<xs:enumeration value="systemCSource-2.0"/>
+						<xs:enumeration value="systemCSource-2.0.1"/>
+						<xs:enumeration value="systemCSource-2.1"/>
+						<xs:enumeration value="veraSource"/>
+						<xs:enumeration value="eSource"/>
+						<xs:enumeration value="perlSource"/>
+						<xs:enumeration value="tclSource"/>
+						<xs:enumeration value="OVASource"/>
+						<xs:enumeration value="SVASource"/>
+						<xs:enumeration value="pslSource"/>
+						<xs:enumeration value="systemVerilogSource-3.1a"/>
+						<xs:enumeration value="SDC"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="userFileType" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Free form file type, not - yet - known by SPIRIT .</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:group>
+</xs:schema>
