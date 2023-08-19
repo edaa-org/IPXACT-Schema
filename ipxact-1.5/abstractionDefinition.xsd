@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+// Description: abstractionDefinition.xsd
+// Author: The SPIRIT Consortium Schema Working Group
+// 
+// Revision:    $Revision: 1540 $
+// Date:        $Date: 2010-02-28 18:26:46 -0600 (Sun, 28 Feb 2010) $
+// 
+// Copyright (c) 2005, 2006, 2007, 2008, 2009, 2010 The SPIRIT Consortium.
+// 
+// This XML file is believed to be a consistent XML Schema expression for
+// creating and validating XML documents based on the IEEE Std 1685-2009
+// Standard for IP-XACT, Standard Structure for Packaging, Integrating
+// and Re-using IP within Tool-flows. This is a file in the format
+// specified by the World Wide Web Consortium (W3C) as XML Schema
+// definition language.
+// 
+// The purpose of this schema is to allow the creation and validation of
+// XML documents conforming to the IEEE Std 1685-2009 Standard for
+// IP-XACT, Standard Structure for Packaging, Integrating and Re-using IP
+// within Tool-flows.
+//  
+// USE AT YOUR OWN RISK.  
+// 
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+// 
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+// 
+// This file may be copied, and distributed, WITHOUT
+// modifications; this notice must be included on any copy.
+// 
+// This schema shall not be modified, adapted, altered, sublicensed, nor
+// any derivative works shall be created based upon the schema.  The
+// intended and allowed uses of the schema include:
+// 
+//  o Creating and validating XML documents that conform to the schema
+// 
+//  o Building software programs and systems based on the schema
+// 
+//  o Distributing verbatim copy of the schema as long as the full text
+//  of this license is included in all copies of the schema.
+//  Specifically, a tool may include full copies of the schema, and these
+//  copies may be distributed by the tool provider directly.  A link or
+//  URL to the original of the schema is inherent in the schema URI.
+// 
+//  o Documents which are validated against this schema may also
+//  reference additional schema. These additional schemas may provide for
+//  validation of elements and attributes at the extension points
+//  explicitly and implicitly included in the IEEE 1685-2009 standard.
+// 
+//  o No right to create new schemas derived from parts of this base
+//  schema is granted pursuant to this License.
+// 
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at 
+// http://www.spiritconsortium.org/about/contact_us/
+ -->
+<xs:schema xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5" elementFormDefault="qualified" attributeFormDefault="qualified">
+    <xs:include schemaLocation="identifier.xsd"/>
+    <xs:include schemaLocation="commonStructures.xsd"/>
+    <xs:include schemaLocation="port.xsd"/>
+    <xs:include schemaLocation="generator.xsd"/>
+    <xs:include schemaLocation="constraints.xsd"/>
+    <xs:element name="presence" default="optional">
+        <xs:annotation>
+            <xs:documentation>If this element is present, the existance of the port is controlled by the specified value. valid values are 'illegal', 'required' and 'optional'.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="required"/>
+                <xs:enumeration value="illegal"/>
+                <xs:enumeration value="optional"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:complexType name="serviceType">
+        <xs:annotation>
+            <xs:documentation>The service that this transactional port can provide or requires.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="initiative" default="requires">
+                <xs:annotation>
+                    <xs:documentation>If this element is present, the type of access is restricted to the specified value.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="requires"/>
+                        <xs:enumeration value="provides"/>
+                        <xs:enumeration value="both"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="typeName" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Defines the name of the transactional interface type.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="implicit" type="xs:boolean" default="false">
+                                <xs:annotation>
+                                    <xs:documentation>Defines that the typeName supplied for this service is implicit and a netlister should not declare this service in
+a language specific top-level netlist </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:group name="transactionalPort">
+        <xs:annotation>
+            <xs:documentation>Group of elements used in a transactional port.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element ref="spirit:presence" minOccurs="0"/>
+            <xs:element name="service" type="spirit:serviceType">
+                <xs:annotation>
+                    <xs:documentation>The service that this transactional port can provide or requires.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:group>
+    <xs:group name="wirePort">
+        <xs:annotation>
+            <xs:documentation>Group of elements used in a wire port.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element ref="spirit:presence" minOccurs="0"/>
+            <xs:element name="width" type="xs:positiveInteger" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Number of bits required to represent this port. Absence of this element indicates unconstrained number of bits, i.e. the component will define the number of bits in this port. The logical numbering of the port starts at 0 to width-1.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="direction" default="out" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>If this element is present, the direction of this port is restricted to the specified value. The direction is relative to the non-mirrored interface.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="in"/>
+                        <xs:enumeration value="out"/>
+                        <xs:enumeration value="inout"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:sequence minOccurs="0">
+                <xs:element name="modeConstraints" type="spirit:abstractionDefPortConstraintsType">
+                    <xs:annotation>
+                        <xs:documentation>Specifies default constraints for the enclosing wire type port. If the mirroredModeConstraints element is not defined, then these constraints applied to this port when it appears in a 'mode' bus interface or a mirrored-'mode' bus interface. Otherwise they only apply when the port appears in a 'mode' bus interface.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="mirroredModeConstraints" type="spirit:abstractionDefPortConstraintsType" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Specifies default constraints for the enclosing wire type port when it appears in a mirrored-'mode' bus interface. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:sequence>
+    </xs:group>
+    <xs:element name="abstractionDefinition">
+        <xs:annotation>
+            <xs:documentation>Define the ports and other information of a particular abstraction of the bus</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:group ref="spirit:versionedIdentifier"/>
+                <xs:element name="busType" type="spirit:libraryRefType">
+                    <xs:annotation>
+                        <xs:documentation>Reference to the busDefinition that this abstractionDefinition implements.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="extends" type="spirit:libraryRefType" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Optional name of abstraction type that this abstraction definition is compatible with. This abstraction definition may change the definitions of ports in the existing abstraction definition and add new ports, the ports in the original abstraction are not deleted but may be marked illegal to disallow their use.
+				This abstraction definition may only extend another abstraction definition if the bus type of this abstraction definition extends the bus type of the extended abstraction definition</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="ports">
+                    <xs:annotation>
+                        <xs:documentation>This is a list of logical ports defined by the bus.</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="port" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="logicalName" type="xs:Name">
+                                            <xs:annotation>
+                                                <xs:documentation>The assigned name of this port in bus specifications.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element ref="spirit:displayName" minOccurs="0"/>
+                                        <xs:element ref="spirit:description" minOccurs="0"/>
+                                        <xs:choice>
+                                            <xs:annotation>
+                                                <xs:documentation>Port style.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:element name="wire">
+                                                <xs:annotation>
+                                                    <xs:documentation>A port that carries logic or an array of logic values</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:complexType>
+                                                    <xs:sequence>
+                                                        <xs:element name="qualifier" minOccurs="0">
+                                                            <xs:annotation>
+                                                                <xs:documentation>The type of information this port carries A wire port can carry both address and data, but may not mix this with a clock or reset</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:complexType>
+                                                                <xs:choice>
+                                                                    <xs:sequence>
+                                                                        <xs:element name="isAddress" type="xs:boolean" minOccurs="0">
+                                                                            <xs:annotation>
+                                                                                <xs:documentation>If this element is present, the port contains address information.</xs:documentation>
+                                                                            </xs:annotation>
+                                                                        </xs:element>
+                                                                        <xs:element name="isData" type="xs:boolean" minOccurs="0">
+                                                                            <xs:annotation>
+                                                                                <xs:documentation>If this element is present, the port contains data information.</xs:documentation>
+                                                                            </xs:annotation>
+                                                                        </xs:element>
+                                                                    </xs:sequence>
+                                                                    <xs:element name="isClock" type="xs:boolean" minOccurs="0">
+                                                                        <xs:annotation>
+                                                                            <xs:documentation>If this element is present, the port contains only clock information.</xs:documentation>
+                                                                        </xs:annotation>
+                                                                    </xs:element>
+                                                                    <xs:element name="isReset" type="xs:boolean" minOccurs="0">
+                                                                        <xs:annotation>
+                                                                            <xs:documentation>Is this element is present, the port contains only reset information.</xs:documentation>
+                                                                        </xs:annotation>
+                                                                    </xs:element>
+                                                                </xs:choice>
+                                                            </xs:complexType>
+                                                        </xs:element>
+                                                        <xs:element name="onSystem" minOccurs="0" maxOccurs="unbounded">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Defines constraints for this port when present in a system bus interface with a matching group name.</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:complexType>
+                                                                <xs:sequence>
+                                                                    <xs:element name="group" type="xs:Name">
+                                                                        <xs:annotation>
+                                                                            <xs:documentation>Used to group system ports into different groups within a common bus.</xs:documentation>
+                                                                        </xs:annotation>
+                                                                    </xs:element>
+                                                                    <xs:group ref="spirit:wirePort"/>
+                                                                </xs:sequence>
+                                                            </xs:complexType>
+                                                        </xs:element>
+                                                        <xs:element name="onMaster" minOccurs="0">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Defines constraints for this port when present in a master bus interface.</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:complexType>
+                                                                <xs:group ref="spirit:wirePort"/>
+                                                            </xs:complexType>
+                                                        </xs:element>
+                                                        <xs:element name="onSlave" minOccurs="0">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Defines constraints for this port when present in a slave bus interface.</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:complexType>
+                                                                <xs:group ref="spirit:wirePort"/>
+                                                            </xs:complexType>
+                                                        </xs:element>
+                                                        <xs:choice minOccurs="0">
+                                                            <xs:element name="defaultValue" type="spirit:scaledNonNegativeInteger">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Indicates the default value for this wire port.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:element>
+                                                            <xs:element ref="spirit:requiresDriver"/>
+                                                        </xs:choice>
+                                                    </xs:sequence>
+                                                </xs:complexType>
+                                            </xs:element>
+                                            <xs:element name="transactional">
+                                                <xs:annotation>
+                                                    <xs:documentation>A port that carries complex information modeled at a high level of abstraction.</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:complexType>
+                                                    <xs:sequence>
+                                                        <xs:element name="qualifier" minOccurs="0">
+                                                            <xs:annotation>
+                                                                <xs:documentation>The type of information this port carries A transactional port can carry both address and data information.</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:complexType>
+                                                                <xs:sequence>
+                                                                    <xs:element name="isAddress" type="xs:boolean" minOccurs="0">
+                                                                        <xs:annotation>
+                                                                            <xs:documentation>If this element is present, the port contains address information.</xs:documentation>
+                                                                        </xs:annotation>
+                                                                    </xs:element>
+                                                                    <xs:element name="isData" type="xs:boolean" minOccurs="0">
+                                                                        <xs:annotation>
+                                                                            <xs:documentation>If this element is present, the port contains data information.</xs:documentation>
+                                                                        </xs:annotation>
+                                                                    </xs:element>
+                                                                </xs:sequence>
+                                                            </xs:complexType>
+                                                        </xs:element>
+                                                        <xs:element name="onSystem" minOccurs="0" maxOccurs="unbounded">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Defines constraints for this port when present in a system bus interface with a matching group name.</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:complexType>
+                                                                <xs:sequence>
+                                                                    <xs:element name="group" type="xs:Name">
+                                                                        <xs:annotation>
+                                                                            <xs:documentation>Used to group system ports into different groups within a common bus.</xs:documentation>
+                                                                        </xs:annotation>
+                                                                    </xs:element>
+                                                                    <xs:group ref="spirit:transactionalPort"/>
+                                                                </xs:sequence>
+                                                            </xs:complexType>
+                                                        </xs:element>
+                                                        <xs:element name="onMaster" minOccurs="0">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Defines constraints for this port when present in a master bus interface.</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:complexType>
+                                                                <xs:group ref="spirit:transactionalPort"/>
+                                                            </xs:complexType>
+                                                        </xs:element>
+                                                        <xs:element name="onSlave" minOccurs="0">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Defines constraints for this port when present in a slave bus interface.</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:complexType>
+                                                                <xs:group ref="spirit:transactionalPort"/>
+                                                            </xs:complexType>
+                                                        </xs:element>
+                                                    </xs:sequence>
+                                                </xs:complexType>
+                                            </xs:element>
+                                        </xs:choice>
+                                        <xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="spirit:description" minOccurs="0"/>
+                <xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:key name="busDefPortKey">
+            <xs:selector xpath="spirit:ports/spirit:port"/>
+            <xs:field xpath="spirit:logicalName"/>
+        </xs:key>
+        <xs:keyref name="timingConstraintKeyRef" refer="spirit:busDefPortKey">
+            <xs:selector xpath=".//spirit:timingConstraint"/>
+            <xs:field xpath="@spirit:clockName"/>
+        </xs:keyref>
+    </xs:element>
+</xs:schema>
