@@ -4,6 +4,13 @@ The original source is [Accellera](https://www.accellera.org/XMLSchema/).
 
 # IEEE Std. 1685-20xx
 
+**Apache License, Version 2.0**
+
+* [IEEE Std. 1685-2022](http://www.accellera.org/XMLSchema/IPXACT/1685-2022/)  
+  ✅ License: [Apache License, Version 2.0](ieee-1685-2022/LICENSE)  
+  &emsp; Notices: [Notice file](ieee-1685-2022/NOTICE)
+
+
 **Unknown License State**
 
 * [IEEE Std. 1685-2014](http://www.accellera.org/XMLSchema/IPXACT/1685-2014/)  
