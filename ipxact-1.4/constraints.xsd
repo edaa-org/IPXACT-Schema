@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : constraints.xsd
+// Author: The SPIRIT Consortium Schema Working Group
+// Version:     $Revision: 1118 $
+// Date:        $Date: 2008-01-30 13:05:36 -0800 (Wed, 30 Jan 2008) $
+// Tag:         $Name$
+//
+// Copyright (c) 2005, 2006, 2007 The SPIRIT Consortium.  All rights reserved.
+// www.spiritconsortium.org
+//
+// THIS WORK FORMS PART OF A SPIRIT CONSORTIUM SPECIFICATION.
+// USE OF THESE MATERIALS ARE GOVERNED BY
+// THE LEGAL TERMS AND CONDITIONS OUTLINED IN THE SPIRIT
+// SPECIFICATION DISCLAIMER AVAILABLE FROM
+// www.spiritconsortium.org
+//
+// This source file is provided on an AS IS basis. The SPIRIT Consortium disclaims 
+// ANY WARRANTY EXPRESS OR IMPLIED INCLUDING ANY WARRANTY OF
+// MERCHANTABILITY AND FITNESS FOR USE FOR A PARTICULAR PURPOSE. 
+// The user of the source file shall indemnify and hold The SPIRIT Consortium harmless
+// from any damages or liability arising out of the use thereof or the performance or
+// implementation or partial implementation of the schema.
+-->
+<xs:schema xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4" elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:include schemaLocation="commonStructures.xsd"/>
+	<xs:include schemaLocation="autoConfigure.xsd"/>
+	<xs:include schemaLocation="signalDrivers.xsd"/>
+	<xs:simpleType name="cellFunctionValueType">
+		<xs:annotation>
+			<xs:documentation>Indicates legal cell function values.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="nand2"/>
+			<xs:enumeration value="buf"/>
+			<xs:enumeration value="inv"/>
+			<xs:enumeration value="mux21"/>
+			<xs:enumeration value="dff"/>
+			<xs:enumeration value="latch"/>
+			<xs:enumeration value="xor2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="cellClassValueType">
+		<xs:annotation>
+			<xs:documentation>Indicates legal cell class values.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="combinational"/>
+			<xs:enumeration value="sequential"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="cellStrengthValueType">
+		<xs:annotation>
+			<xs:documentation>Indicates legal cell strength values.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="low"/>
+			<xs:enumeration value="median"/>
+			<xs:enumeration value="high"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="edgeValueType">
+		<xs:annotation>
+			<xs:documentation>Indicates legal values for edge specification attributes.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="rise"/>
+			<xs:enumeration value="fall"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="delayValueType">
+		<xs:annotation>
+			<xs:documentation>Indicates the type of delay value - minimum or maximum delay.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="min"/>
+			<xs:enumeration value="max"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="delayPercentageType">
+		<xs:annotation>
+			<xs:documentation>Type used to record percentage values.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:float">
+			<xs:minInclusive value="0.0"/>
+			<xs:maxInclusive value="100.0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="nonNegativeFloat">
+		<xs:annotation>
+			<xs:documentation>Defines a non-negative floating point number.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:float">
+			<xs:minInclusive value="0.0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="otherClocks">
+		<xs:annotation>
+			<xs:documentation>List of clocks associated with the component that are not associated with ports. Set the clockSource attribute on the clockDriver to indicate the source of a clock not associated with a particular component port.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="spirit:otherClockDriver" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:attribute name="cellStrength" type="spirit:cellStrengthValueType">
+		<xs:annotation>
+			<xs:documentation>Indicates the desired strength of the specified cell.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="clockEdge" type="spirit:edgeValueType">
+		<xs:annotation>
+			<xs:documentation>Indicates the clock edge that a timing constraint is relative to.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="delayType" type="spirit:delayValueType">
+		<xs:annotation>
+			<xs:documentation>Indicates the type of delay in a timing constraint - minimum or maximum.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="constraintSetId" type="xs:NMTOKEN" default="default">
+		<xs:annotation>
+			<xs:documentation>Indicates a name for this set of constraints. Constraints are tied to a view using this name in the constraintSetRef element.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:element name="cellSpecification">
+		<xs:annotation>
+			<xs:documentation>Used to provide a generic description of a technology library cell.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice>
+				<xs:element name="cellFunction">
+					<xs:annotation>
+						<xs:documentation>Defines a technology library cell in library independent fashion, based on specification of a cell function and strength.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="spirit:cellFunctionValueType">
+								<xs:attribute ref="spirit:cellStrength"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="cellClass">
+					<xs:annotation>
+						<xs:documentation>Defines a technology library cell in library independent fashion, based on specification of a cell class and strength.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="spirit:cellClassValueType">
+								<xs:attribute ref="spirit:cellStrength"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="timingConstraint">
+		<xs:annotation>
+			<xs:documentation>Defines a timing constraint for the associated port. The constraint is relative to the clock specified by the clockName attribute. The clockEdge indicates which clock edge the constraint is associated with (default is rising edge). The delayType attribute can be specified to further refine the constraint.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="spirit:delayPercentageType">
+					<xs:attribute ref="spirit:clockEdge" default="rise"/>
+					<xs:attribute ref="spirit:delayType"/>
+					<xs:attribute name="clockName" type="xs:Name" use="required">
+						<xs:annotation>
+							<xs:documentation>Indicates the name of the clock to which this constraint applies.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="driveConstraint">
+		<xs:annotation>
+			<xs:documentation>Defines a constraint indicating how an input is to be driven. The preferred methodology is to specify a library cell in technology independent fashion. The implemention tool should assume that the associated port is driven by the specified cell, or that the drive strength of the input port is indicated by the specified resistance value.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="spirit:cellSpecification"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="loadConstraint">
+		<xs:annotation>
+			<xs:documentation>Defines a constraint indicating the type of load on an output port.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="spirit:cellSpecification"/>
+				<xs:element name="count" type="xs:positiveInteger" default="3" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Indicates how many loads of the specified cell are connected. If not present, 3 is assumed.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="constraintSet">
+		<xs:annotation>
+			<xs:documentation>Defines constraints that apply to a component port. If multiple constraintSet elements are used, each must have a unique value for the constraintSetId attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="spirit:nameGroupOptional"/>
+				<xs:element name="vector" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>The optional element vector specify the bits of a vector for which the constraints apply. The vaules of left and right must be within the range of the port. If the vector is not specified then the constraints apply to all the bits of the port.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="left">
+								<xs:annotation>
+									<xs:documentation>The optional elements left and right can be used to select a bit-slice of a vector. </xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:nonNegativeInteger"/>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="right">
+								<xs:annotation>
+									<xs:documentation>The optional elements left and right can be used to select a bit-slice of a vector. </xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:nonNegativeInteger"/>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element ref="spirit:driveConstraint" minOccurs="0"/>
+				<xs:element ref="spirit:loadConstraint" minOccurs="0"/>
+				<xs:element ref="spirit:timingConstraint" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute ref="spirit:constraintSetId" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="constraintSets">
+		<xs:annotation>
+			<xs:documentation>List of constraintSet elements for a component port.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="spirit:constraintSet" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="constraintSetRef" type="xs:NMTOKEN">
+		<xs:annotation>
+			<xs:documentation>A reference to a set of port constraints.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="abstractionDefPortConstraintsType">
+		<xs:annotation>
+			<xs:documentation>Defines constraints that apply to a wire type port in an abstraction definition. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="spirit:timingConstraint" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="spirit:driveConstraint" minOccurs="0"/>
+			<xs:element ref="spirit:loadConstraint" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

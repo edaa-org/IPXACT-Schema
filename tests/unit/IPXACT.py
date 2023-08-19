@@ -77,3 +77,22 @@ class SPIRIT(TestCase):
 			schemaFile = directory / file
 			print(f"  {schemaFile}")
 			_ = XMLSchema(schemaFile)
+
+	def test_Schema14(self):
+		print()
+		print(f"CWD:              {Path.cwd()}")
+
+		directory = self._root / "ipxact-1.4"
+		print(f"Schema directory: {directory}")
+
+		schemaFiles = (
+			"design.xsd",
+			"component.xsd",
+			"busDefinition.xsd",
+			"generator.xsd",
+		)
+		print(f"Reading schemas ...")
+		for file in schemaFiles:
+			schemaFile = directory / file
+			print(f"  {schemaFile}")
+			_ = XMLSchema(schemaFile)
