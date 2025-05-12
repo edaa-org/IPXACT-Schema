@@ -1,18 +1,30 @@
 # New Features
 
 * tbd
-
+* tbd
 
 # Changes
 
 * tbd
-
-
-# Bug Fixes
- 
 * tbd
 
+# Bug Fixes
 
-# Related PRs and Issues
+* tbd
+* tbd
 
+# Documentation
+
+* tbd
+* tbd
+
+# Unit Tests
+
+* tbd
+* tbd
+
+----------
+# Related Issues and Pull-Requests
+
+* tbd
 * tbd

@@ -6,6 +6,13 @@ __pycache__/
 .coverage
 .cov
 coverage.xml
+/report/coverage
+
+# mypy
+/report/typing
+
+# pytest
+/report/unit
 
 # setuptools
 /build/**/*.*
@@ -23,7 +30,7 @@ doc/IPXACT/**/*.*
 # BuildTheDocs
 doc/_theme/**/*.*
 
-# IntelliJ project files
+# PyCharm project files
 /.idea/workspace.xml
 
 # Git files
