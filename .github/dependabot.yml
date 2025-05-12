@@ -8,7 +8,5 @@ updates:
       prefix: "[Dependabot]"
     labels:
       - Dependencies
-    reviewers:
-      - Paebbels
     schedule:
       interval: "daily"    # Checks on Monday trough Friday.
